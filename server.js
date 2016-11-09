@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 // routes =============================================
 
-
+//En este apartado, invocamos a distintos modulos, en los que nosotros vamos a ir añadiendo las rutas
 var apiroot = '/api/v1';
 require('./app/routes/cars')(app, apiroot);
 require('./app/routes/drivers')(app, apiroot);
