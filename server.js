@@ -16,7 +16,10 @@ app.use(bodyParser.json());
 
 // routes =============================================
 
-require('./app/routes')(app);
+
+var apiroot = '/api/v1';
+require('./app/routes/cars')(app, apiroot);
+require('./app/routes/drivers')(app, apiroot);
 
 // start app
 
@@ -24,4 +27,4 @@ app.listen(port);
 
 // app running message
 
-console.log("Awesome server started on port ' + port'");
+console.log('Awesome server started on port ' + port);
