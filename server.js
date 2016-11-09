@@ -14,7 +14,7 @@ var port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 
-// set the static files location /public/img will be /img for users
+// Aquí indicamos la dirección de los ficheros estáticos, de forma que el servidor sabrá devolver los ficheros css, imagenes, etc...
 app.use(express.static(__dirname + '/public'));
 
 // routes =============================================
