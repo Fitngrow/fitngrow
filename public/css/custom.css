@@ -28,7 +28,7 @@ header {
     min-height: auto;
     text-align: center;
     color: #fff;
-    background-image: url('../images/header.jpg');
+    background-image: url('../public/images/header.jpg');
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -145,15 +145,15 @@ header .header-content .header-content-inner p {
 }
 
 .item-1 {
-	background: url('../images/writing.jpg');
+	background: url('../public/images/writing.jpg');
 	}
 	
 .item-2 {
-	background: url('../images/concert.jpg');
+	background: url('../public/images/concert.jpg');
 	}
 	
 .item-3 {
-	background: url('../images/pencil_sharpener.jpg');
+	background: url('../public/images/pencil_sharpener.jpg');
 	}
 		
 .item-1,

@@ -1,0 +1,24 @@
+{
+  "name": "fitngrow",
+  "version": "0.0.0",
+  "description": "Fitness tracker with experience",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlbertFX91/fitngrow.git"
+  },
+  "author": "MII2015-2016 US",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/AlbertFX91/fitngrow/issues"
+  },
+  "homepage": "https://github.com/AlbertFX91/fitngrow#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}
