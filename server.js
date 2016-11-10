@@ -21,10 +21,15 @@ app.use(express.static(__dirname + '/public'));
 
 //En este apartado, invocamos a distintos modulos, en los que nosotros vamos a ir añadiendo las rutas
 var apiroot = '/api/v1';
+
+//Ejemplo de ficheros con rutas
 require('./app/routes/cars')(app, apiroot);
 require('./app/routes/drivers')(app, apiroot);
 
 
+require('./app/routes/prizes')(app, apiroot);
+
+//Fichero que alberga las rutas gestionadas por angularjs
 require('./app/routes/frontend')(app);
 
 // start app
