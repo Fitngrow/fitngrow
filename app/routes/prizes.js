@@ -53,8 +53,8 @@ module.exports = function(app, apiroot){
         //Recogemos el codigo que vamos a capturar desde la URI con la nomenclatura :<nombre>
         var code = req.params.code;
 
-        //Realizamos la busqueda de un premio que tenga por código el recibido
-        var prize = prizes.find( p => p.code == code);
+        //Buscamos el premio por el código
+        var prize = findPrizeByCode(code);
 
         //En el caso que exista, lo devuelvo. En el caso contrario envío un código 404
         (prize) ? res.json(prize) : res.sendStatus(404);
@@ -65,11 +65,8 @@ module.exports = function(app, apiroot){
         //Recogemos el codigo que vamos a capturar desde la URI con la nomenclatura :<nombre>
         var code = req.params.code;
 
-        //Realizamos la busqueda de un premio que tenga por código el recibido
-        var prize = prizes.find( p => p.code == code);
-
-        //Busco el índice donde está el elemento
-        var index = prizes.indexOf(prize);
+        //Busco el índice del premio por el código para luego eliminarlo.
+        var index = findPrizeIndexByCode(code);
 
         //Si el elemento existe, index será mayor que -1, por lo que con slice eliminamos ese elemento. En caso contrario enviamos 404
         if (index > -1){
@@ -78,9 +75,52 @@ module.exports = function(app, apiroot){
         }else{
             res.sendStatus(404);
         }
-    })
+    });
 
+    //Actualizamos un premio
+    app.put(apiroot+'/prizes/:code', function(req, res){
+        var prize = req.body;
 
+        //Recogemos el codigo que vamos a capturar desde la URI con la nomenclatura :<nombre>
+        var code = req.params.code;
 
+        //Busco el índice del premio por el código para luego eliminarlo.
+        var index = findPrizeIndexByCode(code);
+
+        //Si el elemento existe, index será mayor que -1, por lo que con actualizamos el elemento. En caso contrario enviamos 404
+        if (index > -1){
+            prizes[index] = prize;
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(404);
+        }
+    });
+
+    /**
+     * Busca un premio con el code pasado por parametro
+     * @param code
+     * @returns {*}
+     */
+    function findPrizeByCode(code){
+        //Realizamos la busqueda de un premio que tenga por código el recibido
+        var prize = prizes.find( p => p.code == code);
+
+       return prize;
+    }
+
+    /**
+     * Busca el indice que ocupa el premio con el codigo pasado por parametro
+     * @param code
+     * @returns {*}
+     */
+    function findPrizeIndexByCode(code){
+        //Realizamos la busqueda del premio
+        prize = findPrizeByCode(code);
+
+        //Busco el índice donde está el elemento
+        var index = prizes.indexOf(prize);
+
+        return index;
+    }
 
 };
