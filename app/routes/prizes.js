@@ -1,4 +1,9 @@
-
+/**
+ * Creación de rutas para los premios.
+ * @param app objeto servidor
+ * @param apiroot ruta raiz para la api
+ * @author Albert_FX91
+ */
 module.exports = function(app, apiroot){
 
     var prizes = [
