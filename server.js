@@ -29,6 +29,7 @@ require('./app/routes/drivers')(app, apiroot);
 
 require('./app/routes/prizes')(app, apiroot);
 require('./app/routes/records')(app, apiroot);
+require('./app/routes/routes')(app, apiroot);
 
 //Fichero que alberga las rutas gestionadas por angularjs
 require('./app/routes/frontend')(app);
