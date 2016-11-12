@@ -27,6 +27,7 @@ require('./app/routes/cars')(app, apiroot);
 require('./app/routes/drivers')(app, apiroot);
 
 
+require('./app/routes/achievements')(app, apiroot);
 require('./app/routes/prizes')(app, apiroot);
 require('./app/routes/records')(app, apiroot);
 require('./app/routes/routes')(app, apiroot);
