@@ -103,7 +103,7 @@ module.exports = function (app, apiroot) {
      */
     function findAchievementById(id) {
         //Realizamos la busqueda de un logro que tenga por id el recibido
-        var achievement = achievements.find(a => a.id == id);
+        var achievement = achievements.find(a => a._id == id);
 
         return achievement;
     }
