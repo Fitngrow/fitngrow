@@ -40,21 +40,33 @@ module.exports = function(app, apiroot){
         res.json(trainings);
     });
 
+    //Método que recibe un entrenamiento
+    app.get(apiroot+'/trainings/:_id', function(req, res){
+        // Se recoge el id pasado
+        var _id = req.params._id;
+
+        // Se busca el índice del entrenamiento según el id pasado
+        var training = findTrainingById(_id);
+
+        //Si el entrenamiento existe, lo devuelve, sino, envía un código 404 (no encontrado)
+        (training ? res.json(training) : res.sendStatus(404));
+    });
+
     //Método que elimina todos los entrenamientos
     app.delete(apiroot+'/trainings', function(req, res){
         trainings = [];
         res.sendStatus(200);
     });
 
-    //Método que borra un entrenamiento
+    //Método que elimina un entrenamiento
     app.delete(apiroot+'/trainings/:_id', function(req, res){
         // Se recoge el id pasado
         var _id = req.params._id;
 
-        // Se busca el índice de la ruta según el id pasado
+        // Se busca el índice del entrenamiento según el id pasado
         var index = findTrainingIndexById(_id);
 
-        /* Si la ruta existe (valor de index mayor que -1) se borra la ruta de dicho índice y se envía el código 200 (OK).   
+        /* Si el entrenamiento existe se borra y se envía el código 200 (OK).   
            Si no existe se envía el código 404 (no encontrado) */
         if (index > -1){
             //splice(posicionAEliminar,NumItemsAEliminar)
