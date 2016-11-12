@@ -95,7 +95,7 @@ module.exports = function(app, apiroot){
     //Función que devuelve el índice del entrenamiento que tiene el id pasado por parámetro
     function findTrainingIndexById(_id){
         //Realizamos la busqueda del entrenamiento
-        training = findTrainingById(_id);
+        var training = findTrainingById(_id);
 
         //Busco el índice donde está el elemento
         var index = trainings.indexOf(training);

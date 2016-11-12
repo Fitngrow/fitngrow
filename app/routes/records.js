@@ -89,7 +89,7 @@ var records = [record1, record2];
     function findRecordIndexBy_id(_id){
 
         //Se busca el historial
-        record = findRecordBy_id(_id);
+        var record = findRecordBy_id(_id);
 
         //Buscar el índice donde está el historial
         var index = records.indexOf(record);

@@ -115,7 +115,7 @@ module.exports = function (app, apiroot) {
      */
     function findAchievementIndexById(id) {
         //Realizamos la busqueda del logro
-        achievement = findAchievementById(id);
+        var achievement = findAchievementById(id);
 
         //Busco el índice donde está el elemento
         var index = achievements.indexOf(achievement);

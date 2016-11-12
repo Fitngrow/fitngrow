@@ -92,7 +92,7 @@ module.exports = function(app, apiroot){
     // Buscar el índice que ocupa la ruta con el id pasado por parámetros
     function findRouteIndexBy_id(_id){
         //Se busca la ruta
-        route = findRouteBy_id(_id);
+        var route = findRouteBy_id(_id);
 
         //Se busca el índice donde está dicha ruta
         var index = routes.indexOf(route);

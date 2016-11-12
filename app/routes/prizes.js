@@ -115,7 +115,7 @@ module.exports = function(app, apiroot){
      */
     function findPrizeIndexByCode(code){
         //Realizamos la busqueda del premio
-        prize = findPrizeByCode(code);
+        var prize = findPrizeByCode(code);
 
         //Busco el índice donde está el elemento
         var index = prizes.indexOf(prize);
