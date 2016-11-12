@@ -103,9 +103,7 @@ module.exports = function(app, apiroot){
      */
     function findPrizeByCode(code){
         //Realizamos la busqueda de un premio que tenga por código el recibido
-        var prize = prizes.find( p => p.code == code);
-
-       return prize;
+        return prizes.find( p => p.code == code);
     }
 
     /**
@@ -118,9 +116,7 @@ module.exports = function(app, apiroot){
         var prize = findPrizeByCode(code);
 
         //Busco el índice donde está el elemento
-        var index = prizes.indexOf(prize);
-
-        return index;
+        return prizes.indexOf(prize);
     }
 
 };
