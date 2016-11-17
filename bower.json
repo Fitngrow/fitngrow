@@ -1,0 +1,23 @@
+{
+  "name": "fitngrow",
+  "description": "Fitness tracker with experience",
+  "main": "server.js",
+  "authors": [
+    "MII2015-2016 US"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/AlbertFX91/fitngrow",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests",
+    "public/bower_components",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-route": "^1.5.8"
+  }
+}
