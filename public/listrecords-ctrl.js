@@ -8,18 +8,6 @@ angular.module("FitngrowApp")
             });
         }
 
-        $scope.addRecord = function (){
-            $http.post("/api/v1/records",$scope.newRecord).success(function (){
-                refresh();
-            });
-        }
-
-        $scope.deleteRecord = function (_id){
-            $http.delete("/api/v1/records/"+_id).success(function (){
-                refresh();
-            });
-        }
-
         refresh();
 
     });

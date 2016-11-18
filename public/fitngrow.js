@@ -5,9 +5,9 @@ angular.module("FitngrowApp",["ngRoute"])
                 controller: "Home",
                 templateUrl: "templates/home.html"
             })
-            .when("/",{
+            .when("/records",{
                 controller: "ListRecordsCtrl",
-                templateUrl: "listrecods.html"
+                templateUrl: "listrecords.html"
             })
             /*
             .when("/contacts/:name",{
