@@ -1,100 +1,107 @@
-/* Creacion del historial de un usuario, incluyendo identificador, kilometros recorridos, sesiones de entrenamiento completadas,
-media de kilometros recorridos por sesion de entrenamiento y calorias quemadas*/
+/* Creación del historial de un usuario, incluyendo metros recorridos, sesiones de entrenamiento completadas,
+media de metros recorridos por sesión de entrenamiento y calorías quemadas*/
 
 module.exports = function(app, apiroot){
+var path = require('path');
+var dbFileName = path.join(__dirname,'records.json');
+var dataStore = require("nedb");
 
-var record1 = {_id: 3, kilometers: 849, sessions: 46, averagekm: 18.46, calories : 84};
-var record2 = {_id: 4, kilometers: 500, sessions: 31, averagekm: 16.13, calories : 70};
+var db = new dataStore({
+       filename: dbFileName,
+       autoload: true
+   });
 
-var records = [record1, record2];
+db.find({}, (err,records)=>{
+    if(records.length == 0){
+        db.insert({ meters: 0, sessions: 0, averageMeters: 0, calories : 0});
+    }
+});
 
     // Recibir todos los historiales almacenados en el sistema
-    app.get(apiroot+'/records', function(req, res){
-        res.json(records);
+    app.get(apiroot+"/records",(req,res)=>{
+        db.find({},(err,records)=>{
+            if (err){
+                res.sendStatus(500);
+            }else{
+                res.send(records);
+            }
+        })
     });
 
     // Recibir un historial concreto
-    app.get(apiroot+'/records/:_id', function(req, res){
-        // Se recoge la _id a capturar desde la URI con la nomenclatura :<nombre>
+    app.get(apiroot+"/records/:_id",(req,res)=>{
         var _id = req.params._id;
 
-        // Se busca el historial por la _id
-        var record = findRecordBy_id(_id);
-
-        // En el caso de que exista, se devuelve. En caso contrario, se envía un código 404
-        (record) ? res.json(record) : res.sendStatus(404);
+        db.find({_id : _id},(err,records)=>{
+            if (err){
+                res.sendStatus(500);
+            }else{
+                if (records.length > 0)
+                    res.send(records[0]);
+                else
+                    res.sendStatus(404);
+            }   
+        })
     });
 
     // Añadir un nuevo historial
-    app.post(apiroot+'/records', function(req, res){
+    app.post(apiroot+"/records",(req,res)=>{
         var record = req.body;
 
-        records.push(record);
-        res.sendStatus(201);
+        var _id = record._id;
+        db.find({_id : _id},(err,records)=>{
+        if (records.length == 0){
+            db.insert(record);
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(409);
+        }
+    })
     });
 
     // Actualizar un historial
-    app.put(apiroot+'/records/:_id', function(req, res){
+    app.put(apiroot+'/records/:_id', function(req, res){ 
+        var _id = req.params._id;
         var record = req.body;
 
-        // Se recoge la _id a capturar desde la URI con la nomenclatura :<nombre>
-        var _id = req.params._id;
-
-        // Se busca el índice del historial por su _id
-        var index = findRecordIndexBy_id(_id);
-
-        /* Si el historial existe, index será mayor que -1, por lo que se actualiza el historial. En caso contrario, se envía un
-        código 404 */
-        if (index > -1){
-            records[index] = record;
-            res.sendStatus(200);
-        }else{
-            res.sendStatus(404);
+        if(_id != record._id){
+            res.sendStatus(409);
+            return;
         }
+
+        db.update({_id : _id},record,(err,numUpdate)=>{
+            if (err){
+                res.sendStatus(500);
+                    }else{
+                        res.sendStatus(200);
+                    }
+        })
     });
 
     // Eliminar un historial
-    app.delete(apiroot+'/records/:_id', function(req, res){
-        // Se recoge la _id a capturar desde la URI con la nomenclatura :<nombre>
+    app.delete(apiroot+"/records/:_id",(req,res)=>{
         var _id = req.params._id;
 
-        // Se busca el indice del historial por su _id
-        var index = findRecordIndexBy_id(_id);
-
-        /* Si el historial existe, index será mayor que -1, por lo que se con slice se actualiza el historial. En caso contrario, 
-        se envía un código 404 */
-        if (index > -1){
-            records.splice(index,1);
-            res.sendStatus(200);
-        }else{
-            res.sendStatus(404);
-        }
+        db.remove({_id : _id},{},(err,numRemoved)=>{
+            if (err){
+                res.sendStatus(500);
+            }else{
+                res.sendStatus(200);
+            }
+        })
     });
 
     // Eliminar todos los historiales
-    app.delete(apiroot+'/records', function(req, res){
-        records = [];
-        res.sendStatus(200);
+    app.delete(apiroot+"/records",(req,res)=>{
+        var _id = req.params._id;
+
+        db.remove({},{multi : true},(err,numRemoved)=>{
+            if (err){
+                res.sendStatus(500);
+            }else{
+                res.sendStatus(200);
+            }
+            })
     });
-
-    // Buscar un historial pasándole su _id por parámetro
-    function findRecordBy_id(_id){
-        //  Se busca un historial que tenga por código el recibido
-        var record = records.find( r => r._id == _id);
-
-       return record;
-    }
-
-    // Buscar el índice que ocupa el historial con el _id pasado por parametro
-    function findRecordIndexBy_id(_id){
-
-        //Se busca el historial
-        var record = findRecordBy_id(_id);
-
-        //Buscar el índice donde está el historial
-        var index = records.indexOf(record);
-
-        return index;
-    }
 
 };
