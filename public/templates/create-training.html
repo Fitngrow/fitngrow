@@ -1,14 +1,13 @@
 <div ng-controller="CreateTraining" style="text-align: center;">
     <div id="training-crono-container">
-
+        {{start}} <br/>
+        {{end}}
     </div>
 
     <div id="training-button-container">
 
-        <a class="waves-effect waves-light btn light-green">Start</a>
+        <a class="waves-effect waves-light btn light-green" ng-click="startTraining()">Start</a>
 
-        <a class="waves-effect waves-light btn amber">Pause</a>
-
-        <a class="waves-effect waves-light btn red">End</a>
+        <a class="waves-effect waves-light btn red" ng-click="endTraining()">End</a>
     </div>
 </div>
