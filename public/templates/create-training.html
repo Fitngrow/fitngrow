@@ -1,13 +1,12 @@
 <div ng-controller="CreateTraining" style="text-align: center;">
     <div id="training-crono-container">
-        {{newTraining.start}} <br/>
-        {{newTraining.end}}
+        <h2>{{totalTime}}</h2>
     </div>
 
     <div id="training-button-container">
-        <a class="waves-effect waves-light btn green" ng-click="startTraining()" ng-hide="hideStart" >Start</a>
+        <a class="waves-effect waves-light btn-large green" ng-click="startTraining()" ng-hide="hideStart" >Start</a>
 
-        <a class="waves-effect waves-light btn red" ng-click="endTraining()" ng-hide="hideEnd">End</a>
+        <a class="waves-effect waves-light btn-large red" ng-click="endTraining()" ng-hide="hideEnd">End</a>
     </div>
 
     <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;">
@@ -29,10 +28,10 @@
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <a class="waves-effect waves-light btn red"><i class="material-icons center">delete_forever</i></a>
+                <a class="waves-effect waves-light btn-large red" ng-click="resetTraining()"><i class="material-icons center">delete_forever</i></a>
             </div>
             <div class="input-field col s6">
-                <a class="waves-effect waves-light btn green"><i class="material-icons center">backup</i></a>
+                <a class="waves-effect waves-light btn-large green" ng-click="saveTraining()"><i class="material-icons center">backup</i></a>
             </div>
 
         </div>
