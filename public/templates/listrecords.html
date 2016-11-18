@@ -1,0 +1,30 @@
+ <h1>My Record</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Meters</th>
+                <th>Sessions</th>
+                <th>Average metters</th>
+                <th>Calories</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--
+            <tr>
+                <td><input class="form-control" ng-model="newRecord.meters"/></td>
+                <td><input class="form-control" ng-model="newRecord.sessions"/></td>
+                <td><input class="form-control" ng-model="newRecord.averageMetters"/></td>
+                <td><input class="form-control" ng-model="newRecord.calories"/></td>
+                <td><button class="btn btn-primary" ng-click="addRecord()">Add</button></td>
+            </tr>
+            -->
+            <tr ng-repeat="record in records">
+                <!--<td><a href="/#/records/{{contact._id}}">Editar historial</a></td>-->
+                <td>{{record.meters}}</td>
+                <td>{{record.sessions}}</td>
+                <td>{{record.averageMeters}}</td>
+                <td>{{record.calories}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#/">Atrás</a>
