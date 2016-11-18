@@ -3,16 +3,19 @@ angular.module("FitngrowApp")
         console.log("Welcome to Create training!");
 
 
+        $scope.newTraining = {};
         $scope.hideStart = false;
         $scope.hideEnd = true;
+        $scope.hideTrainingForm = true;
 
         $scope.startTraining = function(){
-            $scope.start = new Date();
+            $scope.newTraining.start = new Date();
             $scope.hideStart = true;
             $scope.hideEnd = false;
         };
         $scope.endTraining = function(){
-            $scope.end = new Date();
+            $scope.newTraining.end = new Date();
             $scope.hideEnd = true;
+            $scope.hideTrainingForm = false;
         };
     });

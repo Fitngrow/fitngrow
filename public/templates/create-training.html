@@ -1,12 +1,41 @@
 <div ng-controller="CreateTraining" style="text-align: center;">
     <div id="training-crono-container">
-        {{start}} <br/>
-        {{end}}
+        {{newTraining.start}} <br/>
+        {{newTraining.end}}
     </div>
 
     <div id="training-button-container">
-        <a class="waves-effect waves-light btn light-green" ng-click="startTraining()" ng-hide="hideStart" >Start</a>
+        <a class="waves-effect waves-light btn green" ng-click="startTraining()" ng-hide="hideStart" >Start</a>
 
         <a class="waves-effect waves-light btn red" ng-click="endTraining()" ng-hide="hideEnd">End</a>
     </div>
+
+    <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;">
+        <div class="row">
+            <div class="input-field col s6">
+                <input value="0" id="averageHeartRate" type="number" class="validate" min="0" ng-model="newTraining.averageHeartRate">
+                <label class="active" for="averageHeartRate">Average Heart Rate</label>
+            </div>
+            <div class="input-field col s6">
+                <input value="0" id="calories" type="number" class="validate" min="0" ng-model="newTraining.calories">
+                <label class="active" for="calories">Calories</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input value="0" id="distance" type="number" class="validate" min="0" ng-model="newTraining.distance">
+                <label class="active" for="distance">Distance (Meters)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <a class="waves-effect waves-light btn red"><i class="material-icons center">delete_forever</i></a>
+            </div>
+            <div class="input-field col s6">
+                <a class="waves-effect waves-light btn green"><i class="material-icons center">backup</i></a>
+            </div>
+
+        </div>
+    </div>
+
 </div>
