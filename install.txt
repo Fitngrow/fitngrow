@@ -1,0 +1,11 @@
+Before working with our project, we will need to download the latest dependencies locally.
+
+> Installing Bower
+    If we don't have Bower installed in our system, we will use "npm install -g bower".
+    That will install the latest version of Bower.
+
+> Updating NodeJS modules
+    Execute "npm install" in the root directory of fitngrow project.
+
+> Updating Bower components
+    Execute "bower install" in the root directory of fitngrow project.
