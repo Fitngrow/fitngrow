@@ -5,10 +5,4 @@ angular.module("FitngrowApp",["ngRoute"])
                 controller: "Home",
                 templateUrl: "templates/home.html"
             });
-            /*
-            .when("/contacts/:name",{
-                controller: "EditCtrl",
-                templateUrl: "edit.html"
-            })
-            */
     });
