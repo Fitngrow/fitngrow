@@ -4,7 +4,11 @@ angular.module("FitngrowApp",["ngRoute"])
             .when("/",{
                 controller: "Home",
                 templateUrl: "templates/home.html"
-            });
+            })
+            .when("/",{
+                controller: "ListRecordsCtrl",
+                templateUrl: "listrecods.html"
+            })
             /*
             .when("/contacts/:name",{
                 controller: "EditCtrl",
