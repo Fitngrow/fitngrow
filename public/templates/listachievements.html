@@ -1,0 +1,19 @@
+<h1>Achievements</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Logro</th>
+        <th>Descripción</th>
+        <th>Tipo</th>
+        <th>Valor necesario</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="achievement in achievements">
+        <td>{{achievement.name}}</td>
+        <td>{{achievement.description}}</td>
+        <td>{{achievement.type}}</td>
+        <td>{{achievement.type_value}}</td>
+    </tr>
+    </tbody>
+</table>
