@@ -15,21 +15,24 @@ module.exports = function (app, apiroot, db) {
                     _id: "1",
                     name: 'Mi primera hora',
                     description: 'Tu tiempo de entrenamiento total es de 1 hora. ¡Sigue entrenando!',
-                    type: 'time',
+                    url: '/test1',
+                    type: 'seconds',
                     type_value: 3600
                 },
                 {
                     _id: "2",
                     name: 'Cogiendo el tranquillo',
                     description: 'Tu tiempo de entrenamiento total es de 4 horas.',
-                    type: 'time',
+                    url: '/test2',
+                    type: 'seconds',
                     type_value: 14400
                 },
                 {
                     _id: "3",
                     name: 'Iniciado',
                     description: 'Tu tiempo de entrenamiento total es de 24 horas. Comienzas a notar el entrenamiento.',
-                    type: 'time',
+                    url: '/test3',
+                    type: 'seconds',
                     type_value: 86400
                 }
             ]);
