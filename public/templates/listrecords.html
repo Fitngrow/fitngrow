@@ -6,6 +6,7 @@
                 <th>Sessions</th>
                 <th>Average metters</th>
                 <th>Calories</th>
+                <th>Total time</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
                 <td><input class="form-control" ng-model="newRecord.sessions"/></td>
                 <td><input class="form-control" ng-model="newRecord.averageMetters"/></td>
                 <td><input class="form-control" ng-model="newRecord.calories"/></td>
+                <td><input class="form-control" ng-model="newRecord.totalTime"/></td>
                 <td><button class="btn btn-primary" ng-click="addRecord()">Add</button></td>
             </tr>
             -->
@@ -24,7 +26,8 @@
                 <td>{{record.sessions}}</td>
                 <td>{{record.averageMeters}}</td>
                 <td>{{record.calories}}</td>
+                <td>{{record.totalTime}}</td>
             </tr>
         </tbody>
     </table>
-    <a href="#/">Atrás</a>
+    <a href="#/">Back</a>
