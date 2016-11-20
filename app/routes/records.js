@@ -13,7 +13,7 @@ var db = new dataStore({
 
 db.find({}, (err,records)=>{
     if(records.length == 0){
-        db.insert({ meters: 0, sessions: 0, averageMeters: 0, calories : 0});
+        db.insert({ meters: 0, sessions: 0, averageMeters: 0, calories : 0, totalTime: 0});
     }
 });
 
