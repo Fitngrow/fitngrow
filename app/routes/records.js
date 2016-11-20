@@ -1,25 +1,18 @@
 /* Creación del historial de un usuario, incluyendo metros recorridos, sesiones de entrenamiento completadas,
 media de metros recorridos por sesión de entrenamiento y calorías quemadas*/
 
-module.exports = function(app, apiroot){
-var path = require('path');
-var dbFileName = path.join(__dirname,'records.json');
-var dataStore = require("nedb");
+module.exports = function(app, apiroot, db){
 
-var db = new dataStore({
-       filename: dbFileName,
-       autoload: true
-   });
-
-db.find({}, (err,records)=>{
-    if(records.length == 0){
-        db.insert({ meters: 0, sessions: 0, averageMeters: 0, calories : 0, totalTime : 0});
-    }
-});
+    db.records.find({}, (err, records) => {
+        if(records.length == 0){
+            db.records.insert({ meters: 0, sessions: 0, averageMeters: 0, calories : 0, totalTime : 0})
+            console.log("DB is empty. Added default record.");
+        }
+    });
 
     // Recibir todos los historiales almacenados en el sistema
     app.get(apiroot+"/records",(req,res)=>{
-        db.find({},(err,records)=>{
+        db.records.find({},(err,records)=>{
             if (err){
                 res.sendStatus(500);
             }else{
@@ -32,7 +25,7 @@ db.find({}, (err,records)=>{
     app.get(apiroot+"/records/:_id",(req,res)=>{
         var _id = req.params._id;
 
-        db.find({_id : _id},(err,records)=>{
+        db.records.find({_id : _id},(err,records)=>{
             if (err){
                 res.sendStatus(500);
             }else{
@@ -49,9 +42,9 @@ db.find({}, (err,records)=>{
         var record = req.body;
 
         var _id = record._id;
-        db.find({_id : _id},(err,records)=>{
+        db.records.find({_id : _id},(err,records)=>{
         if (records.length == 0){
-            db.insert(record);
+            db.records.insert(record);
             res.sendStatus(200);
         }else{
             res.sendStatus(409);
@@ -69,7 +62,7 @@ db.find({}, (err,records)=>{
             return;
         }
 
-        db.update({_id : _id},record,(err,numUpdate)=>{
+        db.records.update({_id : _id},record,(err,numUpdate)=>{
             if (err){
                 res.sendStatus(500);
                     }else{
@@ -82,7 +75,7 @@ db.find({}, (err,records)=>{
     app.delete(apiroot+"/records/:_id",(req,res)=>{
         var _id = req.params._id;
 
-        db.remove({_id : _id},{},(err,numRemoved)=>{
+        db.records.remove({_id : _id},{},(err,numRemoved)=>{
             if (err){
                 res.sendStatus(500);
             }else{
@@ -95,13 +88,13 @@ db.find({}, (err,records)=>{
     app.delete(apiroot+"/records",(req,res)=>{
         var _id = req.params._id;
 
-        db.remove({},{multi : true},(err,numRemoved)=>{
+        db.records.remove({},{multi : true},(err,numRemoved)=>{
             if (err){
                 res.sendStatus(500);
             }else{
                 res.sendStatus(200);
             }
-            })
+        })
     });
 
 };
