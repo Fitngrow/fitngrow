@@ -2,18 +2,18 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>Logro</th>
             <th>Descripción</th>
-            <th>URL</th>
             <th>Tipo</th>
             <th>Valor necesario</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="achievement in achievements">
+            <td><img src="{{achievement.url}}" height="44" width="44" /></td>
             <td>{{achievement.name}}</td>
             <td>{{achievement.description}}</td>
-            <td><a href="{{achievement.url}}">{{achievement.url}}</a></td>
             <td>{{achievement.type}}</td>
             <td>{{achievement.type_value}}</td>
         </tr>

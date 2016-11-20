@@ -15,7 +15,8 @@ module.exports = function (app, apiroot, db) {
                     _id: "1",
                     name: 'Mi primera hora',
                     description: 'Tu tiempo de entrenamiento total es de 1 hora. ¡Sigue entrenando!',
-                    url: '/test1',
+                    //url: '/public/firsttimer.png',
+                    url: 'http://puu.sh/snVDh/fbc5153b22.png',
                     type: 'seconds',
                     type_value: 3600
                 },
@@ -23,7 +24,8 @@ module.exports = function (app, apiroot, db) {
                     _id: "2",
                     name: 'Cogiendo el tranquillo',
                     description: 'Tu tiempo de entrenamiento total es de 4 horas.',
-                    url: '/test2',
+                    //url: '/public/gettinggood.png',
+                    url: 'http://puu.sh/snVEx/ef400b0274.png',
                     type: 'seconds',
                     type_value: 14400
                 },
@@ -31,7 +33,8 @@ module.exports = function (app, apiroot, db) {
                     _id: "3",
                     name: 'Iniciado',
                     description: 'Tu tiempo de entrenamiento total es de 24 horas. Comienzas a notar el entrenamiento.',
-                    url: '/test3',
+                    //url: '/public/star.png',
+                    url: 'http://puu.sh/snVFS/7bff3fbc53.jpg',
                     type: 'seconds',
                     type_value: 86400
                 }
