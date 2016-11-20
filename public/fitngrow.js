@@ -13,10 +13,4 @@ angular.module("FitngrowApp",["ngRoute"])
                 controller: "ListRecordsCtrl",
                 templateUrl: "templates/listrecords.html"
             })
-            /*
-            .when("/contacts/:name",{
-                controller: "EditCtrl",
-                templateUrl: "edit.html"
-            })
-            */
     });
