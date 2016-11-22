@@ -1,12 +1,13 @@
 module.exports = function(app, apiroot, db){
     //Modulos que se van a usar
     var dataStore = require('nedb');
+    var momentDate = require('moment');
 
     //Creación de un objeto por defecto en la base de datos
     db.trainings.find({}, function(err, trainings){
         if (trainings.length == 0) {
-            db.trainings.insert ({ start : new Date().toISOString(),
-                         end : new Date().toISOString(),
+            db.trainings.insert ({ start : new Date(),
+                         end : new Date(),
                          averageHeartRate : 0.0,
                          calories : 0.0,
                          rout : "",
@@ -37,11 +38,13 @@ module.exports = function(app, apiroot, db){
                             var calories = records[0].calories + training.calories;
                             var meters = records[0].meters + training.distance;
                             var averageMeters = meters / session;
+                            var time = (parseInt(momentDate(training.end).hour()) - 12) + records[0].totalTime;
 
                             records[0].sessions = session;
                             records[0].calories = calories;
                             records[0].meters = meters;
                             records[0].averageMeters = averageMeters;
+                            records[0].totalTime = time;
 
                             var record = records[0];
                             db.records.update({},record, function(err, numRemoved){
