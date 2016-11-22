@@ -1,21 +1,11 @@
-module.exports = function(app, apiroot){
+module.exports = function(app, apiroot, db){
     //Modulos que se van a usar
-    var path = require('path');
     var dataStore = require('nedb');
 
-    //Ruta del directorio donde se guarda el fichero de la base de datos
-    var dbFileName = path.join(__dirname,'trainings.json');
-
-    //Creación del fichero de la base de datos
-    var db = new dataStore({
-        filename : dbFileName,
-        autoload : true
-    });
-
     //Creación de un objeto por defecto en la base de datos
-    db.find({}, function(err, trainings){
+    db.trainings.find({}, function(err, trainings){
         if (trainings.length == 0) {
-            db.insert ({ start : new Date().toISOString(),
+            db.trainings.insert ({ start : new Date().toISOString(),
                          end : new Date().toISOString(),
                          averageHeartRate : 0.0,
                          calories : 0.0,
@@ -31,11 +21,43 @@ module.exports = function(app, apiroot){
 
         var _id = training._id;
 
-        db.find({_id : _id}, function(err, trainings){
+        db.trainings.find({_id : _id}, function(err, trainings){
             if (trainings.length == 0) {
-                db.insert(training);
+                db.trainings.insert(training);
                 res.sendStatus(201);
                 console.log("Añadido un nuevo entrenamiento");
+                db.records.find({}, function(err, records){
+                    if (err) {
+                        //res.sendStatus(500);
+                        console.log("Fallo al recibir los datos del historial");
+                    } else {
+                        if (records.length > 0) {
+                            //Falta averiguar como coger solamente las horas del fin del entrenamiento
+                            var session = records[0].sessions + 1;
+                            var calories = records[0].calories + training.calories;
+                            var meters = records[0].meters + training.distance;
+                            var averageMeters = meters / session;
+
+                            records[0].sessions = session;
+                            records[0].calories = calories;
+                            records[0].meters = meters;
+                            records[0].averageMeters = averageMeters;
+
+                            var record = records[0];
+                            db.records.update({},record, function(err, numRemoved){
+                                if (err) {
+                                    console.log("No existe el historial a actualizar");
+                                } else {
+                                    console.log(record.totalTime);
+                                    console.log("Historial cambiado correctamente");
+                                }
+                            });
+                        } else {
+                            console.log("No hay historial para mostrar");
+                        }
+                    }
+                    
+                });
             } else {
                 res.sendStatus(409);
                 console.log("Fallo al insertar un nuevo entrenamiento");
@@ -46,7 +68,7 @@ module.exports = function(app, apiroot){
     //Método que recibe todos los entrenamientos
     app.get(apiroot+'/trainings', function(req, res){
 
-        db.find({}, function(err,trainings){
+        db.trainings.find({}, function(err,trainings){
             if (err) {
                 res.sendStatus(500);
             } else {
@@ -60,7 +82,7 @@ module.exports = function(app, apiroot){
         // Se recoge el id pasado
         var _id = req.params._id;
 
-        db.find({_id : _id}, function(err,trainings){
+        db.trainings.find({_id : _id}, function(err,trainings){
             if (err) {
                 res.sendStatus(500);
                 console.log("Fallo al recibir los datos de entrenamientos");
@@ -79,7 +101,7 @@ module.exports = function(app, apiroot){
     app.delete(apiroot+'/trainings', function(req, res){
         var _id = req.params._id;
 
-        db.remove({}, {multi : true}, function(err, numRemoved){
+        db.trainings.remove({}, {multi : true}, function(err, numRemoved){
             if (err) {
                 res.sendStatus(500);
                 console.log("Fallo al eliminar los entrenamientos");
@@ -97,7 +119,7 @@ module.exports = function(app, apiroot){
 
         /* Si el entrenamiento existe se borra y se envía el código 200 (OK).   
            Si no existe se envía el código 404 (no encontrado) */
-        db.remove({_id : _id}, {}, function(err, numRemoved){
+        db.trainings.remove({_id : _id}, {}, function(err, numRemoved){
             if (err) {
                 res.sendStatus(500);
                 console.log("Fallo al eliminar el entrenamiento");
@@ -120,7 +142,7 @@ module.exports = function(app, apiroot){
             console.log("El identificador no es correcto");
             return;
         } else {
-            db.update({}, {multi : true}, function(err, numRemoved){
+            db.trainings.update({}, {multi : true}, function(err, numRemoved){
                 if (err) {
                     res.sendStatus(500);
                     console.log("No existe el entrenamiento a actualizar");
