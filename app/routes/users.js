@@ -126,35 +126,34 @@ module.exports = function (app, apiroot, db) {
 
     });
 
-    //Actualizamos un logro
-    /*app.put(apiroot + '/achievements/:id', function (req, res) {
+    //Actualizamos un usuario
+    app.put(apiroot + '/users/:id', function (req, res) {
 
-        //Recogemos el logro que hemos recibido
-        var achievement = req.body;
+        //Recogemos el usuario que hemos recibido
+        var user = req.body;
 
         //Recogemos el id que vamos a capturar desde la URI
         var id = req.params.id;
 
         //Comprobamos que la id del request y la id del body son iguales
-        if (id != achievement._id) {
+        if (id != user._id) {
             console.log("Error: Request ID and body ID are different.");
             res.sendStatus(409);
             return;
         }
 
         //Actualizamos el logro, si existe
-        db.achievements.update({ _id: id }, achievement, function (err, numReplaced) {
+        db.users.update({ _id: id }, user, function (err, numReplaced) {
             if (numReplaced == 0) {
-                console.log("Achievement not found.");
+                console.log("User not found.");
                 res.sendStatus(404);
             } else {
-                console.log("Achievement updated succesfully.");
+                console.log("User updated succesfully.");
                 res.sendStatus(200);
             }
         });
 
     });
-    */
 
     //Eliminar un logro concreto
     app.delete(apiroot + '/users/:id', function (req, res) {
