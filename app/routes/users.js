@@ -172,35 +172,55 @@ module.exports = function (app, apiroot, db) {
 
     // SPECIFIC SERVICES --------------------------------------------
 
+    /*
+        Todos estos tienen en la url la palabra service, esto es porque hay conflicto con las
+        siguientes operaciones:
+        - get(users/:id)
+        - get(user/logout)
+        - get(user/status)
+        - get(user/me)
+        Se cree que son ids, por lo que ponemos una palabra en medio para que no haya problema
+     */
 
-    app.post(apiroot + '/users/login', passport.authenticate('local'), function(req, res){
+    //Realiza un login a traves de un usuario y una contraseña
+    app.post(apiroot + '/users/service/login', passport.authenticate('local'), function(req, res){
         //If this function gets called, authentication was successful
         res.send(req.user);
     });
 
-    app.get(apiroot + '/users/status', function(req, res) {
-        if (!req.isAuthenticated()) {
+    //Comprueba si el usuario que realiza la petición está logueado o no
+    app.get(apiroot + '/users/service/status', function(req, res) {
+        res.send({message: "OK"});
+        /*if (!req.isAuthenticated()) {
             return res.status(200).json({
                 status: false
             });
         }
         res.status(200).json({
             status: true
-        });
+        });*/
     });
 
-    app.get(apiroot + '/users/logout', function(req, res) {
+    //Desloguea al usuario que realiza la petición
+    app.get(apiroot + '/users/service/logout', function(req, res) {
         req.logout();
         res.status(200).json({
             status: 'Bye!'
         });
     });
+
+    //Devuelve la información del usuario logueado
+    app.get(apiroot + '/users/service/me', function(req, res){
+        res.send("OK");
+    });
+
+
+    function removePasswordFromList(listUsers){
+        return _.map(listUsers, (user)=>_.omit(user, 'password'));
+    }
+
+    function removePassword(user){
+        return _.omit(user, 'password');
+    }
 };
 
-function removePasswordFromList(listUsers){
-    return _.map(listUsers, (user)=>_.omit(user, 'password'));
-}
-
-function removePassword(user){
-    return _.omit(user, 'password');
-}
