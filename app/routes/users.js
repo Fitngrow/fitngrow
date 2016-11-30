@@ -52,7 +52,7 @@ module.exports = function (app, apiroot, db) {
         }
     });
 
-    // CRUD SERVICES --------------------------------------------
+    // CRUD SERVICES -----------------------------------------------------------------------------------------------
 
     //Añadir un nuevo usuario al sistema
     app.post(apiroot + '/users', function (req, res) {
@@ -170,7 +170,7 @@ module.exports = function (app, apiroot, db) {
     });
 
 
-    // SPECIFIC SERVICES --------------------------------------------
+    // SPECIFIC SERVICES --------------------------------------------------------------------------------------------
 
     /*
         Todos estos tienen en la url la palabra service, esto es porque hay conflicto con las
@@ -185,7 +185,7 @@ module.exports = function (app, apiroot, db) {
     //Realiza un login a traves de un usuario y una contraseña
     app.post(apiroot + '/users/service/login', passport.authenticate('local'), function(req, res){
         //If this function gets called, authentication was successful
-        res.send(req.user);
+        res.send(removePassword(req.user));
     });
 
     //Comprueba si el usuario que realiza la petición está logueado o no
@@ -210,7 +210,10 @@ module.exports = function (app, apiroot, db) {
 
     //Devuelve la información del usuario logueado
     app.get(apiroot + '/users/service/me', function(req, res){
-        res.send("OK");
+        if (!req.isAuthenticated()) {
+            return res.status(404);
+        }
+        res.send(removePassword(req.user));
     });
 
 
