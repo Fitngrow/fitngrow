@@ -13,27 +13,57 @@ module.exports = function (app, apiroot, db) {
             db.achievements.insert([
                 {
                     _id: "1",
-                    name: 'Mi primera hora',
-                    description: 'Tu tiempo de entrenamiento total es de 1 hora. ¡Sigue entrenando!',
+                    name: 'First Timer',
+                    description: 'You are starting. Train and grow with us!',
                     url: '/images/firsttimer.png',
+                    url_achieved: '/images/firsttimer_a.jpg',
                     type: 'seconds',
                     type_value: 3600
                 },
                 {
                     _id: "2",
-                    name: 'Cogiendo el tranquillo',
-                    description: 'Tu tiempo de entrenamiento total es de 4 horas.',
+                    name: 'Getting good',
+                    description: 'You are getting better at it, continue training!',
                     url: '/images/gettinggood.png',
+                    url_achieved: '/images/gettinggood_a.jpg',
                     type: 'seconds',
                     type_value: 14400
                 },
                 {
                     _id: "3",
-                    name: 'Iniciado',
-                    description: 'Tu tiempo de entrenamiento total es de 24 horas. Comienzas a notar el entrenamiento.',
+                    name: 'Star',
+                    description: 'Nothing is stopping you, continue your training!',
                     url: '/images/star.png',
+                    url_achieved: '/images/star_a.jpg',
                     type: 'seconds',
                     type_value: 86400
+                },
+                {
+                    _id: "4",
+                    name: 'Road to fitness',
+                    description: 'You ran your first kilometer, you have a long road ahead of you.',
+                    url: '/images/road.png',
+                    url_achieved: '/images/road_a.jpg',
+                    type: 'meters',
+                    type_value: 1000
+                },
+                {
+                    _id: "5",
+                    name: 'Grow explosion',
+                    description: 'You are ever-running the long road, continue doing so!',
+                    url: '/images/volcano.png',
+                    url_achieved: '/images/volcano_a.jpg',
+                    type: 'meters',
+                    type_value: 10000
+                },
+                {
+                    _id: "6",
+                    name: 'Heart for the world',
+                    description: 'You ran 100 kilometers, your heart is a world on its own.',
+                    url: '/images/heartworld.png',
+                    url_achieved: '/images/heartworld_a.jpg',
+                    type: 'meters',
+                    type_value: 100000
                 }
             ]);
             console.log("DB is empty. Added default achievements.");
