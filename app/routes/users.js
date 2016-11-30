@@ -190,15 +190,14 @@ module.exports = function (app, apiroot, db) {
 
     //Comprueba si el usuario que realiza la petición está logueado o no
     app.get(apiroot + '/users/service/status', function(req, res) {
-        res.send({message: "OK"});
-        /*if (!req.isAuthenticated()) {
+        if (!req.isAuthenticated()) {
             return res.status(200).json({
                 status: false
             });
         }
         res.status(200).json({
             status: true
-        });*/
+        });
     });
 
     //Desloguea al usuario que realiza la petición
