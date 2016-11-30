@@ -13,7 +13,7 @@ module.exports = function (app, apiroot, db) {
             db.achievements.insert([
                 {
                     _id: "1",
-                    name: 'First Timer',
+                    name: 'First timer',
                     description: 'You are starting. Train and grow with us!',
                     url: '/images/firsttimer.png',
                     url_achieved: '/images/firsttimer_a.jpg',
