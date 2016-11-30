@@ -8,7 +8,7 @@
 angular.module('FitngrowApp').factory('AuthService',
     ['$q', '$timeout', '$http',
         function ($q, $timeout, $http) {
-            // Variable usuario que almacenará el usuario logueado
+            // Variable usuario que almacenará el estado del usuario
             var user = null;
 
             var apiroot = "/api/v1";
