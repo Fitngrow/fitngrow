@@ -28,12 +28,15 @@ angular.module("FitngrowApp", ["ngRoute"])
         En el caso de que sea restringido y no estemos logueados, entonces enviamos a la vista de login.
    
      */
-    .run(function($rootScope, $location, $route){
-       $rootScope.$on('$routeChangeStart', function(event, next, current){
-           var status = true;
-           if(next.access.restricted && status){
-               $location.path('/login');
-               $route.reload();
-           }
-       })
+    .run(function($rootScope, $location, $route, AuthService){
+        $rootScope.$on('$routeChangeStart',
+            function (event, next, current) {
+                AuthService.getUserStatus()
+                    .then(function(){
+                        if (next.access.restricted && !AuthService.isLoggedIn()){
+                            $location.path('/login');
+                            $route.reload();
+                        }
+                    });
+            });
     });
