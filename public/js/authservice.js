@@ -14,12 +14,18 @@ angular.module('FitngrowApp').factory('AuthService',
             var apiroot = "/api/v1";
             // Devolvemos las funciones para usar en los controladores
             return ({
+                me: me,
                 isLoggedIn: isLoggedIn,
                 getUserStatus: getUserStatus,
                 login: login,
                 logout: logout,
                 register: register
             });
+            // Función que nos indica si estamos logueados o no
+            function me() {
+                return user;
+            }
+
             // Función que nos indica si estamos logueados o no
             function isLoggedIn() {
                 if(user) {
@@ -34,7 +40,7 @@ angular.module('FitngrowApp').factory('AuthService',
                 // handle success
                     .success(function (data) {
                         if(data.status){
-                            user = true;
+                            user = data.user;
                         } else {
                             user = false;
                         }
@@ -54,7 +60,7 @@ angular.module('FitngrowApp').factory('AuthService',
                 // handle success
                     .success(function (data, status) {
                         if(status === 200 && data){
-                            user = true;
+                            user = data;
                             deferred.resolve();
                         } else {
                             user = false;

@@ -188,7 +188,7 @@ module.exports = function (app, apiroot, db) {
         res.send(removePassword(req.user));
     });
 
-    //Comprueba si el usuario que realiza la petición está logueado o no
+    //Comprueba si el usuario que realiza la petición está logueado o no, así como la información del usuario
     app.get(apiroot + '/users/service/status', function(req, res) {
         if (!req.isAuthenticated()) {
             return res.status(200).json({
@@ -196,7 +196,8 @@ module.exports = function (app, apiroot, db) {
             });
         }
         res.status(200).json({
-            status: true
+            status: true,
+            user: removePassword(req.user)
         });
     });
 
@@ -206,15 +207,6 @@ module.exports = function (app, apiroot, db) {
         res.status(200).json({
             status: 'Bye!'
         });
-    });
-
-    //Devuelve la información del usuario logueado
-    app.get(apiroot + '/users/service/me', function(req, res){
-        if (!req.isAuthenticated()) {
-            res.sendStatus(404);
-        }else{
-            res.send(removePassword(req.user));
-        }
     });
 
 
