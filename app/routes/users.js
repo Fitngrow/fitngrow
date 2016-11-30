@@ -211,9 +211,10 @@ module.exports = function (app, apiroot, db) {
     //Devuelve la información del usuario logueado
     app.get(apiroot + '/users/service/me', function(req, res){
         if (!req.isAuthenticated()) {
-            return res.status(404);
+            res.sendStatus(404);
+        }else{
+            res.send(removePassword(req.user));
         }
-        res.send(removePassword(req.user));
     });
 
 
