@@ -7,6 +7,7 @@
  */
 
 var passport = require('passport');
+var _ = require('underscore');
 
 module.exports = function (app, apiroot, db) {
 
@@ -79,7 +80,7 @@ module.exports = function (app, apiroot, db) {
             if (err) {
                 res.sendStatus(500);
             } else {
-                res.send(users);
+                res.send(removePasswordFromList(users));
             }
         });
     });
@@ -113,7 +114,7 @@ module.exports = function (app, apiroot, db) {
                 res.sendStatus(404);
             } else {
                 console.log("User found and returned succesfully.");
-                res.send(user);
+                res.send(removePassword(user));
             }
         });
 
@@ -166,13 +167,10 @@ module.exports = function (app, apiroot, db) {
             }
         });
 
-    })
-
+    });
 
 
     // SPECIFIC SERVICES --------------------------------------------
-
-
 
 
     app.post(apiroot + '/users/login', passport.authenticate('local'), function(req, res){
@@ -198,3 +196,11 @@ module.exports = function (app, apiroot, db) {
         });
     });
 };
+
+function removePasswordFromList(listUsers){
+    return _.map(listUsers, (user)=>_.omit(user, 'password'));
+}
+
+function removePassword(user){
+    return _.omit(user, 'password');
+}
