@@ -14,6 +14,16 @@ var cookieParser = require('cookie-parser');
 // configuration =====================================
 
 // config files
+app.use(express.static(__dirname + '/public'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(expressSession({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // set our port
 var port = process.env.PORT || 8080;
@@ -53,19 +63,6 @@ db.users = new dataStore({
 });
 
 console.log("DB initialized.");
-// End DB
-
-// Aquí indicamos la dirección de los ficheros estáticos, de forma que el servidor sabrá devolver los ficheros css, imagenes, etc...
-app.use(express.static(__dirname + '/public'));
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(expressSession({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // routes =============================================
 
@@ -82,31 +79,30 @@ require('./app/routes/users')(app, apiroot, db);
 
 // Authentication =============================================
 
-
 passport.use(new LocalStrategy(
+    //Está funcion es la que se ejecutará para comprobar que las credenciales de un usuario son correctas.
    function(username, password, done){
-       /*
-        User.findOne({ username: username }, function (err, user) {
+        db.users.findOne({ username: username }, function (err, user) {
             if (err) { return done(err); }
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            if (!user.validPassword(password)) {
+            //if (!user.validPassword(password)) {
+            if (user.password != password) {
                 return done(null, false, { message: 'Incorrect password.' });
             }
             return done(null, user);
         });
-        */
-       return done(null, {username: "userTest", email: "EmailTest", fullName: "FullName Test"})
    }
 ));
 passport.serializeUser(function(user, done){
-    done(null, user.username);
+    done(null, user._id);
 });
-passport.deserializeUser(function(username, done){
-    done(null, {username: "userTest", email: "EmailTest", fullName: "FullName Test"});
+passport.deserializeUser(function(_id, done){
+    db.users.findOne({_id: _id}, function(err, user){
+        done(null, user);
+    });
 });
-
 
 // start app
 app.listen(port);
