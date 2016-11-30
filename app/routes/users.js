@@ -53,31 +53,24 @@ module.exports = function (app, apiroot, db) {
 
     // CRUD SERVICES --------------------------------------------
 
-    //Añadir un nuevo logro al sistema
-    /*app.post(apiroot + '/achievements', function (req, res) {
-        console.log("POST /achievements requested.");
+    //Añadir un nuevo usuario al sistema
+    app.post(apiroot + '/users', function (req, res) {
+        console.log("POST /users requested.");
 
-        //Recogemos el logro que hemos recibido
-        var achievement = req.body;
+        var user = req.body;
 
-        //Recogemos el id del logro recibido
-        var id = achievement._id;
-
-        //Buscamos si el logro no existe, y lo añadimos
-        db.achievements.findOne({ _id: id }, function (err, existing_achievement) {
-            if (existing_achievement == null) {
-                db.achievements.insert(achievement);
-                console.log("Achievement added: " + req.body.name);
-                res.sendStatus(201);
+        var _id = user._id;
+        db.users.find({ _id: _id }, (err, users) => {
+            if (users.length == 0) {
+                db.users.insert(user);
+                res.sendStatus(200);
             } else {
-                console.log("Error: An achievement with the same id already exists.");
                 res.sendStatus(409);
             }
-        });
+        })
 
     });
-    */
-    //Recibir todos los logros almacenados en el sistema
+    //Recibir todos los usuarios almacenados en el sistema
     app.get(apiroot + '/users', function (req, res) {
         console.log("GET /users requested.");
 
@@ -91,7 +84,7 @@ module.exports = function (app, apiroot, db) {
         });
     });
 
-    //Eliminar todos los logros almacenados en el sistema
+    //Eliminar todos los usuarios almacenados en el sistema
     app.delete(apiroot + '/users/', function (req, res) {
         console.log("DELETE /users requested.");
 
@@ -155,14 +148,14 @@ module.exports = function (app, apiroot, db) {
 
     });
 
-    //Eliminar un logro concreto
+    //Eliminar un usuario concreto
     app.delete(apiroot + '/users/:id', function (req, res) {
         console.log("DELETE /users/" + req.params.id + " requested.");
 
         //Recogemos el id que vamos a capturar desde la URI
         var id = req.params.id;
 
-        //Borramos el logro, si existe
+        //Borramos el usuario, si existe
         db.users.remove({ _id: id }, {}, function (err, numRemoved) {
             if (numRemoved == 0) {
                 console.log("User not found.");
