@@ -1,6 +1,5 @@
 angular.module("FitngrowApp")
     .controller("CreateTraining", function($scope, $http, $timeout) {
-        console.log("Welcome to Create training!");
 
         refresh();
 
