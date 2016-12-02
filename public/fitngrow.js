@@ -6,6 +6,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/home.html",
                 access: {restricted: false}
             })
+            .when("/login", {
+                controller: "LoginCtrl",
+                templateUrl: "templates/login.html",
+                access: {restricted: false}
+            })
             .when("/achievements", {
                 controller: "ListAchievementsCtrl",
                 templateUrl: "templates/listachievements.html",

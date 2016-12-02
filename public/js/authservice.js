@@ -64,13 +64,13 @@ angular.module('FitngrowApp').factory('AuthService',
                             deferred.resolve();
                         } else {
                             user = false;
-                            deferred.reject();
+                            deferred.resolve();
                         }
                     })
                     // handle error
                     .error(function (data) {
                         user = false;
-                        deferred.reject();
+                        deferred.resolve();
                     });
                 // return promise object
                 return deferred.promise;
