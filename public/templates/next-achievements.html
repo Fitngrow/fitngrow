@@ -1,4 +1,4 @@
-<div ng-controller="NextAchievements" style="text-align: center;">
+<div style="text-align: center;">
 
     <style>
         table,
@@ -50,6 +50,15 @@
                         </td>
                     </tr>
                 </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="color:#00B050; font-size:300%" ng-hide="distance_unachieved">Achieved!</div>
+            </td>
+            <td style="width:20%"></td>
+            <td>
+                <div style="color:#00B050; font-size:300%" ng-hide="time_unachieved">Achieved!</div>
             </td>
         </tr>
     </table>
