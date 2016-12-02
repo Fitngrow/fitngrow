@@ -6,6 +6,8 @@ var dataStore = require("nedb");
 var path = require("path");
 var app = express();
 var moment = require("moment");
+var swaggerExpress = require('swagger-express-mw');
+var SwaggerUi = require('swagger-tools/middleware/swagger-ui');
 
 // configuration =====================================
 
@@ -55,6 +57,20 @@ app.use(bodyParser.json());
 
 // Aquí indicamos la dirección de los ficheros estáticos, de forma que el servidor sabrá devolver los ficheros css, imagenes, etc...
 app.use(express.static(__dirname + '/public'));
+
+// Configuración de swagger-tools
+var config= {
+    appRoot: __dirname
+};
+
+swaggerExpress.create(config, function(err, swaggerExpress){
+    if (err) { throw err; }
+
+    // add swagger-ui
+    app.use(SwaggerUi(swaggerExpress.runner.swagger));
+
+    swaggerExpress.register(app);
+});
 
 // routes =============================================
 
