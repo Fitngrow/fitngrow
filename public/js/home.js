@@ -7,7 +7,7 @@ angular.module("FitngrowApp")
         function refreshUserStatus(){
             AuthService.getUserStatus()
                 .then(function(){
-                    $scope.currentUser = AuthService.me();
+                    $scope.currentUser = AuthService.currentUser();
                 });
         }
     });

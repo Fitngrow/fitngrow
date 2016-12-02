@@ -5,7 +5,7 @@ angular.module("FitngrowApp")
 
         $scope.$watch( AuthService.isLoggedIn, function ( isLoggedIn ) {
             $scope.isLoggedIn = isLoggedIn;
-            $scope.currentUser = AuthService.me();
+            $scope.currentUser = AuthService.currentUser();
         });
 
         $scope.logout = function() {
@@ -32,7 +32,7 @@ angular.module("FitngrowApp")
         function refreshUserStatus(){
             AuthService.getUserStatus()
                 .then(function(){
-                    $scope.currentUser = AuthService.me();
+                    $scope.currentUser = AuthService.currentUser();
                 });
         }
     });
