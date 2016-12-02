@@ -6,7 +6,7 @@
     "MII2015-2016 US"
   ],
   "license": "GPL-3.0",
-  "homepage": "https://github.com/AlbertFX91/fitngrow",
+  "homepage": "https://github.com/Fitngrow/fitngrow",
   "ignore": [
     "**/.*",
     "node_modules",
