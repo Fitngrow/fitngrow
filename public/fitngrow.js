@@ -26,6 +26,7 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/listtrainings.html",
                 access: {restricted: true}
             })
+
     })
     /*
         A continuación definimos que cada vez que, se cambie de una ruta a otra,
@@ -41,6 +42,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                         if (next.access.restricted && !AuthService.isLoggedIn()){
                             $location.path('/login');
                             $route.reload();
+                        }
+
+                        //Definimos que cuando queramos ir a login, pero estemos logeados, entonces nos mande a la raiz
+                        if(AuthService.isLoggedIn() && next.originalPath === "/login"){
+                            $location.path('/');
                         }
                     });
             });
