@@ -6,8 +6,8 @@ info:
   contact:
     name: Fit&Grow API team
     email: fitngrow2016@gmail.com
-host: fitngrow.herokuapp.com
-basePath: /#
+host: localhost:8080
+basePath: /api/v1
 schemes:
   - http
 consumes:
