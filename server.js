@@ -59,11 +59,11 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 // Configuración de swagger-tools
-var config= {
+var config = {
     appRoot: __dirname
 };
 
-swaggerExpress.create(config, function(err, swaggerExpress){
+swaggerExpress.create(config, function (err, swaggerExpress) {
     if (err) { throw err; }
 
     // add swagger-ui
