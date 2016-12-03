@@ -63,8 +63,11 @@ module.exports = function (app, apiroot, db) {
         var _id = user._id;
         db.users.find({ _id: _id }, (err, users) => {
             if (users.length == 0) {
-                db.users.insert(user);
-                res.sendStatus(200);
+                db.users.insert(user, (err, user)=>{
+                    var _id = user._id;
+                    db.records.insert({idUser: _id, distance: 0, sessions: 0, averageDistance: 0, calories: 0, totalTime: 0});
+                    res.sendStatus(200);
+                });
             } else {
                 res.sendStatus(409);
             }
