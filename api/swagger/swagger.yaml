@@ -1,0 +1,840 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Fit&Grow
+  description: This is the API for Fit&Grow, which is a sport activity monitoring system which allows the user to store his or her workouts, check his or her history and opt for achievements
+  contact:
+    name: Fit&Grow API team
+    email: fitngrow2016@gmail.com
+host: localhost:8080
+basePath: /api/v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /achievements:
+    get:
+      description: Returns all achievements from the system
+      operationId: findAchievements
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of achievements
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/achievement'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new achievement in the system
+      operationId: addAchievement
+      produces:
+        - application/json
+      parameters:
+        - name: achievement
+          in: body
+          description: Achievement to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newAchievement'
+      responses:
+        '201':
+          description: Achievement added
+          schema:
+            $ref: '#/definitions/achievement'
+        '409':
+          description: An achievement with the same ID already exists.
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all achievements from the system
+      operationId: deleteAchievements
+      responses:
+        '200':
+          description: Deleted achievements.
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /achievements/{_id}:
+    get:
+      description: Returns an achievement based on a single ID
+      operationId: findAchievementById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of achievement to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Achievement found and returned succesfully.
+          schema:
+            $ref: '#/definitions/achievement'
+        '404':
+          description: Achievement not found.
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a record based on a single ID
+      operationId: editAchievementById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of achievement to edit
+          required: true
+          type: string
+        - name: record
+          in: body
+          description: Achievement to edit
+          required: true
+          schema:
+            $ref: '#/definitions/achievement'
+      responses:
+        '200':
+          description: Achievement updated successfully.
+          schema:
+            $ref: '#/definitions/achievement'
+        '404':
+          description: Achievement not found. 
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: Request ID and body ID are different.
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single achievement based on the ID supplied
+      operationId: deleteAchievementById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of achievement to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Achievement deleted successfully.
+        '404':
+          description: Achievement not found.
+          schema:
+            $ref: '#/definitions/error'
+  /prizes:
+    get:
+      description: Returns all prizes from the system
+      operationId: findPrizes
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of prizes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/prize'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new prize in the system
+      operationId: addPrize
+      produces:
+        - application/json
+      parameters:
+        - name: prize
+          in: body
+          description: Prize to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newPrize'
+      responses:
+        '200':
+          description: Prize response
+          schema:
+            $ref: '#/definitions/prize'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all prizes from the system
+      operationId: deletePrizes
+      responses:
+        '200':
+          description: Prizes deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /prizes/{_id}:
+    get:
+      description: Returns a prize based on a single ID
+      operationId: findPrizeById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of prize to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Prize response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: There are not prizes in the system
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a prize based on a single ID
+      operationId: editPrizeById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of prize to edit
+          required: true
+          type: string
+        - name: prize
+          in: body
+          description: Prize to edit
+          required: true
+          schema:
+            $ref: '#/definitions/prize'
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/prize'
+        '409':
+          description: There is not a prize with that ID
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single prize based on the ID supplied
+      operationId: deletePrizeById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of prize to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Prize deleted
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /records:
+    get:
+      description: Returns all records from the system
+      operationId: findRecords
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of records
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/record'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new record in the system
+      operationId: addRecord
+      produces:
+        - application/json
+      parameters:
+        - name: record
+          in: body
+          description: Record to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newRecord'
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/record'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all records from the system
+      operationId: deleteRecords
+      responses:
+        '200':
+          description: Records deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /records/{_id}:
+    get:
+      description: Returns a record based on a single ID
+      operationId: findRecordById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of record to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/record'
+        '404':
+          description: There are not records in the system
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a record based on a single ID
+      operationId: editRecordById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of record to edit
+          required: true
+          type: string
+        - name: record
+          in: body
+          description: Record to edit
+          required: true
+          schema:
+            $ref: '#/definitions/record'
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/record'
+        '409':
+          description: There is not a record with that ID
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single record based on the ID supplied
+      operationId: deleteRecordById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of record to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Record deleted
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /routes:
+    get:
+      description: Returns all routes from the system
+      operationId: findRoutes
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of routes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/route'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new route in the system
+      operationId: addRoute
+      produces:
+        - application/json
+      parameters:
+        - name: route
+          in: body
+          description: Route to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newRoute'
+      responses:
+        '200':
+          description: Route response
+          schema:
+            $ref: '#/definitions/route'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all routes from the system
+      operationId: deleteRoutes
+      responses:
+        '200':
+          description: Routes deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /routes/{_id}:
+    get:
+      description: Returns a route based on a single ID
+      operationId: findRouteById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of route to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Route response
+          schema:
+            $ref: '#/definitions/route'
+        '404':
+          description: There are not routes in the system
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a route based on a single ID
+      operationId: editRouteById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of route to edit
+          required: true
+          type: string
+        - name: route
+          in: body
+          description: Route to edit
+          required: true
+          schema:
+            $ref: '#/definitions/route'
+      responses:
+        '200':
+          description: Route response
+          schema:
+            $ref: '#/definitions/route'
+        '409':
+          description: There is not a route with that ID
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single route based on the ID supplied
+      operationId: deleteRouteById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of route to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Route deleted
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /trainings:
+    get:
+      description: Returns all trainings from the system
+      operationId: findTrainings
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of trainings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/training'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new training in the system
+      operationId: addTraining
+      produces:
+        - application/json
+      parameters:
+        - name: training
+          in: body
+          description: Training to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newTraining'
+      responses:
+        '200':
+          description: New training added
+          schema:
+            $ref: '#/definitions/training'
+        '409':
+          description: Failure to add a new training
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Failure to receive data from trainings
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all trainings from the system
+      operationId: deleteTrainings
+      responses:
+        '200':
+          description: All trainings deleted
+        '500':
+          description: There was an error when deleting the trainings
+          schema:
+              $ref: '#/definitions/error'
+  /trainings/{_id}:
+    get:
+      description: Returns a training based on a single ID
+      operationId: findTrainingById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of training to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Training response
+          schema:
+            $ref: '#/definitions/training'
+        '404':
+          description: There are not trainings to show
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Failure to receive data from trainings
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a training based on a single ID
+      operationId: editTrainingById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of training to edit
+          required: true
+          type: string
+        - name: training
+          in: body
+          description: Training to edit
+          required: true
+          schema:
+            $ref: '#/definitions/training'
+      responses:
+        '200':
+          description: Training modified successfully
+          schema:
+            $ref: '#/definitions/training'
+        '409':
+          description: The identifier is not correct
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: There is no training to update
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single training based on the ID supplied
+      operationId: deleteTrainingById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of training to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Training deleted
+        '500':
+          description: Failed to delete training
+          schema:
+            $ref: '#/definitions/error'
+definitions:
+  achievement:
+    type: object
+    required:
+      - _id
+      - name
+      - description
+      - url
+      - type
+      - type_value
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      type:
+        type: string
+      type_value:
+        type: string
+  newAchievement:
+    type: object
+    required:
+      - name
+      - description
+      - url
+      - type
+      - type_value
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      type:
+        type: string
+      type_value:
+        type: string
+  prize:
+    type: object
+    required:
+      - _id
+      - name
+      - description
+      - code
+      - type
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      code:
+        type: string
+      type:
+        type: string
+  newPrize:
+    type: object
+    required:
+      - name
+      - description
+      - code
+      - type
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      code:
+        type: string
+      type:
+        type: string
+  record:
+    type: object
+    required:
+      - _id
+      - meters
+      - sessions
+      - averageMeters
+      - calories
+      - totalTime
+    properties:
+      _id:
+        type: string
+      meters:
+        type: integer
+        format: int64
+      sessions:
+        type: integer
+        format: int64
+      averageMeters:
+        type: integer
+        format: int64
+      calories:
+        type: integer
+        format: int64
+      totalTime:
+        type: integer
+        format: int64
+  newRecord:
+    type: object
+    required:
+      - meters
+      - sessions
+      - averageMeters
+      - calories
+      - totalTime
+    properties:
+      _id:
+        type: string
+      meters:
+        type: integer
+        format: int64
+      sessions:
+        type: integer
+        format: int64
+      averageMeters:
+        type: integer
+        format: int64
+      calories:
+        type: integer
+        format: int64
+      totalTime:
+        type: integer
+        format: int64
+  route:
+    type: object
+    required:
+      - _id
+      - name
+      - type
+      - location
+      - length
+      - time
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      location:
+        type: string
+      length:
+        type: number
+        format: double
+      time:
+        type: integer
+        format: int64
+  newRoute:
+    type: object
+    required:
+      - name
+      - type
+      - location
+      - length
+      - time
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      location:
+        type: string
+      length:
+        type: number
+        format: double
+      time:
+        type: integer
+        format: int64
+  training:
+    type: object
+    required:
+      - _id
+      - start
+      - end
+      - averageHeartRate
+      - calories
+      - distance
+    properties:
+      _id:
+        type: string
+      start:
+        type: string
+      end:
+        type: string
+      averageHeartRate:
+        type: number
+        format: double
+      calories:
+        type: number
+        format: double
+      distance:
+        type: number
+        format: double
+  newTraining:
+    type: object
+    required:
+      - start
+      - end
+      - averageHeartRate
+      - calories
+      - distance
+    properties:
+      _id:
+        type: string
+      start:
+        type: string
+      end:
+        type: string
+      averageHeartRate:
+        type: number
+        format: double
+      calories:
+        type: number
+        format: double
+      distance:
+        type: number
+        format: double
+  error:
+    type: integer
+    format: int64
