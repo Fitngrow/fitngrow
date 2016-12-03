@@ -10,7 +10,8 @@ var expressSession = require('express-session');
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var cookieParser = require('cookie-parser');
-
+var swaggerExpress = require('swagger-express-mw');
+var SwaggerUi = require('swagger-tools/middleware/swagger-ui');
 // configuration =====================================
 
 // config files
@@ -63,6 +64,20 @@ db.users = new dataStore({
 });
 
 console.log("DB initialized.");
+
+// Configuración de swagger-tools
+var config = {
+    appRoot: __dirname
+};
+
+swaggerExpress.create(config, function (err, swaggerExpress) {
+    if (err) { throw err; }
+
+    // add swagger-ui
+    app.use(SwaggerUi(swaggerExpress.runner.swagger));
+
+    swaggerExpress.register(app);
+});
 
 // routes =============================================
 
