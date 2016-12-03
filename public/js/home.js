@@ -1,5 +1,6 @@
 angular.module("FitngrowApp")
-    .controller("Home", function($scope, $http){
-        //console.log("Welcome to Controller Home!");
+    .controller("Home", function($scope, $http, AuthService){
 
+        console.log("Hello Home Controller");
+        
     });

@@ -1,8 +1,14 @@
-<h1 style="text-align: center">Welcome to Fit&Grow</h1>
-
-<div ng-controller="CreateTraining">
-    <div ng-controller="NextAchievements">
-        <div ng-include src="'templates/create-training.html'"></div>
-        <div ng-include src="'templates/next-achievements.html'"></div>
+<div ng-if="currentUser">
+    <h1 style="text-align: center">Let's work!</h1>
+    <div ng-controller="CreateTraining">
+        <div ng-controller="NextAchievements">
+            <div ng-include src="'templates/create-training.html'"></div>
+            <div ng-include src="'templates/next-achievements.html'"></div>
+        </div>
     </div>
+</div>
+
+<div ng-if="!currentUser">
+    <h1 style="text-align: center">Welcome to Fit&Grow</h1>
+    <h4 style="text-align: center">Please log in!</h4>
 </div>

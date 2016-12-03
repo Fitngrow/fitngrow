@@ -1,6 +1,5 @@
 angular.module("FitngrowApp")
     .controller("ListAchievementsCtrl", function ($scope, $http) {
-        console.log("List controller initialized");
 
         // Info usuario provisional
         var meters = 12350;
