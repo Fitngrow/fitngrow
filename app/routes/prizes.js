@@ -4,105 +4,121 @@
  * @param apiroot ruta raiz para la api
  * @author Albert_FX91
  */
-module.exports = function(app, apiroot, db){
+module.exports = function (app, apiroot, db) {
 
-var dataStore = require('nedb');
-
-db.prizes.find({}, (err, prizes) => {
-        if(prizes.length == 0){
-            /* db.prizes.insert({ meters: 0, sessions: 0, averageMeters: 0, calories : 0, totalTime : 0}) */
-            db.prizes.insert([{name: '100 monedas', description: 'Has ganado un total de 100 monedas!', code: '54E68S234J', type: 'coins' },
-                            {name: '50 monedas', description: 'Has ganado un total de 50 monedas!', code: '43JJ98ZH3D', type: 'coins' },
-                            {name: 'Fit&Grow shirt', description: 'Has ganado una camiseta de fit&grow!', code: 'FLMIJ91KS1', type: 'shirt' }])
-            console.log("DB is empty. Added default prizes.");
+    db.prizes.find({}, (err, prizes) => {
+        if (prizes.length == 0) {
+            db.prizes.insert([
+                { _id: "1", idUser: "1", name: '100 monedas', description: 'Has ganado un total de 100 monedas!', code: '54E68S234J', type: 'coins' },
+                { _id: "2", idUser: "1", name: '50 monedas', description: 'Has ganado un total de 50 monedas!', code: '43JJ98ZH3D', type: 'coins' },
+                { _id: "3", idUser: "1", name: 'Fit&Grow shirt', description: 'Has ganado una camiseta de fit&grow!', code: 'FLMIJ91KS1', type: 'shirt' }
+            ])
+            console.log("A base prizes is created");
+        } else {
+            console.log("Loaded " + prizes.length + " prizes from the DB.");
         }
     });
 
+    /****Métodos****/
+
     // Recibir todos los premios almacenados en el sistema
-    app.get(apiroot+"/prizes",(req,res)=>{
-        db.prizes.find({},(err,prizes)=>{
-            if (err){
+    app.get(apiroot + "/prizes", (req, res) => {
+        db.prizes.find({}, (err, prizes) => {
+            if (err) {
                 res.sendStatus(500);
-            }else{
+            } else {
                 res.send(prizes);
             }
         })
     });
 
-    //Eliminar todos los premios almacenados en el sistema
-    app.delete(apiroot+"/prizes",(req,res)=>{
+    // Recibir un premio concreto
+    app.get(apiroot + "/prizes/:_id", (req, res) => {
         var _id = req.params._id;
 
-        db.prizes.remove({},{multi : true},(err,numRemoved)=>{
-            if (err){
+        db.prizes.find({ _id: _id }, (err, prizes) => {
+            if (err) {
                 res.sendStatus(500);
-            }else{
-                res.sendStatus(200);
+            } else {
+                if (prizes.length > 0)
+                    res.send(prizes[0]);
+                else
+                    res.sendStatus(404);
             }
         })
     });
 
     // Añadir un nuevo premio al sistema
-    app.post(apiroot+"/prizes",(req,res)=>{
+    app.post(apiroot + "/prizes", (req, res) => {
         var prize = req.body;
 
         var _id = prize._id;
-        db.prizes.find({_id : _id},(err,prizes)=>{
-        if (prizes.length == 0){
-            db.prizes.insert(prize);
-            res.sendStatus(200);
-        }else{
-            res.sendStatus(409);
-        }
-    })
-    });
-
-    // Recibir un premio concreto
-    app.get(apiroot+"/prizes/:_id",(req,res)=>{
-        var _id = req.params._id;
-
-        db.prizes.find({_id : _id},(err,prizes)=>{
-            if (err){
-                res.sendStatus(500);
-            }else{
-                if (prizes.length > 0)
-                    res.send(prizes[0]);
-                else
-                    res.sendStatus(404);
-            }   
-        })
-    });
-
-    //Eliminar un premio concreto
-    app.delete(apiroot+"/prizes/:_id",(req,res)=>{
-        var _id = req.params._id;
-
-        db.prizes.remove({_id : _id},{},(err,numRemoved)=>{
-            if (err){
-                res.sendStatus(500);
-            }else{
-                res.sendStatus(200);
+        db.prizes.find({ _id: _id }, (err, prizes) => {
+            if (prizes.length == 0) {
+                db.prizes.insert(prize);
+                res.sendStatus(201);
+            } else {
+                res.sendStatus(409);
             }
         })
     });
 
     // Actualizar un premio
-    app.put(apiroot+'/prizes/:_id', function(req, res){ 
+    app.put(apiroot + '/prizes/:_id', function (req, res) {
         var _id = req.params._id;
         var prize = req.body;
 
-        if(_id != prize._id){
+        if (_id != prize._id) {
             res.sendStatus(409);
             return;
         }
 
-        db.prizes.update({_id : _id},prize,(err,numUpdate)=>{
-            if (err){
-                res.sendStatus(500);
-                    }else{
-                        res.sendStatus(200);
-                    }
+        db.prizes.update({ _id: _id }, prize, (err, numUpdate) => {
+            if (err) {
+                    res.sendStatus(500);
+                    console.log("Error");
+            } else {
+				if (numUpdate == 0) {
+					console.log("Prize not found");
+					res.sendStatus(404);
+				} else {
+					console.log("Prize updated");
+					res.sendStatus(200);
+				}
+			}
         })
     });
 
+    //Eliminar todos los premios almacenados en el sistema
+    app.delete(apiroot + "/prizes", (req, res) => {
+        var _id = req.params._id;
+
+        db.prizes.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        })
+    });
+
+    //Eliminar un premio concreto
+    app.delete(apiroot + "/prizes/:_id", (req, res) => {
+        var _id = req.params._id;
+
+        db.prizes.remove({ _id: _id }, {}, (err, numRemoved) => {
+           if (err) {
+                res.sendStatus(500);
+                console.log("Error");
+            } else {
+				if (numRemoved == 0) {
+					console.log("Prize not found");
+					res.sendStatus(404);
+				}else{
+					res.sendStatus(200);
+					console.log("Prize deleted");
+				}
+            }
+        })
+    });
 };
