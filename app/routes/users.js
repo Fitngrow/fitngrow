@@ -35,7 +35,7 @@ module.exports = function (app, apiroot, db) {
     });
 
     /****Métodos****/
-    
+
     //Recibir todos los usuarios almacenados en el sistema
     app.get(apiroot + '/users', function (req, res) {
         console.log("GET /users requested.");
@@ -109,18 +109,18 @@ module.exports = function (app, apiroot, db) {
 
         //Actualizamos el usuario, si existe
         db.users.update({ _id: id }, user, function (err, numReplaced) {
-			if (err) {
-                    res.sendStatus(500);
-                    console.log("Error");
+            if (err) {
+                res.sendStatus(500);
+                console.log("Error");
             } else {
-				if (numReplaced == 0) {
-					console.log("User not found");
-					res.sendStatus(404);
-				} else {
-					console.log("User updated");
-					res.sendStatus(200);
-				}
-			}
+                if (numReplaced == 0) {
+                    console.log("User not found");
+                    res.sendStatus(404);
+                } else {
+                    console.log("User updated");
+                    res.sendStatus(200);
+                }
+            }
         });
 
     });
@@ -153,13 +153,13 @@ module.exports = function (app, apiroot, db) {
                 res.sendStatus(500);
                 console.log("Error");
             } else {
-				if (numRemoved == 0) {
-					console.log("User not found");
-					res.sendStatus(404);
-				}else{
-					res.sendStatus(200);
-					console.log("User deleted");
-				}
+                if (numRemoved == 0) {
+                    console.log("User not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                    console.log("User deleted");
+                }
             }
         });
 

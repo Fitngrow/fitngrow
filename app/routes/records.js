@@ -45,6 +45,22 @@ module.exports = function (app, apiroot, db) {
         })
     });
 
+    // Recibir el historial de un usuario
+    app.get(apiroot + "/records/user/:idUser", (req, res) => {
+        var idUser = req.params.idUser;
+
+        db.records.find({ idUser: idUser }, (err, records) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                if (records.length > 0)
+                    res.send(records);
+                else
+                    res.sendStatus(404);
+            }
+        })
+    });
+
     // Añadir un nuevo historial
     app.post(apiroot + "/records", (req, res) => {
         var record = req.body;

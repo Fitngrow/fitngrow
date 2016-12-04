@@ -9,9 +9,9 @@ module.exports = function (app, apiroot, db) {
     db.prizes.find({}, (err, prizes) => {
         if (prizes.length == 0) {
             db.prizes.insert([
-                { _id: "1", idUser: "1", name: '100 monedas', description: 'Has ganado un total de 100 monedas!', code: '54E68S234J', type: 'coins' },
-                { _id: "2", idUser: "1", name: '50 monedas', description: 'Has ganado un total de 50 monedas!', code: '43JJ98ZH3D', type: 'coins' },
-                { _id: "3", idUser: "1", name: 'Fit&Grow shirt', description: 'Has ganado una camiseta de fit&grow!', code: 'FLMIJ91KS1', type: 'shirt' }
+                { _id: "1", idUser: "1", name: '100 coins', description: 'You have won a total of 100 coins!', code: '54E68S234J', type: 'coins' },
+                { _id: "2", idUser: "1", name: '50 coins', description: 'You have won a total of 50 coins!', code: '43JJ98ZH3D', type: 'coins' },
+                { _id: "3", idUser: "1", name: 'Fit&Grow shirt', description: 'You have won a shirt of fit&grow!', code: 'FLMIJ91KS1', type: 'shirt' }
             ])
             console.log("A base prizes is created");
         } else {
@@ -48,6 +48,22 @@ module.exports = function (app, apiroot, db) {
         })
     });
 
+    // Recibir los premios de un usuario
+    app.get(apiroot + "/prizes/user/:idUser", (req, res) => {
+        var idUser = req.params.idUser;
+
+        db.prizes.find({ idUser: idUser }, (err, prizes) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                if (prizes.length > 0)
+                    res.send(prizes);
+                else
+                    res.sendStatus(404);
+            }
+        })
+    });
+
     // Añadir un nuevo premio al sistema
     app.post(apiroot + "/prizes", (req, res) => {
         var prize = req.body;
@@ -75,17 +91,17 @@ module.exports = function (app, apiroot, db) {
 
         db.prizes.update({ _id: _id }, prize, (err, numUpdate) => {
             if (err) {
-                    res.sendStatus(500);
-                    console.log("Error");
+                res.sendStatus(500);
+                console.log("Error");
             } else {
-				if (numUpdate == 0) {
-					console.log("Prize not found");
-					res.sendStatus(404);
-				} else {
-					console.log("Prize updated");
-					res.sendStatus(200);
-				}
-			}
+                if (numUpdate == 0) {
+                    console.log("Prize not found");
+                    res.sendStatus(404);
+                } else {
+                    console.log("Prize updated");
+                    res.sendStatus(200);
+                }
+            }
         })
     });
 
@@ -107,17 +123,17 @@ module.exports = function (app, apiroot, db) {
         var _id = req.params._id;
 
         db.prizes.remove({ _id: _id }, {}, (err, numRemoved) => {
-           if (err) {
+            if (err) {
                 res.sendStatus(500);
                 console.log("Error");
             } else {
-				if (numRemoved == 0) {
-					console.log("Prize not found");
-					res.sendStatus(404);
-				}else{
-					res.sendStatus(200);
-					console.log("Prize deleted");
-				}
+                if (numRemoved == 0) {
+                    console.log("Prize not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                    console.log("Prize deleted");
+                }
             }
         })
     });

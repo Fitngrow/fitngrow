@@ -51,6 +51,26 @@ module.exports = function (app, apiroot, db) {
         });
     });
 
+    //Método que recibe los entrenamientos de un usuario
+    app.get(apiroot + '/trainings/user/:idUser', function (req, res) {
+        // Se recoge el id pasado
+        var idUser = req.params.idUser;
+
+        db.trainings.find({ idUser: idUser }, function (err, trainings) {
+            if (err) {
+                res.sendStatus(500);
+                console.log("Error");
+            } else {
+                if (trainings.length > 0) {
+                    res.send(trainings);
+                } else {
+                    res.sendStatus(404);
+                    console.log("Training not found");
+                }
+            }
+        });
+    });
+
     //Método que añade un entrenamiento
     app.post(apiroot + '/trainings', function (req, res) {
         var training = req.body;
@@ -64,7 +84,7 @@ module.exports = function (app, apiroot, db) {
                 console.log("training added");
                 db.records.find({}, function (err, records) {
                     if (err) {
-                       // res.sendStatus(500);
+                        // res.sendStatus(500);
                         console.log("Error");
                     } else {
                         if (records.length > 0) {
@@ -84,15 +104,15 @@ module.exports = function (app, apiroot, db) {
                             var record = records[0];
                             db.records.update({}, record, function (err, numRemoved) {
                                 if (err) {
-                                   // res.sendStatus(500);
+                                    // res.sendStatus(500);
                                     console.log("Error");
-                                } else {                                    
+                                } else {
                                     //res.sendStatus(200);
                                     console.log("Record updated");
                                 }
                             });
                         } else {
-                             res.sendStatus(404);
+                            res.sendStatus(404);
                             console.log("Record not found");
                         }
                     }
@@ -104,7 +124,7 @@ module.exports = function (app, apiroot, db) {
             }
         });
     });
- //Método que actualiza un entrenamiento
+    //Método que actualiza un entrenamiento
     app.put(apiroot + '/trainings/:_id', function (req, res) {
         var _id = req.params._id;
         var training = req.body;
@@ -116,17 +136,17 @@ module.exports = function (app, apiroot, db) {
 
         db.trainings.update({ _id: _id }, training, (err, numUpdate) => {
             if (err) {
-                    res.sendStatus(500);
-                    console.log("Error");
+                res.sendStatus(500);
+                console.log("Error");
             } else {
-				if (numUpdate == 0) {
-					console.log("Training not found");
-					res.sendStatus(404);
-				} else {
-					console.log("Training updated");
-					res.sendStatus(200);
-				}
-			}
+                if (numUpdate == 0) {
+                    console.log("Training not found");
+                    res.sendStatus(404);
+                } else {
+                    console.log("Training updated");
+                    res.sendStatus(200);
+                }
+            }
         })
     });
     //Método que elimina todos los entrenamientos
@@ -156,13 +176,13 @@ module.exports = function (app, apiroot, db) {
                 res.sendStatus(500);
                 console.log("Error");
             } else {
-				if (numRemoved == 0) {
-					console.log("Training not found");
-					res.sendStatus(404);
-				}else{
-					res.sendStatus(200);
-					console.log("Training deleted");
-				}
+                if (numRemoved == 0) {
+                    console.log("Training not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                    console.log("Training deleted");
+                }
             }
         });
     });

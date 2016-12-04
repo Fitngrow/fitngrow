@@ -5,7 +5,7 @@
  * @param db Base de datos del servidor
  * @author David López Chica AKA Fasgort
  */
-module.exports = function(app, apiroot, db) {
+module.exports = function (app, apiroot, db) {
 
     //Creación de seis objetos por defecto en la base de datos
     db.achievements.find({}, (err, achievements) => {
@@ -45,7 +45,7 @@ module.exports = function(app, apiroot, db) {
     /****Métodos****/
 
     //Recibir todos los logros almacenados en el sistema
-    app.get(apiroot + '/achievements', function(req, res) {
+    app.get(apiroot + '/achievements', function (req, res) {
         console.log("GET /achievements requested.");
 
         //Recibimos todos los logros
@@ -59,14 +59,14 @@ module.exports = function(app, apiroot, db) {
     });
 
     //Recibir un logro concreto
-    app.get(apiroot + '/achievements/:id', function(req, res) {
+    app.get(apiroot + '/achievements/:id', function (req, res) {
         console.log("GET /achievement/" + req.params.id + " requested.");
 
         //Recogemos el id que vamos a capturar desde la URI
         var id = req.params.id;
 
         //Buscamos el logro por el id
-        db.achievements.findOne({ _id: id }, function(err, achievement) {
+        db.achievements.findOne({ _id: id }, function (err, achievement) {
             if (achievement == null) {
                 console.log("Achievement not found.");
                 res.sendStatus(404);
@@ -79,7 +79,7 @@ module.exports = function(app, apiroot, db) {
     });
 
     //Añadir un nuevo logro al sistema
-    app.post(apiroot + '/achievements', function(req, res) {
+    app.post(apiroot + '/achievements', function (req, res) {
         console.log("POST /achievements requested.");
 
         //Recogemos el logro que hemos recibido
@@ -89,7 +89,7 @@ module.exports = function(app, apiroot, db) {
         var id = achievement._id;
 
         //Buscamos si el logro no existe, y lo añadimos
-        db.achievements.findOne({ _id: id }, function(err, existing_achievement) {
+        db.achievements.findOne({ _id: id }, function (err, existing_achievement) {
             if (existing_achievement == null) {
                 db.achievements.insert(achievement);
                 console.log("Achievement added: " + req.body.name);
@@ -103,7 +103,7 @@ module.exports = function(app, apiroot, db) {
     });
 
     //Actualizamos un logro
-    app.put(apiroot + '/achievements/:id', function(req, res) {
+    app.put(apiroot + '/achievements/:id', function (req, res) {
 
         //Recogemos el logro que hemos recibido
         var achievement = req.body;
@@ -119,24 +119,24 @@ module.exports = function(app, apiroot, db) {
         }
 
         //Actualizamos el logro, si existe
-        db.achievements.update({ _id: id }, achievement, function(err, numReplaced) {
+        db.achievements.update({ _id: id }, achievement, function (err, numReplaced) {
             if (err) {
-                    res.sendStatus(500);                    
+                res.sendStatus(500);
             } else {
-				if (numReplaced == 0) {
-					console.log("Achievement not found");
-					res.sendStatus(404);
-				} else {
-					console.log("Achievement updated");
-					res.sendStatus(200);
-				}
-			}
+                if (numReplaced == 0) {
+                    console.log("Achievement not found");
+                    res.sendStatus(404);
+                } else {
+                    console.log("Achievement updated");
+                    res.sendStatus(200);
+                }
+            }
         });
 
     });
 
     //Eliminar todos los logros almacenados en el sistema
-    app.delete(apiroot + '/achievements/', function(req, res) {
+    app.delete(apiroot + '/achievements/', function (req, res) {
         console.log("DELETE /achievements requested.");
 
         //Eliminamos todos los logros
@@ -151,25 +151,25 @@ module.exports = function(app, apiroot, db) {
     });
 
     //Eliminar un logro concreto
-    app.delete(apiroot + '/achievements/:id', function(req, res) {
+    app.delete(apiroot + '/achievements/:id', function (req, res) {
         console.log("DELETE /achievements/" + req.params.id + " requested.");
 
         //Recogemos el id que vamos a capturar desde la URI
         var id = req.params.id;
 
         //Borramos el logro, si existe
-        db.achievements.remove({ _id: id }, {}, function(err, numRemoved) {
-             if (err) {
+        db.achievements.remove({ _id: id }, {}, function (err, numRemoved) {
+            if (err) {
                 res.sendStatus(500);
                 console.log("Error");
             } else {
-				if (numRemoved == 0) {
-					console.log("Achievement not found");
-					res.sendStatus(404);
-				}else{
-					res.sendStatus(200);
-					console.log("Achievement deleted");
-				}
+                if (numRemoved == 0) {
+                    console.log("Achievement not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                    console.log("Achievement deleted");
+                }
             }
         });
 
