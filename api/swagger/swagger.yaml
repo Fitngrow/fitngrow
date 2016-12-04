@@ -1,0 +1,1211 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Fit&Grow
+  description: This is the API for Fit&Grow, which is a sport activity monitoring system which allows the user to store his or her workouts, check his or her history and opt for achievements
+  contact:
+    name: Fit&Grow API team
+    email: fitngrow2016@gmail.com
+basePath: /api/v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /achievements:
+    get:
+      description: Returns all achievements from the system
+      operationId: findAchievements
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of achievements
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/achievement'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new achievement in the system
+      operationId: addAchievement
+      produces:
+        - application/json
+      parameters:
+        - name: achievement
+          in: body
+          description: Achievement to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newAchievement'
+      responses:
+        '201':
+          description: Achievement added
+          schema:
+            $ref: '#/definitions/achievement'
+        '409':
+          description: An achievement with the same ID already exists.
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all achievements from the system
+      operationId: deleteAchievements
+      responses:
+        '200':
+          description: Deleted achievements.
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /achievements/{_id}:
+    get:
+      description: Returns an achievement based on a single ID
+      operationId: findAchievementById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of achievement to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Achievement found and returned succesfully.
+          schema:
+            $ref: '#/definitions/achievement'
+        '404':
+          description: Achievement not found.
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a record based on a single ID
+      operationId: editAchievementById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of achievement to edit
+          required: true
+          type: string
+        - name: record
+          in: body
+          description: Achievement to edit
+          required: true
+          schema:
+            $ref: '#/definitions/achievement'
+      responses:
+        '200':
+          description: Achievement updated
+          schema:
+            $ref: '#/definitions/achievement'
+        '404':
+          description: Achievement not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: Request ID and body ID are different.
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single achievement based on the ID supplied
+      operationId: deleteAchievementById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of achievement to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Achievement deleted successfully.
+        '404':
+          description: Achievement not found.
+          schema:
+            $ref: '#/definitions/error'
+  /prizes:
+    get:
+      description: Returns all prizes from the system
+      operationId: findPrizes
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of prizes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/prize'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new prize in the system
+      operationId: addPrize
+      produces:
+        - application/json
+      parameters:
+        - name: prize
+          in: body
+          description: Prize to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newPrize'
+      responses:
+        '201':
+          description: Prize response
+          schema:
+            $ref: '#/definitions/prize'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all prizes from the system
+      operationId: deletePrizes
+      responses:
+        '200':
+          description: Prizes deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /prizes/{_id}:
+    get:
+      description: Returns a prize based on a single ID
+      operationId: findPrizeById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of prize to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Prize response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: There are not prizes in the system
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a prize based on a single ID
+      operationId: editPrizeById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of prize to edit
+          required: true
+          type: string
+        - name: prize
+          in: body
+          description: Prize to edit
+          required: true
+          schema:
+            $ref: '#/definitions/prize'
+      responses:
+        '200':
+          description: Prize updated
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: Prize not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: There is not a prize with that ID
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single prize based on the ID supplied
+      operationId: deletePrizeById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of prize to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Prize deleted
+        '404':
+          description: Prize not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /prizes/user/{_id}:
+    get:
+      description: Returns the prizes of an user based on his or her ID
+      operationId: findPrizesByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose prizes are requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Prize response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: The user does not have any prizes
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /records:
+    get:
+      description: Returns all records from the system
+      operationId: findRecords
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of records
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/record'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new record in the system
+      operationId: addRecord
+      produces:
+        - application/json
+      parameters:
+        - name: record
+          in: body
+          description: Record to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newRecord'
+      responses:
+        '201':
+          description: Record response
+          schema:
+            $ref: '#/definitions/record'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all records from the system
+      operationId: deleteRecords
+      responses:
+        '200':
+          description: Records deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /records/{_id}:
+    get:
+      description: Returns a record based on a single ID
+      operationId: findRecordById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of record to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/record'
+        '404':
+          description: There are not records in the system
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a record based on a single ID
+      operationId: editRecordById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of record to edit
+          required: true
+          type: string
+        - name: record
+          in: body
+          description: Record to edit
+          required: true
+          schema:
+            $ref: '#/definitions/record'
+      responses:
+        '200':
+          description: Record updated
+          schema:
+            $ref: '#/definitions/record'
+        '404':
+          description: Record not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: There is not a record with that ID
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single record based on the ID supplied
+      operationId: deleteRecordById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of record to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Record deleted
+        '404':
+          description: Record not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /records/user/{_id}:
+    get:
+      description: Returns the record of an user based on his or her ID
+      operationId: findRecordByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose record is requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: The user does not have a record
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /routes:
+    get:
+      description: Returns all routes from the system
+      operationId: findRoutes
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of routes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/route'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new route in the system
+      operationId: addRoute
+      produces:
+        - application/json
+      parameters:
+        - name: route
+          in: body
+          description: Route to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newRoute'
+      responses:
+        '201':
+          description: Route response
+          schema:
+            $ref: '#/definitions/route'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all routes from the system
+      operationId: deleteRoutes
+      responses:
+        '200':
+          description: Routes deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /routes/{_id}:
+    get:
+      description: Returns a route based on a single ID
+      operationId: findRouteById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of route to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Route response
+          schema:
+            $ref: '#/definitions/route'
+        '404':
+          description: There are not routes in the system
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a route based on a single ID
+      operationId: editRouteById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of route to edit
+          required: true
+          type: string
+        - name: route
+          in: body
+          description: Route to edit
+          required: true
+          schema:
+            $ref: '#/definitions/route'
+      responses:
+        '200':
+          description: Route updated
+          schema:
+            $ref: '#/definitions/route'
+        '404':
+          description: Route not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: There is not a route with that ID
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single route based on the ID supplied
+      operationId: deleteRouteById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of route to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Route deleted
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /routes/user/{_id}:
+    get:
+      description: Returns the routes of an user based on his or her ID
+      operationId: findRoutesdByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose routes are requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Route response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: The user does not have any routes
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /trainings:
+    get:
+      description: Returns all trainings from the system
+      operationId: findTrainings
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of trainings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/training'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new training in the system
+      operationId: addTraining
+      produces:
+        - application/json
+      parameters:
+        - name: training
+          in: body
+          description: Training to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newTraining'
+      responses:
+        '201':
+          description: Training added
+          schema:
+            $ref: '#/definitions/training'
+        '409':
+          description: A training with the same ID already exists
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all trainings from the system
+      operationId: deleteTrainings
+      responses:
+        '200':
+          description: Trainings deleted
+        '500':
+          description: Error
+          schema:
+              $ref: '#/definitions/error'
+  /trainings/{_id}:
+    get:
+      description: Returns a training based on a single ID
+      operationId: findTrainingById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of training to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Training response
+          schema:
+            $ref: '#/definitions/training'
+        '404':
+          description: Training not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a training based on a single ID
+      operationId: editTrainingById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of training to edit
+          required: true
+          type: string
+        - name: training
+          in: body
+          description: Training to edit
+          required: true
+          schema:
+            $ref: '#/definitions/training'
+      responses:
+        '200':
+          description: Training updated
+          schema:
+            $ref: '#/definitions/training'
+        '404':
+          description: Training not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: The identifier is not correct
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single training based on the ID supplied
+      operationId: deleteTrainingById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of training to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Training deleted
+        '404':
+          description: Training not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /trainings/user/{_id}:
+    get:
+      description: Returns the traininf of an user based on his or her ID
+      operationId: findTrainingsdByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose trainings are requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Training response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: Training not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /users:
+    get:
+      description: Returns all users from the system
+      operationId: findUsers
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new user in the system
+      operationId: addUser
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          description: User to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newUser'
+      responses:
+        '201':
+          description: User response
+          schema:
+            $ref: '#/definitions/user'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all users from the system
+      operationId: deleteUsers
+      responses:
+        '200':
+          description: Users deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /users/{_id}:
+    get:
+      description: Returns an user based on a single ID
+      operationId: findUserById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of user to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User found and returned succesfully.
+          schema:
+            $ref: '#/definitions/user'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits an user based on a single ID
+      operationId: editUserById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of user to edit
+          required: true
+          type: string
+        - name: user
+          in: body
+          description: User to edit
+          required: true
+          schema:
+            $ref: '#/definitions/user'
+      responses:
+        '200':
+          description: User updated
+          schema:
+            $ref: '#/definitions/user'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: Request ID and body ID are different.
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single user based on the ID supplied
+      operationId: deleteUserById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of user to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User deleted
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /users/service/status:
+    get:
+      description: Checks whether the user making the request is logged in or not, as well as the user information
+      operationId: status
+      responses:
+        '200':
+          description: Description
+  /users/service/login:
+    post:
+      description: Log in using a username and password
+      operationId: login
+      responses:
+        '200':
+          description: Description
+  /users/service/logout:
+    put:
+      description: Disconnect the requesting user
+      operationId: logout
+      responses:
+        '200':
+          description: Description
+definitions:
+  achievement:
+    type: object
+    required:
+      - _id
+      - name
+      - description
+      - url
+      - url_achieved
+      - type
+      - type_value
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      url_achieved:
+        type: string
+      type:
+        type: string
+      type_value:
+        type: string
+  newAchievement:
+    type: object
+    required:
+      - name
+      - description
+      - url
+      - url_achieved
+      - type
+      - type_value
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      url_achieved:
+        type: string
+      type:
+        type: string
+      type_value:
+        type: string
+  prize:
+    type: object
+    required:
+      - _id
+      - idUser
+      - name
+      - description
+      - code
+      - type
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      name:
+        type: string
+      description:
+        type: string
+      code:
+        type: string
+      type:
+        type: string
+  newPrize:
+    type: object
+    required:
+      - idUser
+      - name
+      - description
+      - code
+      - type
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      name:
+        type: string
+      description:
+        type: string
+      code:
+        type: string
+      type:
+        type: string
+  record:
+    type: object
+    required:
+      - _id
+      - idUser
+      - distance
+      - sessions
+      - averageDistance
+      - calories
+      - totalTime
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      distance:
+        type: number
+        format: double
+      sessions:
+        type: integer
+        format: int64
+      averageDistance:
+        type: number
+        format: double
+      calories:
+        type: number
+        format: double
+      totalTime:
+        type: number
+        format: double
+  newRecord:
+    type: object
+    required:
+      - idUser
+      - distance
+      - sessions
+      - averageDistance
+      - calories
+      - totalTime
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      distance:
+        type: number
+        format: double
+      sessions:
+        type: integer
+        format: int64
+      averageDistance:
+        type: number
+        format: double
+      calories:
+        type: number
+        format: double
+      totalTime:
+        type: number
+        format: double
+  route:
+    type: object
+    required:
+      - _id
+      - idUser
+      - idSport
+      - name
+      - type
+      - location
+      - length
+      - time
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
+      name:
+        type: string
+      type:
+        type: string
+      location:
+        type: string
+      length:
+        type: number
+        format: double
+      time:
+        type: integer
+        format: int64
+  newRoute:
+    type: object
+    required:
+      - idUser
+      - idSport
+      - name
+      - type
+      - location
+      - length
+      - time
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
+      name:
+        type: string
+      type:
+        type: string
+      location:
+        type: string
+      length:
+        type: number
+        format: double
+      time:
+        type: integer
+        format: int64
+  training:
+    type: object
+    required:
+      - _id
+      - idUser
+      - idSport
+      - start
+      - end
+      - calories
+      - distance
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
+      start:
+        type: string
+      end:
+        type: string
+      calories:
+        type: number
+        format: double
+      distance:
+        type: number
+        format: double
+  newTraining:
+    type: object
+    required:
+      - idUser
+      - idSport
+      - start
+      - end
+      - calories
+      - distance
+    properties:
+      _id:
+        type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
+      start:
+        type: string
+      end:
+        type: string
+      calories:
+        type: number
+        format: double
+      distance:
+        type: number
+        format: double
+  user:
+    type: object
+    required:
+      - _id
+      - fullName
+      - username
+      - password
+      - email
+      - birthdate
+      - height
+      - weight
+    properties:
+      _id:
+        type: string
+      fullName:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      birthdate:
+        type: string
+      height:
+        type: number
+        format: double
+      weight:
+        type: number
+        format: double
+  newUser:
+    type: object
+    required:
+      - fullName
+      - username
+      - password
+      - email
+      - birthdate
+      - height
+      - weight
+    properties:
+      _id:
+        type: string
+      fullName:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      birthdate:
+        type: string
+      height:
+        type: number
+        format: double
+      weight:
+        type: number
+        format: double
+  error:
+    type: integer
+    format: int64
