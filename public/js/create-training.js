@@ -1,16 +1,17 @@
 angular.module("FitngrowApp")
-    .controller("CreateTraining", function($scope, $http, $timeout) {
+    .controller("CreateTraining", function ($scope, $http, $timeout) {
 
         refresh();
 
-        $scope.startTraining = function() {
+        $scope.startTraining = function () {
             $scope.newTraining.start = new Date();
             $scope.hideStart = true;
             $scope.hideEnd = false;
+            runningNow = true;
 
             var time = 0;
-            var countUp = function() {
-                
+            var countUp = function () {
+
                 var sec = time % 60;
                 sec = Math.floor(sec);
 
@@ -28,7 +29,7 @@ angular.module("FitngrowApp")
                     sec = "0" + sec
                 }
 
-                if (!$scope.hideEnd) { // Preferible hacer una variable boolean de running
+                if (runningNow) {
                     $scope.totalTime = hr + ":" + min + ":" + sec
                     time += 1;
                     $timeout(countUp, 1000);
@@ -37,17 +38,18 @@ angular.module("FitngrowApp")
             $timeout(countUp, 1);
 
         };
-        $scope.endTraining = function() {
+        $scope.endTraining = function () {
             $scope.newTraining.end = new Date();
             $scope.hideEnd = true;
             $scope.hideTrainingForm = false;
+            runningNow = false;
 
             $scope.totalTime = getTotalTime()
         };
-        $scope.resetTraining = function() {
+        $scope.resetTraining = function () {
             refresh()
         };
-        $scope.saveTraining = function() {
+        $scope.saveTraining = function () {
             var newTraining = $scope.newTraining;
 
             $http.post("/api/v1/trainings", newTraining).success((e) => {
