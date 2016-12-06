@@ -865,7 +865,7 @@ paths:
         '200':
           description: Description
   /users/service/logout:
-    put:
+    get:
       description: Disconnect the requesting user
       operationId: logout
       responses:
