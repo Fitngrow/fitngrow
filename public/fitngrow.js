@@ -3,18 +3,51 @@ angular.module("FitngrowApp", ["ngRoute"])
         $routeProvider
             .when("/", {
                 controller: "Home",
-                templateUrl: "templates/home.html"
+                templateUrl: "templates/home.html",
+                access: {restricted: false}
+            })
+            .when("/login", {
+                controller: "LoginCtrl",
+                templateUrl: "templates/login.html",
+                access: {restricted: false}
             })
             .when("/achievements", {
                 controller: "ListAchievementsCtrl",
-                templateUrl: "templates/listachievements.html"
+                templateUrl: "templates/listachievements.html",
+                access: {restricted: true}
             })
             .when("/records", {
                 controller: "ListRecordsCtrl",
-                templateUrl: "templates/listrecords.html"
+                templateUrl: "templates/listrecords.html",
+                access: {restricted: true}
             })
             .when("/trainingsRecord", {
                 controller: "ListTrainingsCtrl",
-                templateUrl: "templates/listtrainings.html"
+                templateUrl: "templates/listtrainings.html",
+                access: {restricted: true}
             })
+
+    })
+    /*
+        A continuación definimos que cada vez que, se cambie de una ruta a otra,
+        se compruebe si es una ruta restringida, accediendo al atributo access.restricted.
+        En el caso de que sea restringido y no estemos logueados, entonces enviamos a la vista de login.
+   
+     */
+    .run(function($rootScope, $location, $route, AuthService){
+        $rootScope.$on('$routeChangeStart',
+            function (event, next, current) {
+                AuthService.getUserStatus()
+                    .then(function(){
+                        if (next.access && next.access.restricted && !AuthService.isLoggedIn()){
+                            $location.path('/login');
+                            $route.reload();
+                        }
+
+                        //Definimos que cuando queramos ir a login, pero estemos logeados, entonces nos mande a la raiz
+                        if(AuthService.isLoggedIn() && next.originalPath === "/login"){
+                            $location.path('/');
+                        }
+                    });
+            });
     });
