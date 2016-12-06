@@ -101,17 +101,21 @@ paths:
             $ref: '#/definitions/achievement'
       responses:
         '200':
-          description: Achievement updated successfully.
+          description: Achievement updated
           schema:
             $ref: '#/definitions/achievement'
         '404':
-          description: Achievement not found. 
+          description: Achievement not found
           schema:
             $ref: '#/definitions/error'
         '409':
           description: Request ID and body ID are different.
           schema:
             $ref: '#/definitions/error'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
     delete:
       description: Deletes a single achievement based on the ID supplied
       operationId: deleteAchievementById
@@ -161,7 +165,7 @@ paths:
           schema:
             $ref: '#/definitions/newPrize'
       responses:
-        '200':
+        '201':
           description: Prize response
           schema:
             $ref: '#/definitions/prize'
@@ -219,15 +223,19 @@ paths:
             $ref: '#/definitions/prize'
       responses:
         '200':
-          description: Record response
+          description: Prize updated
           schema:
             $ref: '#/definitions/prize'
+        '404':
+          description: Prize not found
+          schema:
+            $ref: '#/definitions/error'
         '409':
           description: There is not a prize with that ID
           schema:
             $ref: '#/definitions/error'
         '500':
-          description: Unexpected error
+          description: Error
           schema:
             $ref: '#/definitions/error'
     delete:
@@ -242,6 +250,33 @@ paths:
       responses:
         '200':
           description: Prize deleted
+        '404':
+          description: Prize not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /prizes/user/{_id}:
+    get:
+      description: Returns the prizes of an user based on his or her ID
+      operationId: findPrizesByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose prizes are requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Prize response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: The user does not have any prizes
+          schema:
+            $ref: '#/definitions/error'
         '500':
           description: Unexpected error
           schema:
@@ -279,7 +314,7 @@ paths:
           schema:
             $ref: '#/definitions/newRecord'
       responses:
-        '200':
+        '201':
           description: Record response
           schema:
             $ref: '#/definitions/record'
@@ -337,15 +372,19 @@ paths:
             $ref: '#/definitions/record'
       responses:
         '200':
-          description: Record response
+          description: Record updated
           schema:
             $ref: '#/definitions/record'
+        '404':
+          description: Record not found
+          schema:
+            $ref: '#/definitions/error'
         '409':
           description: There is not a record with that ID
           schema:
             $ref: '#/definitions/error'
         '500':
-          description: Unexpected error
+          description: Error
           schema:
             $ref: '#/definitions/error'
     delete:
@@ -360,6 +399,33 @@ paths:
       responses:
         '200':
           description: Record deleted
+        '404':
+          description: Record not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /records/user/{_id}:
+    get:
+      description: Returns the record of an user based on his or her ID
+      operationId: findRecordByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose record is requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Record response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: The user does not have a record
+          schema:
+            $ref: '#/definitions/error'
         '500':
           description: Unexpected error
           schema:
@@ -397,7 +463,7 @@ paths:
           schema:
             $ref: '#/definitions/newRoute'
       responses:
-        '200':
+        '201':
           description: Route response
           schema:
             $ref: '#/definitions/route'
@@ -455,15 +521,19 @@ paths:
             $ref: '#/definitions/route'
       responses:
         '200':
-          description: Route response
+          description: Route updated
           schema:
             $ref: '#/definitions/route'
+        '404':
+          description: Route not found
+          schema:
+            $ref: '#/definitions/error'
         '409':
           description: There is not a route with that ID
           schema:
             $ref: '#/definitions/error'
         '500':
-          description: Unexpected error
+          description: Error
           schema:
             $ref: '#/definitions/error'
     delete:
@@ -478,6 +548,29 @@ paths:
       responses:
         '200':
           description: Route deleted
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+  /routes/user/{_id}:
+    get:
+      description: Returns the routes of an user based on his or her ID
+      operationId: findRoutesdByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose routes are requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Route response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: The user does not have any routes
+          schema:
+            $ref: '#/definitions/error'
         '500':
           description: Unexpected error
           schema:
@@ -515,16 +608,16 @@ paths:
           schema:
             $ref: '#/definitions/newTraining'
       responses:
-        '200':
-          description: New training added
+        '201':
+          description: Training added
           schema:
             $ref: '#/definitions/training'
         '409':
-          description: Failure to add a new training
+          description: A training with the same ID already exists
           schema:
             $ref: '#/definitions/error'
         '500':
-          description: Failure to receive data from trainings
+          description: Error
           schema:
             $ref: '#/definitions/error'
     delete:
@@ -532,9 +625,9 @@ paths:
       operationId: deleteTrainings
       responses:
         '200':
-          description: All trainings deleted
+          description: Trainings deleted
         '500':
-          description: There was an error when deleting the trainings
+          description: Error
           schema:
               $ref: '#/definitions/error'
   /trainings/{_id}:
@@ -553,11 +646,11 @@ paths:
           schema:
             $ref: '#/definitions/training'
         '404':
-          description: There are not trainings to show
+          description: Training not found
           schema:
             $ref: '#/definitions/error'
         '500':
-          description: Failure to receive data from trainings
+          description: Error
           schema:
             $ref: '#/definitions/error'
     put:
@@ -577,15 +670,19 @@ paths:
             $ref: '#/definitions/training'
       responses:
         '200':
-          description: Training modified successfully
+          description: Training updated
           schema:
             $ref: '#/definitions/training'
+        '404':
+          description: Training not found
+          schema:
+            $ref: '#/definitions/error'
         '409':
           description: The identifier is not correct
           schema:
             $ref: '#/definitions/error'
         '500':
-          description: There is no training to update
+          description: Error
           schema:
             $ref: '#/definitions/error'
     delete:
@@ -600,10 +697,180 @@ paths:
       responses:
         '200':
           description: Training deleted
-        '500':
-          description: Failed to delete training
+        '404':
+          description: Training not found
           schema:
             $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /trainings/user/{_id}:
+    get:
+      description: Returns the traininf of an user based on his or her ID
+      operationId: findTrainingsdByUserId
+      parameters:
+        - name: _id
+          in: path
+          description: ID of the user whose trainings are requested
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Training response
+          schema:
+            $ref: '#/definitions/prize'
+        '404':
+          description: Training not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /users:
+    get:
+      description: Returns all users from the system
+      operationId: findUsers
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new user in the system
+      operationId: addUser
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          description: User to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newUser'
+      responses:
+        '201':
+          description: User response
+          schema:
+            $ref: '#/definitions/user'
+        '409':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all users from the system
+      operationId: deleteUsers
+      responses:
+        '200':
+          description: Users deleted
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+  /users/{_id}:
+    get:
+      description: Returns an user based on a single ID
+      operationId: findUserById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of user to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User found and returned succesfully.
+          schema:
+            $ref: '#/definitions/user'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits an user based on a single ID
+      operationId: editUserById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of user to edit
+          required: true
+          type: string
+        - name: user
+          in: body
+          description: User to edit
+          required: true
+          schema:
+            $ref: '#/definitions/user'
+      responses:
+        '200':
+          description: User updated
+          schema:
+            $ref: '#/definitions/user'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: Request ID and body ID are different.
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single user based on the ID supplied
+      operationId: deleteUserById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of user to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User deleted
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+  /users/service/status:
+    get:
+      description: Checks whether the user making the request is logged in or not, as well as the user information
+      operationId: status
+      responses:
+        '200':
+          description: Description
+  /users/service/login:
+    post:
+      description: Log in using a username and password
+      operationId: login
+      responses:
+        '200':
+          description: Description
+  /users/service/logout:
+    get:
+      description: Disconnect the requesting user
+      operationId: logout
+      responses:
+        '200':
+          description: Description
 definitions:
   achievement:
     type: object
@@ -612,6 +879,7 @@ definitions:
       - name
       - description
       - url
+      - url_achieved
       - type
       - type_value
     properties:
@@ -622,6 +890,8 @@ definitions:
       description:
         type: string
       url:
+        type: string
+      url_achieved:
         type: string
       type:
         type: string
@@ -633,6 +903,7 @@ definitions:
       - name
       - description
       - url
+      - url_achieved
       - type
       - type_value
     properties:
@@ -644,6 +915,8 @@ definitions:
         type: string
       url:
         type: string
+      url_achieved:
+        type: string
       type:
         type: string
       type_value:
@@ -652,6 +925,7 @@ definitions:
     type: object
     required:
       - _id
+      - idUser
       - name
       - description
       - code
@@ -659,6 +933,9 @@ definitions:
     properties:
       _id:
         type: string
+      idUser:
+        type: integer
+        format: int64
       name:
         type: string
       description:
@@ -670,6 +947,7 @@ definitions:
   newPrize:
     type: object
     required:
+      - idUser
       - name
       - description
       - code
@@ -677,6 +955,9 @@ definitions:
     properties:
       _id:
         type: string
+      idUser:
+        type: integer
+        format: int64
       name:
         type: string
       description:
@@ -689,59 +970,69 @@ definitions:
     type: object
     required:
       - _id
-      - meters
+      - idUser
+      - distance
       - sessions
-      - averageMeters
+      - averageDistance
       - calories
       - totalTime
     properties:
       _id:
         type: string
-      meters:
+      idUser:
         type: integer
         format: int64
+      distance:
+        type: number
+        format: double
       sessions:
         type: integer
         format: int64
-      averageMeters:
-        type: integer
-        format: int64
+      averageDistance:
+        type: number
+        format: double
       calories:
-        type: integer
-        format: int64
+        type: number
+        format: double
       totalTime:
-        type: integer
-        format: int64
+        type: number
+        format: double
   newRecord:
     type: object
     required:
-      - meters
+      - idUser
+      - distance
       - sessions
-      - averageMeters
+      - averageDistance
       - calories
       - totalTime
     properties:
       _id:
         type: string
-      meters:
+      idUser:
         type: integer
         format: int64
+      distance:
+        type: number
+        format: double
       sessions:
         type: integer
         format: int64
-      averageMeters:
-        type: integer
-        format: int64
+      averageDistance:
+        type: number
+        format: double
       calories:
-        type: integer
-        format: int64
+        type: number
+        format: double
       totalTime:
-        type: integer
-        format: int64
+        type: number
+        format: double
   route:
     type: object
     required:
       - _id
+      - idUser
+      - idSport
       - name
       - type
       - location
@@ -750,6 +1041,12 @@ definitions:
     properties:
       _id:
         type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
       name:
         type: string
       type:
@@ -765,6 +1062,8 @@ definitions:
   newRoute:
     type: object
     required:
+      - idUser
+      - idSport
       - name
       - type
       - location
@@ -773,6 +1072,12 @@ definitions:
     properties:
       _id:
         type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
       name:
         type: string
       type:
@@ -789,21 +1094,25 @@ definitions:
     type: object
     required:
       - _id
+      - idUser
+      - idSport
       - start
       - end
-      - averageHeartRate
       - calories
       - distance
     properties:
       _id:
         type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
       start:
         type: string
       end:
         type: string
-      averageHeartRate:
-        type: number
-        format: double
       calories:
         type: number
         format: double
@@ -813,25 +1122,88 @@ definitions:
   newTraining:
     type: object
     required:
+      - idUser
+      - idSport
       - start
       - end
-      - averageHeartRate
       - calories
       - distance
     properties:
       _id:
         type: string
+      idUser:
+        type: integer
+        format: int64
+      idSport:
+        type: integer
+        format: int64
       start:
         type: string
       end:
         type: string
-      averageHeartRate:
-        type: number
-        format: double
       calories:
         type: number
         format: double
       distance:
+        type: number
+        format: double
+  user:
+    type: object
+    required:
+      - _id
+      - fullName
+      - username
+      - password
+      - email
+      - birthdate
+      - height
+      - weight
+    properties:
+      _id:
+        type: string
+      fullName:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      birthdate:
+        type: string
+      height:
+        type: number
+        format: double
+      weight:
+        type: number
+        format: double
+  newUser:
+    type: object
+    required:
+      - fullName
+      - username
+      - password
+      - email
+      - birthdate
+      - height
+      - weight
+    properties:
+      _id:
+        type: string
+      fullName:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      birthdate:
+        type: string
+      height:
+        type: number
+        format: double
+      weight:
         type: number
         format: double
   error:

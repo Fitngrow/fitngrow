@@ -16,64 +16,26 @@ module.exports = function (app, apiroot, db) {
         if (users.length == 0) {
             db.users.insert([
                 {
-                    _id: "1",
-                    fullName: 'Full username 1',
-                    username: 'user1',
-                    password: 'user1',
-                    email: 'user1@gmail.com',
-                    birthdate: new Date("1991-06-02"),
-                    height: 1.86,
-                    weight: 80.0
+                    _id: "1", fullName: 'Full username 1', username: 'user1', password: 'user1', email: 'user1@gmail.com',
+                    birthdate: new Date("1991-06-02"), height: 1.86, weight: 80.0
                 },
                 {
-                    _id: "2",
-                    fullName: 'Full username 2',
-                    username: 'user2',
-                    password: 'user2',
-                    email: 'user2@gmail.com',
-                    birthdate: new Date("1996-03-12"),
-                    height: 1.60,
-                    weight: 60.0
+                    _id: "2", fullName: 'Full username 2', username: 'user2', password: 'user2', email: 'user2@gmail.com',
+                    birthdate: new Date("1996-03-12"), height: 1.60, weight: 60.0
                 },
                 {
-                    _id: "3",
-                    fullName: 'Linus Benedict Torvalds',
-                    username: 'Linux4Life',
-                    password: 'Linux4Life',
-                    email: 'Linus@gmail.com',
-                    birthdate: new Date("1969-12-28"),
-                    height: 1.73,
-                    weight: 73.0
+                    _id: "3", fullName: 'Linus Benedict Torvalds', username: 'Linux4Life', password: 'Linux4Life', email: 'Linus@gmail.com',
+                    birthdate: new Date("1969-12-28"), height: 1.73, weight: 73.0
                 }
             ]);
-            console.log("DB is empty. Added default users.");
+            console.log("A base users is created");
         } else {
             console.log("Loaded " + users.length + " users from the DB.");
         }
     });
 
-    // CRUD SERVICES -----------------------------------------------------------------------------------------------
+    /****Métodos****/
 
-    //Añadir un nuevo usuario al sistema
-    app.post(apiroot + '/users', function (req, res) {
-        console.log("POST /users requested.");
-
-        var user = req.body;
-
-        var _id = user._id;
-        db.users.find({ _id: _id }, (err, users) => {
-            if (users.length == 0) {
-                db.users.insert(user, (err, user)=>{
-                    var _id = user._id;
-                    db.records.insert({idUser: _id, distance: 0, sessions: 0, averageDistance: 0, calories: 0, totalTime: 0});
-                    res.sendStatus(200);
-                });
-            } else {
-                res.sendStatus(409);
-            }
-        })
-
-    });
     //Recibir todos los usuarios almacenados en el sistema
     app.get(apiroot + '/users', function (req, res) {
         console.log("GET /users requested.");
@@ -84,21 +46,6 @@ module.exports = function (app, apiroot, db) {
                 res.sendStatus(500);
             } else {
                 res.send(removePasswordFromList(users));
-            }
-        });
-    });
-
-    //Eliminar todos los usuarios almacenados en el sistema
-    app.delete(apiroot + '/users/', function (req, res) {
-        console.log("DELETE /users requested.");
-
-        //Eliminamos todos los users
-        db.users.remove({}, { multi: true }, (err, numRemoved) => {
-            if (err) {
-                res.sendStatus(500);
-            } else {
-                console.log("Deleted " + numRemoved + " users.");
-                res.sendStatus(200);
             }
         });
     });
@@ -123,6 +70,27 @@ module.exports = function (app, apiroot, db) {
 
     });
 
+    //Añadir un nuevo usuario al sistema
+    app.post(apiroot + '/users', function (req, res) {
+        console.log("POST /users requested.");
+
+        var user = req.body;
+
+        var _id = user._id;
+        db.users.find({ _id: _id }, (err, users) => {
+            if (users.length == 0) {
+                db.users.insert(user, (err, user) => {
+                    var _id = user._id;
+                    db.records.insert({ idUser: _id, distance: 0, sessions: 0, averageDistance: 0, calories: 0, totalTime: 0 });
+                    res.sendStatus(201);
+                });
+            } else {
+                res.sendStatus(409);
+            }
+        })
+
+    });
+
     //Actualizamos un usuario
     app.put(apiroot + '/users/:id', function (req, res) {
 
@@ -139,17 +107,37 @@ module.exports = function (app, apiroot, db) {
             return;
         }
 
-        //Actualizamos el logro, si existe
+        //Actualizamos el usuario, si existe
         db.users.update({ _id: id }, user, function (err, numReplaced) {
-            if (numReplaced == 0) {
-                console.log("User not found.");
-                res.sendStatus(404);
+            if (err) {
+                res.sendStatus(500);
+                console.log("Error");
             } else {
-                console.log("User updated succesfully.");
-                res.sendStatus(200);
+                if (numReplaced == 0) {
+                    console.log("User not found");
+                    res.sendStatus(404);
+                } else {
+                    console.log("User updated");
+                    res.sendStatus(200);
+                }
             }
         });
 
+    });
+
+    //Eliminar todos los usuarios almacenados en el sistema
+    app.delete(apiroot + '/users/', function (req, res) {
+        console.log("DELETE /users requested.");
+
+        //Eliminamos todos los users
+        db.users.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                console.log("Deleted " + numRemoved + " users.");
+                res.sendStatus(200);
+            }
+        });
     });
 
     //Eliminar un usuario concreto
@@ -161,17 +149,21 @@ module.exports = function (app, apiroot, db) {
 
         //Borramos el usuario, si existe
         db.users.remove({ _id: id }, {}, function (err, numRemoved) {
-            if (numRemoved == 0) {
-                console.log("User not found.");
-                res.sendStatus(404);
+            if (err) {
+                res.sendStatus(500);
+                console.log("Error");
             } else {
-                console.log("User deleted succesfully.");
-                res.sendStatus(200);
+                if (numRemoved == 0) {
+                    console.log("User not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                    console.log("User deleted");
+                }
             }
         });
 
     });
-
 
     // SPECIFIC SERVICES --------------------------------------------------------------------------------------------
 
@@ -185,14 +177,8 @@ module.exports = function (app, apiroot, db) {
         Se cree que son ids, por lo que ponemos una palabra en medio para que no haya problema
      */
 
-    //Realiza un login a traves de un usuario y una contraseña
-    app.post(apiroot + '/users/service/login', passport.authenticate('local'), function(req, res){
-        //If this function gets called, authentication was successful
-        res.send(removePassword(req.user));
-    });
-
     //Comprueba si el usuario que realiza la petición está logueado o no, así como la información del usuario
-    app.get(apiroot + '/users/service/status', function(req, res) {
+    app.get(apiroot + '/users/service/status', function (req, res) {
         if (!req.isAuthenticated()) {
             return res.status(200).json({
                 status: false
@@ -205,19 +191,24 @@ module.exports = function (app, apiroot, db) {
     });
 
     //Desloguea al usuario que realiza la petición
-    app.get(apiroot + '/users/service/logout', function(req, res) {
+    app.get(apiroot + '/users/service/logout', function (req, res) {
         req.logout();
         res.status(200).json({
             status: 'Bye!'
         });
     });
 
+    //Realiza un login a traves de un usuario y una contraseña
+    app.post(apiroot + '/users/service/login', passport.authenticate('local'), function (req, res) {
+        //If this function gets called, authentication was successful
+        res.send(removePassword(req.user));
+    });
 
-    function removePasswordFromList(listUsers){
-        return _.map(listUsers, (user)=>_.omit(user, 'password'));
+    function removePasswordFromList(listUsers) {
+        return _.map(listUsers, (user) => _.omit(user, 'password'));
     }
 
-    function removePassword(user){
+    function removePassword(user) {
         return _.omit(user, 'password');
     }
 };

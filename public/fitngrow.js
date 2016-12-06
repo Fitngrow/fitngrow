@@ -39,7 +39,7 @@ angular.module("FitngrowApp", ["ngRoute"])
             function (event, next, current) {
                 AuthService.getUserStatus()
                     .then(function(){
-                        if (next.access.restricted && !AuthService.isLoggedIn()){
+                        if (next.access && next.access.restricted && !AuthService.isLoggedIn()){
                             $location.path('/login');
                             $route.reload();
                         }
