@@ -12,28 +12,58 @@ module.exports = function (app, apiroot, db) {
         if (achievements.length == 0) {
             db.achievements.insert([
                 {
-                    _id: "1", name: 'First timer', description: 'You are starting. Train and grow with us!', url: '/images/firsttimer.png',
-                    url_achieved: '/images/firsttimer_a.jpg', type: 'seconds', type_value: 3600
+                    _id: "1",
+                    name: 'First timer',
+                    description: 'You are starting. Train and grow with us!',
+                    url: '/images/firsttimer.png',
+                    url_achieved: '/images/firsttimer_a.jpg',
+                    type: 'seconds',
+                    type_value: 3600
                 },
                 {
-                    _id: "2", name: 'Getting good', description: 'You are getting better at it, continue training!', url: '/images/gettinggood.png',
-                    url_achieved: '/images/gettinggood_a.jpg', type: 'seconds', type_value: 14400
+                    _id: "2",
+                    name: 'Getting good',
+                    description: 'You are getting better at it, continue training!',
+                    url: '/images/gettinggood.png',
+                    url_achieved: '/images/gettinggood_a.jpg',
+                    type: 'seconds',
+                    type_value: 14400
                 },
                 {
-                    _id: "3", name: 'Star', description: 'Nothing is stopping you, continue your training!', url: '/images/star.png',
-                    url_achieved: '/images/star_a.jpg', type: 'seconds', type_value: 86400
+                    _id: "3",
+                    name: 'Star',
+                    description: 'Nothing is stopping you, continue your training!',
+                    url: '/images/star.png',
+                    url_achieved: '/images/star_a.jpg',
+                    type: 'seconds',
+                    type_value: 86400
                 },
                 {
-                    _id: "4", name: 'Road to fitness', description: 'You ran your first kilometer, you have a long road ahead of you.',
-                    url: '/images/road.png', url_achieved: '/images/road_a.jpg', type: 'meters', type_value: 1000
+                    _id: "4",
+                    name: 'Road to fitness',
+                    description: 'You ran your first kilometer, you have a long road ahead of you.',
+                    url: '/images/road.png',
+                    url_achieved: '/images/road_a.jpg',
+                    type: 'meters',
+                    type_value: 1000
                 },
                 {
-                    _id: "5", name: 'Grow explosion', description: 'You are ever-running the long road, continue doing so!',
-                    url: '/images/volcano.png', url_achieved: '/images/volcano_a.jpg', type: 'meters', type_value: 10000
+                    _id: "5",
+                    name: 'Grow explosion',
+                    description: 'You are ever-running the long road, continue doing so!',
+                    url: '/images/volcano.png',
+                    url_achieved: '/images/volcano_a.jpg',
+                    type: 'meters',
+                    type_value: 10000
                 },
                 {
-                    _id: "6", name: 'Heart for the world', description: 'You ran 100 kilometers, your heart is a world on its own.',
-                    url: '/images/heartworld.png', url_achieved: '/images/heartworld_a.jpg', type: 'meters', type_value: 100000
+                    _id: "6",
+                    name: 'Heart for the world',
+                    description: 'You ran 100 kilometers, your heart is a world on its own.',
+                    url: '/images/heartworld.png',
+                    url_achieved: '/images/heartworld_a.jpg',
+                    type: 'meters',
+                    type_value: 100000
                 }
             ]);
             console.log("A base achievements is created");
