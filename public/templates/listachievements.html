@@ -12,7 +12,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="achievement in achievements">
+            <tr ng-repeat="achievement in achieved_achievements">
+                <td><img src="{{achievement.url}}" height="44" width="44" /></td>
+                <td>{{achievement.name}}</td>
+                <td>{{achievement.description}}</td>
+                <td>{{achievement.type}}</td>
+                <td>{{achievement.type_value}}</td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr ng-repeat="achievement in unachieved_achievements">
                 <td><img src="{{achievement.url}}" height="44" width="44" /></td>
                 <td>{{achievement.name}}</td>
                 <td>{{achievement.description}}</td>
