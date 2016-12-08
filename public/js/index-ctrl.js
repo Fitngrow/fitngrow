@@ -1,6 +1,6 @@
 angular.module("FitngrowApp")
     .controller("IndexCtrl", function ($scope,$http,$location, AuthService){
-
+        AuthService.getUserStatus();
         $scope.$watch( AuthService.isLoggedIn, function ( isLoggedIn ) {
             $scope.isLoggedIn = isLoggedIn;
             $scope.currentUser = AuthService.currentUser();
