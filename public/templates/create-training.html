@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-        <div id="training-button-container" class="square centered rounded white-text {{status}}" ng-click="changeStatus()"
+        <div id="training-button-container" class="square centered rounded white-text {{status}}" ng-click="changeStatus(); status=='ended'?updateAchievements():''"
              ng-style="status!='ended' && {'cursor': 'pointer'}">
             <div class="totalTime-container">
                 {{totalTime}}

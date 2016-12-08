@@ -40,7 +40,7 @@ angular.module("FitngrowApp")
             $scope.newTraining.end = new Date();
             $scope.runningNow = false;
 
-            $scope.totalTime = getTotalTime()
+            $scope.totalTime = getTotalTime();
         };
         $scope.resetTraining = function () {
             refresh()
