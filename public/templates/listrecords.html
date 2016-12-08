@@ -22,9 +22,9 @@
                 -->
                 <tr ng-repeat="record in records">
                     <!--<td><a href="/#/records/{{contact._id}}">Editar historial</a></td>-->
-                    <td>{{record.meters}}</td>
+                    <td>{{record.distance}}</td>
                     <td>{{record.sessions}}</td>
-                    <td fmt:formatNumber type="number" minFractionDigits="2">{{record.averageMeters}}</td>
+                    <td fmt:formatNumber type="number" minFractionDigits="2">{{record.averageDistance}}</td>
                     <td>{{record.totalTime}}</td>
                     <td>{{record.calories}}</td>
                 </tr>
