@@ -11,3 +11,38 @@
 #login-button:hover{
     background-color: #4caf50;
 }
+
+.square {
+    width: 300px;
+    height: 300px;
+}
+
+.centered{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rounded{
+    border-radius: 100%;
+}
+
+.pending{
+    background-color: #607d8b;
+    transition: background-color .3s;
+}
+.pending:hover{
+    background-color: #4caf50;
+    transition: background-color .3s;
+}
+.started{
+    background-color: #4caf50;
+    transition: background-color .3s;
+}
+.started:hover{
+    background-color: #f44336;
+    transition: background-color .3s;
+}
+
+.ended{
+    background-color: #f44336;
+}

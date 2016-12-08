@@ -1,12 +1,15 @@
 <div style="text-align: center;">
-    <div id="training-crono-container">
-        <h2>{{totalTime}}</h2>
-    </div>
-
     <div id="training-button-container">
-        <a class="waves-effect waves-light btn-large green" ng-click="startTraining()" ng-hide="hideStart">Start</a>
+        <div class="square centered rounded white-text {{status}}" ng-click="changeStatus()" style="cursor: pointer; display: flex; justify-content:center; align-items: center; flex-direction: column;">
+            <h2>{{totalTime}}</h2>
+            <h3 ng-if="status=='pending'"><i class="material-icons" style="font-size: 50px;">play_arrow</i></h3>
+            <h3 ng-if="status=='started'"><i class="material-icons" style="font-size: 50px;">stop</i></h3>
+            <!--<a class="waves-effect waves-light btn-large green" ng-click="startTraining()" ng-hide="hideStart">Start</a>
+            <a class="waves-effect waves-light btn-large red" ng-click="endTraining(); updateAchievements()" ng-hide="hideEnd">End</a>-->
+        </div>
 
-        <a class="waves-effect waves-light btn-large red" ng-click="endTraining(); updateAchievements()" ng-hide="hideEnd">End</a>
+
+
     </div>
 
     <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;">
