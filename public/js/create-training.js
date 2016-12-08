@@ -5,8 +5,6 @@ angular.module("FitngrowApp")
 
         $scope.startTraining = function () {
             $scope.newTraining.start = new Date();
-            $scope.hideStart = true;
-            $scope.hideEnd = false;
             $scope.runningNow = true;
 
             var time = 0;
@@ -40,8 +38,6 @@ angular.module("FitngrowApp")
         };
         $scope.endTraining = function () {
             $scope.newTraining.end = new Date();
-            $scope.hideEnd = true;
-            $scope.hideTrainingForm = false;
             $scope.runningNow = false;
 
             $scope.totalTime = getTotalTime()
@@ -78,9 +74,6 @@ angular.module("FitngrowApp")
                 start: null,
                 end: null
             };
-            $scope.hideStart = false;
-            $scope.hideEnd = true;
-            $scope.hideTrainingForm = true;
             $scope.totalTime = '0' + ":" + '00' + ":" + '00';
             $scope.status = "pending";
         }

@@ -44,5 +44,37 @@
 }
 
 .ended{
-    background-color: #f44336;
+    background-color: #29b6f6;
+    transition: background-color .3s;
 }
+
+
+
+
+.totalTime-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: black;
+    align-items: center;
+    font-size: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.training-icons{
+    color: white;
+    position: relative;
+    top: -75%;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.2s linear;
+}
+
+#training-button-container:hover .training-icons {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s linear;
+}​
