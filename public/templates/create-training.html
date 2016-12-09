@@ -1,13 +1,23 @@
 <div style="text-align: center;">
         <div id="training-button-container" class="square centered rounded white-text {{status}}" ng-click="changeStatus(); status=='ended'?updateAchievements():''"
-             ng-style="status!='ended' && {'cursor': 'pointer'}">
-            <div class="totalTime-container">
-                {{totalTime}}
-            </div>
-            <div class="training-icons">
-                <span ng-if="status=='pending'"><i class="material-icons" style="font-size: 150px;" >play_arrow</i></span>
-                <span ng-if="status=='started'"><i class="material-icons" style="font-size: 150px;">stop</i></span>
-            </div>
+             ng-style="status!='ended' && {'cursor': 'pointer'}"
+             style="display: flex;
+                    align-items: center;
+                    justify-content: center;">
+            <div style="width: 280px;
+                        height: 280px;
+                        border-radius: 100%;
+                        background: white;">
+
+                <div class="totalTime-container">
+                    {{totalTime}}
+                </div>
+                <div class="training-icons">
+                    <span ng-if="status=='pending'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;" >play_arrow</i></span>
+                    <span ng-if="status=='started'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">stop</i></span>
+                    <span ng-if="status=='ended'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">favorite</i></span>
+                </div>
+                </div>
         </div>
 
 

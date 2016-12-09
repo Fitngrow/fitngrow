@@ -26,32 +26,45 @@
     border-radius: 100%;
 }
 
-#training-button-container{
-
-}
-
-.pending{
+#training-button-container.pending{
     background:linear-gradient(to bottom, #efe9ef, #a69ba3);
-    transition: background .3s;
+    transition: background 1s;
 }
-.pending:hover{
+#training-button-container.pending:hover{
     background:linear-gradient(to bottom, #abff99, #55d459);
-    transition: background .3s;
+    transition: background 1s;
 }
-.started{
+#training-button-container.started{
     background:linear-gradient(to bottom, #abff99, #55d459);
-    transition: background .3s;
+    transition: background 1s;
 }
-.started:hover{
+#training-button-container.started:hover{
     background:linear-gradient(to bottom, #f45c4b, #ff4637);
-    transition: background .3s;
+    transition: background 1s;
 }
 
-.ended{
+#training-button-container.ended{
     background:linear-gradient(to bottom, #97eef6, #29b6f6);
-    transition: background .3s;
+    transition: background 1s;
 }
 
+.training-icon.pending{
+    background:linear-gradient(to bottom, #abff99, #55d459);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.training-icon.started{
+    background:linear-gradient(to bottom, #f45c4b, #ff4637);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.training-icon.ended{
+    background:linear-gradient(to bottom, #97eef6, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 
 
