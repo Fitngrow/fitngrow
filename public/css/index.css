@@ -26,10 +26,47 @@
     border-radius: 100%;
 }
 
+#training-button-container{
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+#training-button-aux{
+    width: 280px;
+    height: 280px;
+    border-radius: 100%;
+    background: white;
+    animation-name: spin-back;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin-back {
+    from {
+        transform:rotate(360deg);
+    }
+    to {
+        transform:rotate(0deg);
+    }
+}
+
 #training-button-container.pending{
     background:linear-gradient(to bottom, #efe9ef, #a69ba3);
     transition: background 1s;
 }
+
 #training-button-container.pending:hover{
     background:linear-gradient(to bottom, #abff99, #55d459);
     transition: background 1s;
@@ -39,7 +76,7 @@
     transition: background 1s;
 }
 #training-button-container.started:hover{
-    background:linear-gradient(to bottom, #f45c4b, #ff4637);
+    background:linear-gradient(to bottom, #f4a189, #ff2725);
     transition: background 1s;
 }
 
@@ -55,7 +92,7 @@
 }
 
 .training-icon.started{
-    background:linear-gradient(to bottom, #f45c4b, #ff4637);
+    background:linear-gradient(to bottom, #f4a189, #ff2725);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -65,8 +102,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
-
 
 .totalTime-container{
     width: 100%;
