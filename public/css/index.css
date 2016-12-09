@@ -26,26 +26,30 @@
     border-radius: 100%;
 }
 
+#training-button-container{
+
+}
+
 .pending{
-    background-color: #607d8b;
-    transition: background-color .3s;
+    background:linear-gradient(to bottom, #efe9ef, #a69ba3);
+    transition: background .3s;
 }
 .pending:hover{
-    background-color: #4caf50;
-    transition: background-color .3s;
+    background:linear-gradient(to bottom, #abff99, #55d459);
+    transition: background .3s;
 }
 .started{
-    background-color: #4caf50;
-    transition: background-color .3s;
+    background:linear-gradient(to bottom, #abff99, #55d459);
+    transition: background .3s;
 }
 .started:hover{
-    background-color: #f44336;
-    transition: background-color .3s;
+    background:linear-gradient(to bottom, #f45c4b, #ff4637);
+    transition: background .3s;
 }
 
 .ended{
-    background-color: #29b6f6;
-    transition: background-color .3s;
+    background:linear-gradient(to bottom, #97eef6, #29b6f6);
+    transition: background .3s;
 }
 
 
