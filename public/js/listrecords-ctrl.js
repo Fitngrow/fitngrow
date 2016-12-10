@@ -3,7 +3,7 @@ angular.module("FitngrowApp")
 
         function refresh() {
             $http.get("/api/v1/records").then(function (response) {
-                $scope.records = response;
+                $scope.records = response.data;
             });
         }
 
