@@ -54,8 +54,6 @@ angular.module("FitngrowApp")
 
             $http.post("/api/v1/trainings", newTraining).then(function (response) {
                 refresh();
-            }).catch(function (response) {
-                console.log("Error1");
             });
 
         };

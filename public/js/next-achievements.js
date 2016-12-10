@@ -39,8 +39,6 @@ angular.module("FitngrowApp")
                 $scope.time_achievement = time_achievement;
                 $scope.time_unachieved = true;
 
-            }).catch(function (response) {
-                console.log("error5");
             });
         }
 

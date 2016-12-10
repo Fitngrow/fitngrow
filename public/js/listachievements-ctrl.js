@@ -39,8 +39,6 @@ angular.module("FitngrowApp")
                 $scope.achieved_achievements = achieved_achievements;
                 $scope.unachieved_achievements = unachieved_achievements;
 
-            }).catch(function (response) {
-                console.log("error2");
             });
         }
 
