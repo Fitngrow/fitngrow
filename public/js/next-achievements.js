@@ -6,12 +6,12 @@ angular.module("FitngrowApp")
         $scope.seconds = 14395;
 
         function refresh() {
-            $http.get("/api/v1/achievements").success(function (achievements) {
+            $http.get("/api/v1/achievements").then(function (response) {
 
                 var distance_achievement;
                 var time_achievement;
 
-                achievements.forEach(function (achievement) {
+                response.data.forEach(function (achievement) {
                     switch (achievement.type) {
 
                         case "meters":
@@ -39,6 +39,8 @@ angular.module("FitngrowApp")
                 $scope.time_achievement = time_achievement;
                 $scope.time_unachieved = true;
 
+            }).catch(function (response) {
+                console.log("error5");
             });
         }
 
