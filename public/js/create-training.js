@@ -52,9 +52,9 @@ angular.module("FitngrowApp")
         $scope.saveTraining = function () {
             var newTraining = $scope.newTraining;
 
-            $http.post("/api/v1/trainings", newTraining).success((e) => {
+            $http.post("/api/v1/trainings", newTraining).then(function (response) {
                 refresh();
-            })
+            });
 
         };
 

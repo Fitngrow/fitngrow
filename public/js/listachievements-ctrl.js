@@ -6,14 +6,14 @@ angular.module("FitngrowApp")
         var seconds = 9700;
 
         function refresh() {
-            $http.get("/api/v1/achievements").success(function (achievements) {
+            $http.get("/api/v1/achievements").then(function (response) {
 
                 // Cálculo de logros
                 var achieved_achievements = [];
                 var unachieved_achievements = [];
 
 
-                achievements.forEach(function (achievement) {
+                response.data.forEach(function (achievement) {
                     switch (achievement.type) {
 
                         case "meters":

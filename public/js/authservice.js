@@ -28,7 +28,7 @@ angular.module('FitngrowApp').factory('AuthService',
 
             // Función que nos indica si estamos logueados o no
             function isLoggedIn() {
-                if(user) {
+                if (user) {
                     return true;
                 } else {
                     return false;
@@ -36,17 +36,17 @@ angular.module('FitngrowApp').factory('AuthService',
             }
             // Actualiza el estado de conexión del usuario.
             function getUserStatus() {
-                return $http.get(apiroot+'/users/service/status')
-                // handle success
-                    .success(function (data) {
-                        if(data.status){
-                            user = data.user;
+                return $http.get(apiroot + '/users/service/status').then(
+                    // handle success
+                    function (response) {
+                        if (response.data.status) {
+                            user = response.data.user;
                         } else {
                             user = false;
                         }
-                    })
+                    }).catch(
                     // handle error
-                    .error(function (data) {
+                    function (response) {
                         user = false;
                     });
             }
@@ -55,20 +55,20 @@ angular.module('FitngrowApp').factory('AuthService',
                 // create a new instance of deferred
                 var deferred = $q.defer();
                 // send a post request to the server
-                $http.post(apiroot+'/users/service/login',
-                    {username: username, password: password})
-                // handle success
-                    .success(function (data, status) {
-                        if(status === 200 && data){
-                            user = data;
+                $http.post(apiroot + '/users/service/login',
+                    { username: username, password: password }).then(
+                    // handle success
+                    function (response) {
+                        if (response.status === 200 && response.data) {
+                            user = response.data;
                             deferred.resolve();
                         } else {
                             user = false;
                             deferred.resolve();
                         }
-                    })
+                    }).catch(
                     // handle error
-                    .error(function (data) {
+                    function (response) {
                         user = false;
                         deferred.resolve();
                     });
@@ -81,14 +81,14 @@ angular.module('FitngrowApp').factory('AuthService',
                 // create a new instance of deferred
                 var deferred = $q.defer();
                 // send a get request to the server
-                $http.get(apiroot+'/users/service/logout')
-                // handle success
-                    .success(function (data) {
+                $http.get(apiroot + '/users/service/logout').then(
+                    // handle success
+                    function (response) {
                         user = false;
                         deferred.resolve();
-                    })
+                    }).catch(
                     // handle error
-                    .error(function (data) {
+                    function (response) {
                         user = false;
                         deferred.reject();
                     });
@@ -101,17 +101,17 @@ angular.module('FitngrowApp').factory('AuthService',
                 // create a new instance of deferred
                 var deferred = $q.defer();
                 // send a post request to the server
-                $http.post(apiroot+'/users/',user)
-                // handle success
-                    .success(function (data, status) {
-                        if(status === 200){
+                $http.post(apiroot + '/users/', user).then(
+                    // handle success
+                    function (response) {
+                        if (response.status === 200) {
                             deferred.resolve();
                         } else {
                             deferred.reject();
                         }
-                    })
+                    }).catch(
                     // handle error
-                    .error(function (data) {
+                    function (response) {
                         deferred.reject();
                     });
                 // return promise object
