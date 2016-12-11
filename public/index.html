@@ -32,12 +32,12 @@
 
 </head>
 
-<body style="background-color:#F2F2F2;" ng-controller="MainCtrl">
+<body id="box-wrapper" ng-controller="MainCtrl">
     <!--    <body style="background: url(images/thumb.jpg); no-repeat left center; background-size: cover;"> -->
 
     <nav class="grey darken-4">
         <div class="nav-wrapper container">
-            <a href="#/" class="brand-logo"><img ng-src="/images/logowhite.png" height="55" width="200" /></a>
+            <a href="#/"><img ng-src="/images/logo.png" height="55" width="200" /></a>
             <ul class="right" ng-if="!currentUser">
                 <li>
                     <a class="bold caret text-shadow smaller-font" id="login-button" ng-click="login()">Login</a>
@@ -54,9 +54,8 @@
             </ul>
         </div>
     </nav>
-
-    <div class="container" ng-view>
-
+    <div id="box-container">
+        <div class="container" ng-view></div>
     </div>
 </body>
 

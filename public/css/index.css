@@ -1,3 +1,36 @@
+
+#box-wrapper{
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 640px;
+    
+}
+
+#box-container{
+    background-image: url(../images/container.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+    padding-top: 2%;
+}
+
+#option-button{
+    background-color: #00695c;
+}
+
+#option-button:hover{
+    background-color: #00433B;
+}
+
 #login-button{
     display: inline;
     border: 1px solid white;
@@ -9,7 +42,7 @@
 }
 
 #login-button:hover{
-    background-color: #4caf50;
+    background-color: #00695c;
 }
 
 .square {
@@ -68,15 +101,15 @@
 }
 
 #training-button-container.pending:hover{
-    background:linear-gradient(to bottom, #abff99, #55d459);
+    background:linear-gradient(to bottom, #04B7A2, #00695c);
     transition: background 1s;
 }
 #training-button-container.started{
-    background:linear-gradient(to bottom, #abff99, #55d459);
+    background:linear-gradient(to bottom, #04B7A2, #00695c);
     transition: background 1s;
 }
 #training-button-container.started:hover{
-    background:linear-gradient(to bottom, #f4a189, #ff2725);
+    background:linear-gradient(to bottom, #FC6767, #F51212);
     transition: background 1s;
 }
 
@@ -86,13 +119,13 @@
 }
 
 .training-icon.pending{
-    background:linear-gradient(to bottom, #abff99, #55d459);
+    background:linear-gradient(to bottom, #abff99, #00695c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .training-icon.started{
-    background:linear-gradient(to bottom, #f4a189, #ff2725);
+    background:linear-gradient(to bottom, #FC6767, #F51212);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
