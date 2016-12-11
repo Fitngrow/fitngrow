@@ -23,6 +23,7 @@
     <script src="js/main-ctrl.js"></script>
     <script src="js/home.js"></script>
     <script src="js/login-ctrl.js"></script>
+    <script src="js/register-ctrl.js"></script>
     <script src="js/create-training.js"></script>
     <script src="js/listtrainings-ctrl.js"></script>
     <script src="js/listachievements-ctrl.js"></script>
@@ -40,6 +41,9 @@
             <ul class="right" ng-if="!currentUser">
                 <li>
                     <a class="bold caret text-shadow smaller-font" id="login-button" ng-click="login()">Login</a>
+                </li>
+                 <li>
+                    <a class="bold caret text-shadow smaller-font" id="login-button" ng-click="register()">Sign up</a>
                 </li>
             </ul>
             <!-- currentUser nos indica si el usuario está logueado o no -->

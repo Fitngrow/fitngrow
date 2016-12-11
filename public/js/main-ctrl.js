@@ -13,9 +13,14 @@ angular.module("FitngrowApp")
         })
         };
 
-        //Funcion de ejemplo de login con usuario de prueba. Esto en realidad no se usaría, y al pulsar en login te enviaría a un formulario de login
+        //Funcion de login.
         $scope.login = function() {
             $location.path("/login")
+        };
+
+        //Funcion de formulario
+        $scope.register = function() {
+            $location.path("/register")
         };
 
     });
