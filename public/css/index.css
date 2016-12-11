@@ -1,3 +1,8 @@
+html
+{
+    position: relative; 
+    min-height: 100%;
+}
 
 #box-wrapper{
     background-image: url(../images/background.jpg);
@@ -20,7 +25,26 @@
     margin-top: 5%;
     margin-bottom: 5%;
     padding-bottom: 5%;
-    padding-top: 2%;
+    padding-top: 2%;    
+}
+
+.bottombar{	
+    width: 100%;
+    bottom: 0;
+    position: absolute;	
+	height: 30px;
+    padding-top: 4px;
+	background: #000;	
+	opacity: 0.9;
+	text-transform: uppercase;	
+    text-align: center;	 
+    
+}
+
+.footer{	
+	color: White;
+	font-family: 'calibri';
+	font-size: 14px;	
 }
 
 #option-button{
@@ -101,15 +125,15 @@
 }
 
 #training-button-container.pending:hover{
-    background:linear-gradient(to bottom, #04B7A2, #00695c);
+    background:linear-gradient(to bottom, #04DCC3, #00695c);
     transition: background 1s;
 }
 #training-button-container.started{
-    background:linear-gradient(to bottom, #04B7A2, #00695c);
+    background:linear-gradient(to bottom, #04DCC3, #00695c);
     transition: background 1s;
 }
 #training-button-container.started:hover{
-    background:linear-gradient(to bottom, #FC6767, #F51212);
+    background:linear-gradient(to bottom, #FF7F7F, #F51212);
     transition: background 1s;
 }
 
@@ -119,13 +143,13 @@
 }
 
 .training-icon.pending{
-    background:linear-gradient(to bottom, #abff99, #00695c);
+    background:linear-gradient(to bottom, #04DCC3, #00695c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .training-icon.started{
-    background:linear-gradient(to bottom, #FC6767, #F51212);
+    background:linear-gradient(to bottom, #FF7F7F, #F51212);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
