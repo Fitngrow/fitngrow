@@ -1,6 +1,6 @@
 angular.module("FitngrowApp")
     .controller("LoginCtrl", function($scope, $http, $location, AuthService){
-        
+
         $scope.login = {};
         $scope.error = null;
 
@@ -10,7 +10,8 @@ angular.module("FitngrowApp")
                 .then(function(){
                     var user = AuthService.currentUser();
                     if(user){
-                        $location.path("/")
+                        $location.path("/");
+                        Materialize.toast('Welcome!', 3000, 'rounded');
                     }else{
                        $scope.error = "Credentials wrong";
                     }
