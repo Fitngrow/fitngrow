@@ -4,7 +4,6 @@ angular.module("FitngrowApp")
             var user = $scope.currentUser;
             var userId = user._id;
             $http.get("/api/v1/records/user/" + userId).then(function (response) {
-                console.log(response.data);
                 $scope.records = response.data;
             });
         }
