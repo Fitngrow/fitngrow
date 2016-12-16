@@ -38,14 +38,17 @@ angular.module("FitngrowApp", ["ngRoute"])
     .run(function($rootScope, $location, $route, AuthService) {
         $rootScope.$on('$routeChangeStart',
             function(event, next, current) {
-                if (next.access && next.access.restricted && !AuthService.isLoggedIn()) {
-                    $location.path('/login');
-                    $route.reload();
-                }
+                AuthService.getUserStatus(function(){
+                    if (next.access && next.access.restricted && !AuthService.isLoggedIn()) {
+                        $location.path('/login');
+                        $route.reload();
+                    }
 
-                //Definimos que cuando queramos ir a login, pero estemos logeados, entonces nos mande a la raiz
-                if (AuthService.isLoggedIn() && next.originalPath === "/login") {
-                    $location.path('/');
-                }
+                    //Definimos que cuando queramos ir a login, pero estemos logeados, entonces nos mande a la raiz
+                    if (AuthService.isLoggedIn() && next.originalPath === "/login") {
+                        $location.path('/');
+                    }
+                });
+
             });
     });
