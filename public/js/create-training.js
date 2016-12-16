@@ -5,6 +5,7 @@ angular.module("FitngrowApp")
 
         $scope.startTraining = function () {
             $scope.newTraining.start = new Date();
+            $scope.newTraining.idUser = $scope.currentUser._id;
             $scope.runningNow = true;
 
             var time = 0;
@@ -28,7 +29,7 @@ angular.module("FitngrowApp")
                 }
 
                 if ($scope.runningNow) {
-                    $scope.totalTime = hr + ":" + min + ":" + sec
+                    $scope.totalTime = hr + ":" + min + ":" + sec;
                     time += 1;
                     $timeout(countUp, 1000);
                 }
@@ -81,10 +82,10 @@ angular.module("FitngrowApp")
         function getTotalTime() {
             var start = $scope.newTraining.start;
             var end = $scope.newTraining.end;
-            var diff = end - start
-            diff = new Date(diff)
-            var sec = diff.getSeconds()
-            var min = diff.getMinutes()
+            var diff = end - start;
+            diff = new Date(diff);
+            var sec = diff.getSeconds();
+            var min = diff.getMinutes();
             var hr = diff.getHours() - 1
             if (min < 10) {
                 min = "0" + min
