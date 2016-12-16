@@ -1,8 +1,10 @@
 angular.module("FitngrowApp")
     .controller("ListRecordsCtrl", function ($scope, $http) {
-
         function refresh() {
-            $http.get("/api/v1/records").then(function (response) {
+            var user = $scope.currentUser;
+            var userId = user.params.userId;
+            // $http.get("/api/v1/records").then(function (response) {
+            $http.get("/api/v1/records/user/" + userId).then(function (response) {
                 $scope.records = response.data;
             });
         }
