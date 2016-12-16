@@ -1,11 +1,8 @@
 angular.module("FitngrowApp")
     .controller("NextAchievements", function ($scope, $http) {
 
-        // Info usuario provisional
-        $scope.meters = 9800;
-        $scope.seconds = 14395;
-
         function refresh() {
+            updateUserInfo();
             $http.get("/api/v1/achievements").then(function (response) {
 
                 var distance_achievement;
@@ -31,11 +28,9 @@ angular.module("FitngrowApp")
                     }
                 })
 
-                //$scope.meters = meters;
                 $scope.distance_achievement = distance_achievement;
                 $scope.distance_unachieved = true;
 
-                //$scope.seconds = seconds;
                 $scope.time_achievement = time_achievement;
                 $scope.time_unachieved = true;
 
@@ -43,7 +38,7 @@ angular.module("FitngrowApp")
         }
 
         $scope.updateAchievements = function () {
-            $scope.runningDistanceMeters = 250; // Información provisional, pendiente de actualizar create-training.js
+            $scope.runningDistanceMeters = $scope.newTraining.distance;
             $scope.runningTimeSeconds = Math.floor(($scope.newTraining.end - $scope.newTraining.start) / 1000);
 
             $scope.meters += $scope.runningDistanceMeters;
@@ -63,6 +58,13 @@ angular.module("FitngrowApp")
 
         $scope.resetAchievements = function () {
             refresh();
+        }
+
+        function updateUserInfo() {
+            $http.get("/api/v1/records/" + $scope.currentUser._id).then(function (response) {
+                $scope.meters = response.data.distance;
+                $scope.seconds = response.data.totalTime;
+            });
         }
 
         refresh();
