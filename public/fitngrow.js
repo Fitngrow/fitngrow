@@ -14,7 +14,7 @@ angular.module("FitngrowApp", ["ngRoute"])
             .when("/achievements", {
                 controller: "ListAchievementsCtrl",
                 templateUrl: "templates/listachievements.html",
-                access: {restricted: false}
+                access: {restricted: true}
             })
             .when("/records", {
                 controller: "ListRecordsCtrl",
