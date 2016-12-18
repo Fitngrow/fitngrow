@@ -95,6 +95,31 @@ module.exports = function (app, apiroot, db) {
                             var averageMeters = meters / session;
                             var time = new Date(training.end) - new Date(training.start);
 
+                            //Esta es la función de muestra del tiempo acumulado
+                            /* var x = 0, y = 0, z = 0, x2 = 0, y2 = 0, z2 = 0;
+
+                            x = Math.floor(time / 3600000);
+                            y = Math.floor((time - (x * 3600000)) / 60000);
+                            z = Math.floor((time - (x * 3600000) - (y * 60000)) / 1000);
+
+                            while(y > 60 || z > 60){
+                                if (z > 60) {
+                                    y2 += Math.floor(z / 60); 
+                                    z2 += z % 60;
+                                    z = z2;
+                                }
+
+                                if (y > 60) {
+                                    x2 += Math.floor(y / 60); 
+                                    y2 += y % 60;
+                                    y = y2;
+                                }
+                            }
+
+                            x = x2;
+
+                            timeString = x + "h:" + y + "m:" + z + "s"; */
+
                             records[0].sessions = session;
                             records[0].calories = calories;
                             records[0].meters = meters;
