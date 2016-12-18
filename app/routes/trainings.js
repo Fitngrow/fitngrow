@@ -93,7 +93,7 @@ module.exports = function (app, apiroot, db) {
                             var calories = records[0].calories + training.calories;
                             var meters = records[0].meters + training.distance;
                             var averageMeters = meters / session;
-                            var time = (parseInt(momentDate(training.end).hour()) - 12) + records[0].totalTime;
+                            var time = new Date(training.end) - new Date(training.start);
 
                             records[0].sessions = session;
                             records[0].calories = calories;
