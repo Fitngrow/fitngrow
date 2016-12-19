@@ -10,6 +10,7 @@ angular.module("FitngrowApp")
             AuthService.logout()
                 .then(function(){
                     $location.path("/");
+                    Materialize.toast('See you soon!', 3000, 'rounded');
         })
         };
 

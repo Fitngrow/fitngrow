@@ -41,7 +41,7 @@ angular.module('FitngrowApp').factory('AuthService',
                 }
             }
             // Actualiza el estado de conexión del usuario.
-            function getUserStatus() {
+            function getUserStatus(callback) {
                 return $http.get(apiroot + '/users/service/status').then(
                     // handle success
                     function (response) {
@@ -50,6 +50,7 @@ angular.module('FitngrowApp').factory('AuthService',
                         } else {
                             user = false;
                         }
+                        if(callback) callback();
                     }).catch(
                     // handle error
                     function (response) {
