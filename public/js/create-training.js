@@ -70,6 +70,12 @@ angular.module("FitngrowApp")
             $scope.hideEnd = true;
             $scope.hideTrainingForm = true;
             $scope.totalTime = null;
+
+            $http.get("/api/v1/sports").then(function (response) {
+                $scope.sports = response.data;
+                $scope.sportselected = $scope.sports[0];
+                $scope.newTraining.idSport = $scope.sportselected._id;
+            });
         }
 
         function getTotalTime() {
@@ -89,5 +95,13 @@ angular.module("FitngrowApp")
             return hr + ":" + min + ":" + sec
         }
 
+        $scope.setSport = function(sport){
+            $scope.sportselected = sport;
+            $scope.newTraining.idSport = sport._id;
+
+           // var currentUser = $scope.currentUser;
+           // $scope.newTraining.calories = sport.defaultSpeed * $scope.newTraining.distance;
+
+        }
 
     });

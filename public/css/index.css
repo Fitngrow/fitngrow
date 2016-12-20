@@ -11,3 +11,7 @@
 #login-button:hover{
     background-color: #4caf50;
 }
+
+.sport-selected{
+    border-color: blue !important;
+}

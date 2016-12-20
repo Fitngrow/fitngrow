@@ -74,7 +74,7 @@ module.exports = function (app, apiroot, db) {
     //Método que añade un entrenamiento
     app.post(apiroot + '/trainings', function (req, res) {
         var training = req.body;
-
+        
         var _id = training._id;
 
         db.trainings.find({ _id: _id }, function (err, trainings) {
