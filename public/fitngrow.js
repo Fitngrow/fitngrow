@@ -31,6 +31,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/listtrainings.html",
                 access: { restricted: true }
             })
+            .when("/postman", {
+                controller: "Postman",
+                templateUrl: "templates/postman.html",
+                access: { restricted: false }
+            })
     }).config(['$locationProvider', function($locationProvider) {
         $locationProvider.hashPrefix('');
     }])

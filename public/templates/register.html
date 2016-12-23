@@ -29,12 +29,12 @@
             </div>
             <div class="row">
                 <div class="input-field col s12" style="padding: 0 5%;">
-                    <input placeholder="height" id="height" type="double" class="validate" ng-model="newUser.height" required>
+                    <input placeholder="height" id="height" type="number" class="validate" min="0" ng-model="newUser.height" required>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12" style="padding: 0 5%;">
-                    <input placeholder="weight" id="weight" type="double" class="validate" ng-model="newUser.weight" required>
+                    <input placeholder="weight" id="weight" type="number" class="validate" min="0" ng-model="newUser.weight" required>
                 </div>
             </div>
             <div class="row" ng-if="error" style="text-align: center">
@@ -43,7 +43,7 @@
                 </span>
             </div>
             <div class="row" style="margin-bottom: 0; margin-top: 30px;">
-                <button class="btn btn-large" type="submit" id="option-button" style="width:100%">Sing in</button>
+                <button class="btn btn-large" type="submit" id="option-button" style="width:100%">Sign in</button>
             </div>
         </form>
     </div>
