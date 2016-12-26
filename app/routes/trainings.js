@@ -80,34 +80,33 @@ module.exports = function (app, apiroot, db) {
         db.trainings.find({ _id: _id }, function (err, trainings) {
             if (trainings.length == 0) {
                 db.trainings.insert(training);
-                res.sendStatus(201);
                 console.log("training added");
-                db.records.find({}, function (err, records) {
+                console.log(training.idUser);
+                db.records.findOne({idUser: training.idUser}, function (err, record) {
                     if (err) {
-                        // res.sendStatus(500);
+                        res.sendStatus(500);
                         console.log("Error");
                     } else {
-                        if (records.length > 0) {
+                        if (record) {
                             //Falta averiguar como coger solamente las horas del fin del entrenamiento
-                            var session = records[0].sessions + 1;
-                            var calories = records[0].calories + training.calories;
-                            var meters = records[0].meters + training.distance;
-                            var averageMeters = meters / session;
-                            var time = (parseInt(momentDate(training.end).hour()) - 12) + records[0].totalTime;
+                            var session = record.sessions + 1;
+                            var calories = record.calories + training.calories;
+                            var distance = record.distance + training.distance;
+                            var averageDistance = distance * 1.0 / session;
+                            var time = (parseInt(momentDate(training.end).hour()) - 12) + record.totalTime;
 
-                            records[0].sessions = session;
-                            records[0].calories = calories;
-                            records[0].meters = meters;
-                            records[0].averageMeters = averageMeters;
-                            records[0].totalTime = time;
+                            record.sessions = session;
+                            record.calories = calories;
+                            record.distance = distance;
+                            record.averageDistance = averageDistance;
+                            record.totalTime = time;
 
-                            var record = records[0];
-                            db.records.update({}, record, function (err, numRemoved) {
+                            db.records.update({_id: record._id}, record, function (err, numRemoved) {
                                 if (err) {
-                                    // res.sendStatus(500);
+                                    res.sendStatus(500);
                                     console.log("Error");
                                 } else {
-                                    //res.sendStatus(200);
+                                    res.sendStatus(200);
                                     console.log("Record updated");
                                 }
                             });
