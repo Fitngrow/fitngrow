@@ -47,6 +47,10 @@ html
 	font-size: 14px;	
 }
 
+h1{
+	font-family: Arial Black, Geneva, Tahoma, sans-serif;
+}
+
 #option-button{
     background-color: #00695c;
 }
