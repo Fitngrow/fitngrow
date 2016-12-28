@@ -1,0 +1,28 @@
+<h1>My Profile</h1>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>User Name</th>              
+                <th>Email</th>                
+                <th>Birthdate</th>
+                <th>Height</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-value="user">
+                <td>{{user.fullName}}</td>
+                <td>{{user.username}}</td>                
+                <td>{{user.email}}</td>
+                <td>{{user.birthdate}}</td>
+                <td>{{user.height}}</td>
+                <td>{{user.weight}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-6 col-md-offset-3">
+    <a class="btn btn-primary btn-sm" href="#/">Back</a>   
+</div>

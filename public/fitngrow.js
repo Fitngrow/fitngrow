@@ -26,6 +26,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/listtrainings.html",
                 access: { restricted: true }
             })
+            .when("/profile", {
+                controller: "ProfileCtrl",
+                templateUrl: "templates/profile.html",
+                access: { restricted: true }
+            })
     }).config(['$locationProvider', function($locationProvider) {
         $locationProvider.hashPrefix('');
     }])
