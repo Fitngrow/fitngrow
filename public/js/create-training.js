@@ -38,12 +38,15 @@ angular.module("FitngrowApp")
             $timeout(countUp, 1);
 
         };
+
         $scope.endTraining = function () {
             $scope.newTraining.end = new Date();
             $scope.newTraining.calories = getCalories();
             $scope.hideEnd = true;
             $scope.hideTrainingForm = false;
             runningNow = false;
+
+            console.log("Fin de entrenamiento");
 
             $scope.totalTime = getTotalTime()
         };
@@ -110,6 +113,8 @@ angular.module("FitngrowApp")
             calories = sport.defaultSpeed * 0.0175 * $scope.currentUser.peso;
             timeMilliseconds = ($scope.newTraining.end-$scope.newTraining.start) / 60000;
             $scope.newTraining.calories = calories * timeMilliseconds;
+
+            console.log($scope.newTraining.calories);
 
             return $scope.newTraining.calories;
         }
