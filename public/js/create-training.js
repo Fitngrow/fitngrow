@@ -99,9 +99,13 @@ angular.module("FitngrowApp")
             $scope.sportselected = sport;
             $scope.newTraining.idSport = sport._id;
 
-           // var currentUser = $scope.currentUser;
-           // $scope.newTraining.calories = sport.defaultSpeed * $scope.newTraining.distance;
-
+            var calories = 0.0;
+            var timeMilliseconds = 0.0;
+        
+            calories = sport.defaultSpeed * 0.0175 * $scope.currentUser.peso;
+            timeMilliseconds = ($scope.newTraining.end-$scope.newTraining.start) / 60000;
+            $scope.newTraining.calories = calories * timeMilliseconds;
+          
         }
 
     });
