@@ -61,7 +61,7 @@ angular.module("FitngrowApp")
         function refresh() {
             $scope.newTraining = {
                 averageHeartRate: 0,
-                calories: 0,
+                calories: getCalories(),
                 distance: 0,
                 start: null,
                 end: null
@@ -97,7 +97,11 @@ angular.module("FitngrowApp")
 
         $scope.setSport = function(sport){
             $scope.sportselected = sport;
-            $scope.newTraining.idSport = sport._id;
+            $scope.newTraining.idSport = sport._id;          
+        }
+
+        function getCalories() {
+            $scope.sportselected = sport;
 
             var calories = 0.0;
             var timeMilliseconds = 0.0;
@@ -105,7 +109,8 @@ angular.module("FitngrowApp")
             calories = sport.defaultSpeed * 0.0175 * $scope.currentUser.peso;
             timeMilliseconds = ($scope.newTraining.end-$scope.newTraining.start) / 60000;
             $scope.newTraining.calories = calories * timeMilliseconds;
-          
+
+            return $scope.newTraining.calories;
         }
 
     });
