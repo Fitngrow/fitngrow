@@ -40,6 +40,7 @@ angular.module("FitngrowApp")
         };
         $scope.endTraining = function () {
             $scope.newTraining.end = new Date();
+            $scope.newTraining.calories = getCalories();
             $scope.hideEnd = true;
             $scope.hideTrainingForm = false;
             runningNow = false;
