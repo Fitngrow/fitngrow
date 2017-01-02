@@ -17,7 +17,7 @@
             </div>
     </div>
 
-    <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;">
+    <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
 
         <div style="display: flex; flex-direction: row; justify-content: center;">
             <div ng-repeat="sport in sports">
@@ -26,8 +26,6 @@
             </div>
         </div>
 
-    <!--div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
->>>>>>> dev
         <div class="row">
             <div class="input-field col s6">
                 <input value="0" id="averageHeartRate" type="number" class="validate" min="0" ng-model="newTraining.averageHeartRate">
@@ -53,6 +51,5 @@
             </div>
 
         </div>
-    </div>-->
-
+    </div>
 </div>
