@@ -73,10 +73,6 @@ h1{
     background-color: #00695c;
 }
 
-.sport-selected{
-    border-color: blue !important;
-}
-
 .square {
     width: 300px;
     height: 300px;
@@ -195,4 +191,3 @@ h1{
     opacity: 1;
     transition: visibility 0.2s, opacity 0.2s linear;
 }​
->>>>>>> dev

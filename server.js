@@ -63,11 +63,6 @@ db.users = new dataStore({
     autoload: true
 });
 
-db.sports = new dataStore({
-    filename: dbFileName + "sports.json",
-    autoload: true
-});
-
 console.log("DB initialized.");
 
 // Configuración de swagger-tools
@@ -95,7 +90,6 @@ require('./app/routes/records')(app, apiroot, db);
 require('./app/routes/routes')(app, apiroot, db);
 require('./app/routes/trainings')(app, apiroot, db);
 require('./app/routes/users')(app, apiroot, db);
-require('./app/routes/sports')(app, apiroot, db);
 
 
 // Authentication =============================================
