@@ -37,11 +37,23 @@ angular.module("FitngrowApp")
             $timeout(countUp, 1);
 
         };
+
         $scope.endTraining = function () {
             $scope.newTraining.end = new Date();
+            $scope.newTraining.calories = getCalories();
+            $scope.hideEnd = true;
+            $scope.hideTrainingForm = false;
+            runningNow = false;
+
+            /*Para comprobar si salían las calorías correctas
+            console.log($scope.newTraining.calories);*/
+
+            $scope.totalTime = getTotalTime();
+
             $scope.runningNow = false;
 
             $scope.totalTime = getTotalTime();
+
         };
         $scope.resetTraining = function () {
             refresh()
@@ -70,13 +82,26 @@ angular.module("FitngrowApp")
         function refresh() {
             $scope.newTraining = {
                 averageHeartRate: 0,
-                calories: 0,
+                calories: getCalories(),
                 distance: 0,
                 start: null,
                 end: null
             };
+
+            $scope.hideStart = false;
+            $scope.hideEnd = true;
+            $scope.hideTrainingForm = true;
+            $scope.totalTime = null;
+
+            $http.get("/api/v1/sports").then(function (response) {
+                $scope.sports = response.data;
+                $scope.sportselected = $scope.sports[0];
+                $scope.newTraining.idSport = $scope.sportselected._id;
+            });
+
             $scope.totalTime = '0' + ":" + '00' + ":" + '00';
             $scope.status = "pending";
+
         }
 
         function getTotalTime() {
@@ -96,5 +121,24 @@ angular.module("FitngrowApp")
             return hr + ":" + min + ":" + sec
         }
 
+        $scope.setSport = function(sport){
+            $scope.sportselected = sport;
+            $scope.newTraining.idSport = sport._id;          
+        }
+
+        function getCalories() {
+            $scope.sportselected = sport;
+
+            var calories = 0.0;
+            var timeMilliseconds = 0.0;
+        
+            calories = sport.defaultSpeed * 0.0175 * $scope.currentUser.peso;
+            timeMinutes = ($scope.newTraining.end-$scope.newTraining.start) / 60000;
+            $scope.newTraining.calories = calories * timeMinutes;
+
+            console.log($scope.newTraining.calories);
+
+            return $scope.newTraining.calories;
+        }
 
     });
