@@ -79,8 +79,6 @@ module.exports = function (app, apiroot, db) {
 
         db.trainings.find({ _id: _id }, function (err, trainings) {
 
-
-
             if (trainings.length == 0) {
                 db.trainings.insert(training);
                 console.log("training added");
@@ -91,8 +89,7 @@ module.exports = function (app, apiroot, db) {
                         console.log("Error");
                     } else {
                         if (record) {
-                            //Falta averiguar como coger solamente las horas del fin del entrenamiento
-<<<<<<< HEAD
+
                             var session = records[0].sessions + 1;
                             var calories = records[0].calories + training.calories;
                             var meters = records[0].meters + training.distance;
@@ -131,22 +128,8 @@ module.exports = function (app, apiroot, db) {
                             records[0].totalTime = time;
 
                             var record = records[0];
-                            db.records.update({}, record, function (err, numRemoved) {
-=======
-                            var session = record.sessions + 1;
-                            var calories = record.calories + training.calories;
-                            var distance = record.distance + training.distance;
-                            var averageDistance = distance * 1.0 / session;
-                            var time = (parseInt(momentDate(training.end).hour()) - 12) + record.totalTime;
-
-                            record.sessions = session;
-                            record.calories = calories;
-                            record.distance = distance;
-                            record.averageDistance = averageDistance;
-                            record.totalTime = time;
 
                             db.records.update({_id: record._id}, record, function (err, numRemoved) {
->>>>>>> dev
                                 if (err) {
                                     res.sendStatus(500);
                                     console.log("Error");
@@ -155,6 +138,7 @@ module.exports = function (app, apiroot, db) {
                                     console.log("Record updated");
                                 }
                             });
+
                         } else {
                             res.sendStatus(404);
                             console.log("Record not found");

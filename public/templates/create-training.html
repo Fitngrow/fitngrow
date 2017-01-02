@@ -1,24 +1,22 @@
 <div style="text-align: center;">
-        <div id="training-button-container" class="square centered rounded white-text {{status}}" ng-click="changeStatus(); status=='ended'?updateAchievements():''"
-             ng-style="status!='ended' && {'cursor': 'pointer'}"
-             style="display: flex;
-                    align-items: center;
-                    justify-content: center;">
-            <div id="training-button-aux" style="">
+    <div id="training-button-container" class="square centered rounded white-text {{status}}" ng-click="changeStatus(); status=='ended'?updateAchievements():''"
+            ng-style="status!='ended' && {'cursor': 'pointer'}"
+            style="display: flex;
+                align-items: center;
+                justify-content: center;">
+        <div id="training-button-aux" style="">
 
-                <div class="totalTime-container">
-                    {{totalTime}}
-                </div>
-                <div class="training-icons">
-                    <span ng-if="status=='pending'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;" >play_arrow</i></span>
-                    <span ng-if="status=='started'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">stop</i></span>
-                    <span ng-if="status=='ended'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">favorite</i></span>
-                </div>
-                </div>
-        </div>
+            <div class="totalTime-container">
+                {{totalTime}}
+            </div>
+            <div class="training-icons">
+                <span ng-if="status=='pending'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;" >play_arrow</i></span>
+                <span ng-if="status=='started'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">stop</i></span>
+                <span ng-if="status=='ended'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">favorite</i></span>
+            </div>
+            </div>
+    </div>
 
-
-<<<<<<< HEAD
     <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;">
 
         <div style="display: flex; flex-direction: row; justify-content: center;">
@@ -28,8 +26,7 @@
             </div>
         </div>
 
-=======
-    <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
+    <!--div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
 >>>>>>> dev
         <div class="row">
             <div class="input-field col s6">
@@ -56,6 +53,6 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
 
 </div>
