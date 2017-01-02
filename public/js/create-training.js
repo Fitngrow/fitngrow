@@ -5,9 +5,8 @@ angular.module("FitngrowApp")
 
         $scope.startTraining = function () {
             $scope.newTraining.start = new Date();
-            $scope.hideStart = true;
-            $scope.hideEnd = false;
-            runningNow = true;
+            $scope.newTraining.idUser = $scope.currentUser._id;
+            $scope.runningNow = true;
 
             var time = 0;
             var countUp = function () {
@@ -29,8 +28,8 @@ angular.module("FitngrowApp")
                     sec = "0" + sec
                 }
 
-                if (runningNow) {
-                    $scope.totalTime = hr + ":" + min + ":" + sec
+                if ($scope.runningNow) {
+                    $scope.totalTime = hr + ":" + min + ":" + sec;
                     time += 1;
                     $timeout(countUp, 1000);
                 }
@@ -49,7 +48,12 @@ angular.module("FitngrowApp")
             /*Para comprobar si salían las calorías correctas
             console.log($scope.newTraining.calories);*/
 
-            $scope.totalTime = getTotalTime()
+            $scope.totalTime = getTotalTime();
+
+            $scope.runningNow = false;
+
+            $scope.totalTime = getTotalTime();
+
         };
         $scope.resetTraining = function () {
             refresh()
@@ -63,6 +67,18 @@ angular.module("FitngrowApp")
 
         };
 
+        $scope.changeStatus = function(){
+            var status = $scope.status;
+            if( status == "pending" ){
+                $scope.status = "started";
+                $scope.startTraining();
+            }
+            if( status == "started"){
+                $scope.status = "ended";
+                $scope.endTraining();
+            }
+        };
+
         function refresh() {
             $scope.newTraining = {
                 averageHeartRate: 0,
@@ -71,6 +87,7 @@ angular.module("FitngrowApp")
                 start: null,
                 end: null
             };
+
             $scope.hideStart = false;
             $scope.hideEnd = true;
             $scope.hideTrainingForm = true;
@@ -81,15 +98,19 @@ angular.module("FitngrowApp")
                 $scope.sportselected = $scope.sports[0];
                 $scope.newTraining.idSport = $scope.sportselected._id;
             });
+
+            $scope.totalTime = '0' + ":" + '00' + ":" + '00';
+            $scope.status = "pending";
+
         }
 
         function getTotalTime() {
             var start = $scope.newTraining.start;
             var end = $scope.newTraining.end;
-            var diff = end - start
-            diff = new Date(diff)
-            var sec = diff.getSeconds()
-            var min = diff.getMinutes()
+            var diff = end - start;
+            diff = new Date(diff);
+            var sec = diff.getSeconds();
+            var min = diff.getMinutes();
             var hr = diff.getHours() - 1
             if (min < 10) {
                 min = "0" + min

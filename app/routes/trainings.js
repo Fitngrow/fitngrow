@@ -83,15 +83,16 @@ module.exports = function (app, apiroot, db) {
 
             if (trainings.length == 0) {
                 db.trainings.insert(training);
-                res.sendStatus(201);
                 console.log("training added");
-                db.records.find({}, function (err, records) {
+                console.log(training.idUser);
+                db.records.findOne({idUser: training.idUser}, function (err, record) {
                     if (err) {
-                        // res.sendStatus(500);
+                        res.sendStatus(500);
                         console.log("Error");
                     } else {
-                        if (records.length > 0) {
+                        if (record) {
                             //Falta averiguar como coger solamente las horas del fin del entrenamiento
+<<<<<<< HEAD
                             var session = records[0].sessions + 1;
                             var calories = records[0].calories + training.calories;
                             var meters = records[0].meters + training.distance;
@@ -131,11 +132,26 @@ module.exports = function (app, apiroot, db) {
 
                             var record = records[0];
                             db.records.update({}, record, function (err, numRemoved) {
+=======
+                            var session = record.sessions + 1;
+                            var calories = record.calories + training.calories;
+                            var distance = record.distance + training.distance;
+                            var averageDistance = distance * 1.0 / session;
+                            var time = (parseInt(momentDate(training.end).hour()) - 12) + record.totalTime;
+
+                            record.sessions = session;
+                            record.calories = calories;
+                            record.distance = distance;
+                            record.averageDistance = averageDistance;
+                            record.totalTime = time;
+
+                            db.records.update({_id: record._id}, record, function (err, numRemoved) {
+>>>>>>> dev
                                 if (err) {
-                                    // res.sendStatus(500);
+                                    res.sendStatus(500);
                                     console.log("Error");
                                 } else {
-                                    //res.sendStatus(200);
+                                    res.sendStatus(200);
                                     console.log("Record updated");
                                 }
                             });
