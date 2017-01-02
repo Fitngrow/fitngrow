@@ -11,6 +11,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/login.html",
                 access: { restricted: false }
             })
+            .when("/register", {
+                controller: "RegisterCtrl",
+                templateUrl: "templates/register.html",
+                access: { restricted: false }
+            })
             .when("/achievements", {
                 controller: "ListAchievementsCtrl",
                 templateUrl: "templates/listachievements.html",
@@ -25,6 +30,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                 controller: "ListTrainingsCtrl",
                 templateUrl: "templates/listtrainings.html",
                 access: { restricted: true }
+            })
+            .when("/postman", {
+                controller: "Postman",
+                templateUrl: "templates/postman.html",
+                access: { restricted: false }
             })
     }).config(['$locationProvider', function($locationProvider) {
         $locationProvider.hashPrefix('');

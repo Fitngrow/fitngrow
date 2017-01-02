@@ -177,6 +177,28 @@ module.exports = function (app, apiroot, db) {
         Se cree que son ids, por lo que ponemos una palabra en medio para que no haya problema
      */
 
+    //Comprueba que no existe otro usuario con el mismo username
+    app.get(apiroot + '/users/service/existsUsername/:username', function (req, res) {
+        //Recogemos el username que vamos a capturar desde la URI
+        var username = req.params.username;
+        console.log("GET /users/service/existsUsername/" + req.params.username + " requested.");
+        //Buscamos el user por el username
+        db.users.findOne({ username: username }, function (err, user) {
+            if (user == null) {
+                console.log("Username doesn't exist");
+                res.status(200).json({
+                    status: false
+                });
+            } else {
+                console.log("Username already exists");
+                res.status(200).json({
+                    status: true
+                });
+            }
+        });
+
+    });
+
     //Comprueba si el usuario que realiza la petición está logueado o no, así como la información del usuario
     app.get(apiroot + '/users/service/status', function (req, res) {
         if (!req.isAuthenticated()) {
