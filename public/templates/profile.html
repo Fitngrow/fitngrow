@@ -1,11 +1,12 @@
-<h1>My Profile</h1>
-<div class="row">
-    <table class="table">
+<div class="container">
+    <h1>My Profile</h1>
+    <div class="row">
+        <!-- <table class="table">
         <thead>
             <tr>
                 <th>Full Name</th>
-                <th>User Name</th>              
-                <th>Email</th>                
+                <th>User Name</th>
+                <th>Email</th>
                 <th>Birthdate</th>
                 <th>Height</th>
                 <th>Weight</th>
@@ -14,15 +15,46 @@
         <tbody>
             <tr ng-value="user">
                 <td>{{user.fullName}}</td>
-                <td>{{user.username}}</td>                
+                <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.birthdate}}</td>
                 <td>{{user.height}}</td>
                 <td>{{user.weight}}</td>
             </tr>
         </tbody>
-    </table>
-</div>
-<div class="col-md-6 col-md-offset-3">
-    <a class="btn btn-primary btn-sm" href="#/">Back</a>   
-</div>
+        </table>-->
+        <div class=" col-md-9 col-lg-9 ">
+            <table class="table table-user-information">
+                <tbody>
+                    <tr>
+                        <td><b>Name:</b></td>
+                        <td>{{user.fullName}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>User name:</b></td>
+                        <td>{{user.username}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Email:</b></td>
+                        <td>{{user.email}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Birthdate:</b></td>
+                        <td>{{user.birthdate}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Height:<b/></td>
+                        <td>{{user.height}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Weight:</b></td>
+                        <td>{{user.weight}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </br><div class="col-md-6 col-md-offset-3">
+            <a class="btn btn-primary btn-sm" id="option-button" href="#/">Edit profile</a>
+            <a class="btn btn-primary btn-sm" id="option-button" href="#/">Back</a>
+        </div>
+    </div>
