@@ -10,11 +10,13 @@ angular.module('FitngrowApp').factory('AuthService',
         function ($q, $timeout, $http) {
             // Variable usuario que almacenará el estado del usuario
             var user = null;
+            var username = null;
 
             var apiroot = "/api/v1";
             // Devolvemos las funciones para usar en los controladores
             return ({
                 currentUser: currentUser,
+                existsUserName: existsUserName,
                 isLoggedIn: isLoggedIn,
                 getUserStatus: getUserStatus,
                 login: login,
@@ -24,6 +26,10 @@ angular.module('FitngrowApp').factory('AuthService',
             // Función que nos indica si estamos logueados o no
             function currentUser() {
                 return user;
+            }
+
+            function existsUserName() {
+                return username;
             }
 
             // Función que nos indica si estamos logueados o no
@@ -97,18 +103,31 @@ angular.module('FitngrowApp').factory('AuthService',
                 return deferred.promise;
             }
 
-            // Registro de un nuevo usuario
-            function register(user) {
+            // Función que realiza el login del usuario
+            function register(newUser) {
                 // create a new instance of deferred
                 var deferred = $q.defer();
-                // send a post request to the server
-                $http.post(apiroot + '/users/', user).then(
+                $http.get(apiroot + '/users/service/existsUsername/' + newUser.username).then(
                     // handle success
                     function (response) {
-                        if (response.status === 200) {
+                        if (response.data.status) {
+                            username = true;
                             deferred.resolve();
                         } else {
-                            deferred.reject();
+                            username = false;
+                            $http.post(apiroot + '/users/', newUser).then(
+                                // handle success
+                                function (response) {
+                                    if (response.status === 201) {
+                                        deferred.resolve();
+                                    } else {
+                                        deferred.reject();
+                                    }
+                                }).catch(
+                                // handle error
+                                function (response) {
+                                    deferred.reject();
+                                });
                         }
                     }).catch(
                     // handle error
@@ -118,4 +137,5 @@ angular.module('FitngrowApp').factory('AuthService',
                 // return promise object
                 return deferred.promise;
             }
+
         }]);
