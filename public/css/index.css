@@ -73,6 +73,10 @@ h1{
     background-color: #00695c;
 }
 
+.sport-selected{
+    border-color: blue !important;
+}
+
 .square {
     width: 300px;
     height: 300px;

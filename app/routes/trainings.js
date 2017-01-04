@@ -89,11 +89,11 @@ module.exports = function (app, apiroot, db) {
                     } else {
                         if (record) {
                             //Falta averiguar como coger solamente las horas del fin del entrenamiento
-                            var session = record.sessions + 1;
-                            var calories = record.calories + training.calories;
-                            var distance = record.distance + training.distance;
-                            var averageDistance = distance * 1.0 / session;
-                            var time = (parseInt(momentDate(training.end).hour()) - 12) + record.totalTime;
+                            var session = records[0].sessions + 1;
+                            var calories = records[0].calories + training.calories;
+                            var distance = records[0].distance + training.distance;
+                            var averageDistance = distance / session;
+                            var time = new Date(training.end) - new Date(training.start);
 
                             record.sessions = session;
                             record.calories = calories;
