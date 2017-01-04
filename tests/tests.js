@@ -10,6 +10,5 @@ exports.config = {
          */
         'backend/*.js',
         'e2e/*.js'
-
     ]
 };
