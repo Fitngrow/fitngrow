@@ -863,27 +863,40 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/error'
-  /users/service/status:
+  /users/service/existsUsername/{username}:
     get:
-      description: Checks whether the user making the request is logged in or not, as well as the user information
-      operationId: status
+      description: Checks that there is no other user with the same username
+      operationId: existsUsername
+      parameters:
+        - name: username
+          in: path
+          description: Username to check
+          required: true
+          type: string
       responses:
         '200':
-          description: Description
+          description: Username doesn't exist
   /users/service/login:
     post:
       description: Log in using a username and password
       operationId: login
       responses:
         '200':
-          description: Description
+          description: The user logs in
   /users/service/logout:
     get:
       description: Disconnect the requesting user
       operationId: logout
       responses:
         '200':
-          description: Description
+          description: The user logs out
+  /users/service/status:
+    get:
+      description: Checks whether the user making the request is logged in or not, as well as the user information
+      operationId: status
+      responses:
+        '200':
+          description: The user is logged in
 definitions:
   achievement:
     type: object
