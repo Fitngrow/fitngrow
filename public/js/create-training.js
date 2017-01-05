@@ -72,6 +72,10 @@ angular.module("FitngrowApp")
         };
 
         function refresh() {
+            $http.get("/api/v1/sports").then(function(response){
+               console.log(response);
+            });
+
             $scope.newTraining = {
                 averageHeartRate: 0,
                 calories: getCalories(),
@@ -106,8 +110,8 @@ angular.module("FitngrowApp")
         }
 
         function getCalories() {
-            $scope.sportselected = sport;
-
+            var sport = $scope.sportselected;
+            console.log(sport);
             var calories = 0.0;
             var timeMilliseconds = 0.0;
         
