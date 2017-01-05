@@ -19,6 +19,12 @@
 
 
     <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <div ng-repeat="sport in sports">
+                <img ng-src="{{sport.url}}" class="circle {{sport._id==sportselected._id ? 'sport-selected':''}}" style="height: 50px; width: 50px; margin:0 10px; border: solid black; cursor: pointer;"
+                ng-click="setSport(sport)"/>
+            </div>
+        </div>
         <div class="row">
             <div class="input-field col s6">
                 <input value="0" id="averageHeartRate" type="number" class="validate" min="0" ng-model="newTraining.averageHeartRate">
@@ -42,7 +48,6 @@
             <div class="input-field col s6">
                 <a class="waves-effect waves-light btn-large green" ng-click="saveTraining(); resetAchievements()"><i class="material-icons center">backup</i></a>
             </div>
-
         </div>
     </div>
 
