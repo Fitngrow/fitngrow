@@ -73,18 +73,22 @@ angular.module("FitngrowApp")
 
         function refresh() {
             $http.get("/api/v1/sports").then(function(response){
-               console.log(response);
-            });
+                var sports = response.data;
+                var defaultSport = sports[0];
+                $scope.newTraining = {
+                    averageHeartRate: 0,
+                    calories: 0.0,
+                    distance: 0,
+                    start: null,
+                    end: null,
+                    idSport: defaultSport._id
+                };
 
-            $scope.newTraining = {
-                averageHeartRate: 0,
-                calories: getCalories(),
-                distance: 0,
-                start: null,
-                end: null
-            };
-            $scope.totalTime = '0' + ":" + '00' + ":" + '00';
-            $scope.status = "pending";
+                $scope.sports = sports;
+                $scope.sportselected = defaultSport;
+                $scope.totalTime = '0' + ":" + '00' + ":" + '00';
+                $scope.status = "pending";
+            });
         }
 
         function getTotalTime() {
@@ -94,7 +98,7 @@ angular.module("FitngrowApp")
             diff = new Date(diff);
             var sec = diff.getSeconds();
             var min = diff.getMinutes();
-            var hr = diff.getHours() - 1
+            var hr = diff.getHours() - 1;
             if (min < 10) {
                 min = "0" + min
             }
@@ -106,7 +110,7 @@ angular.module("FitngrowApp")
 
         $scope.setSport = function(sport){
             $scope.sportselected = sport;
-            $scope.newTraining.idSport = sport._id;          
+            $scope.newTraining.idSport = sport._id;
         }
 
         function getCalories() {
