@@ -55,11 +55,11 @@ h1{
 	font-family: Arial Black, Geneva, Tahoma, sans-serif;
 }
 
-#option-button{
+.option-button{
     background-color: #00695c;
 }
 
-#option-button:hover{
+.option-button:hover{
     background-color: #00433B;
 }
 
