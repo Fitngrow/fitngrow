@@ -47,6 +47,10 @@ html
 	font-size: 14px;	
 }
 
+.sport-selected{
+    border-color: blue !important;
+}
+
 h1{
 	font-family: Arial Black, Geneva, Tahoma, sans-serif;
 }
