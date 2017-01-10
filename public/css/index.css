@@ -63,7 +63,7 @@ h1{
     background-color: #00433B;
 }
 
-#login-button{
+.header-button{
     display: inline;
     border: 1px solid white;
     border-radius: 4px;
@@ -73,7 +73,7 @@ h1{
     cursor: pointer;
 }
 
-#login-button:hover{
+.header-button:hover{
     background-color: #00695c;
 }
 
