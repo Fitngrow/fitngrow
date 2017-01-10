@@ -18,7 +18,7 @@
         </div>
 
 
-    <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
+    <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto; margin-top: 15px;" ng-if="status=='ended'">
         <div style="display: flex; flex-direction: row; justify-content: center;">
             <div ng-repeat="sport in sports">
                 <img ng-src="{{sport.url}}" class="circle {{sport._id==sportselected._id ? 'sport-selected':''}}" style="height: 50px; width: 50px; margin:0 10px; border: solid black; cursor: pointer;"
