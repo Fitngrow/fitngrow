@@ -8,7 +8,7 @@ module.exports = function (app, apiroot, db) {
         if (sports.length == 0) {
             db.sports.insert([
                 { _id: "1", name:"Running", url:"images/running.png", defaultSpeed: 8.0 },
-                { _id: "2", name:"Cycling", url:"images/cycling.png", defaultSpeed: 20.0 },
+                { _id: "2", name:"Cycling", url:"images/cycling.png", defaultSpeed: 15.0 },
                 { _id: "3", name:"Walking", url:"images/walking.png", defaultSpeed: 4.0 }
             ])
             console.log("A base sport is created");

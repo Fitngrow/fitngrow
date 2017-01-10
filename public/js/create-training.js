@@ -137,8 +137,8 @@ angular.module("FitngrowApp")
             var distance = 0.0;
 
             var timeSeconds = ($scope.newTraining.end - $scope.newTraining.start) / 1000;
-            var speed = sport.defaultSpeed;
-            distance = speed / timeSeconds;
+            var speed = sport.defaultSpeed * 1000;
+            distance = (speed * timeSeconds) / 3600;
 
             return Number(Number(distance).toFixed(2));
         }
