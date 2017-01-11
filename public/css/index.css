@@ -47,19 +47,23 @@ html
 	font-size: 14px;	
 }
 
+.sport-selected{
+    border-color: blue !important;
+}
+
 h1{
 	font-family: Arial Black, Geneva, Tahoma, sans-serif;
 }
 
-#option-button{
+.option-button{
     background-color: #00695c;
 }
 
-#option-button:hover{
+.option-button:hover{
     background-color: #00433B;
 }
 
-#login-button{
+.header-button{
     display: inline;
     border: 1px solid white;
     border-radius: 4px;
@@ -69,7 +73,7 @@ h1{
     cursor: pointer;
 }
 
-#login-button:hover{
+.header-button:hover{
     background-color: #00695c;
 }
 

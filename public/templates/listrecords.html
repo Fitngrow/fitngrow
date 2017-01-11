@@ -14,7 +14,7 @@
             <tr ng-repeat="record in records">
                 <td>{{record.distance}}</td>
                 <td>{{record.sessions}}</td>
-                <td fmt:formatNumber type="number" minFractionDigits="2">{{record.averageDistance}}</td>
+                <td>{{record.averageDistance | number : 2}}</td>
                 <td>{{record.calories}}</td>
                 <td>{{record.totalTime}}</td>
             </tr>
@@ -22,6 +22,6 @@
     </table>
 </div>
  <div class="col-md-6 col-md-offset-3">
-        <a  class="btn btn-primary btn-sm" id="option-button" href="#/">Back</a>
-        <a class="btn btn-primary btn-sm" id="option-button" href="#/trainingsRecord">Trainings record</a>
+        <a  class="btn btn-primary btn-sm option-button" href="#/">Back</a>
+        <a class="btn btn-primary btn-s option-button" href="#/trainingsRecord">Trainings record</a>
     </div>
