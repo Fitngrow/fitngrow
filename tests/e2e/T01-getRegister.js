@@ -18,7 +18,7 @@ describe('Get the user register', function () {
 
         // Añadido tiempo de espera para que el servidor pueda almacenar los datos del nuevo usuario
 
-        sleep(5000)
+        sleep(10000)
             .then(() => {
                 request('http://localhost:8080')
                     .get('/api/v1/users/service/existsUsername/' + username)

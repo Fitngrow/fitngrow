@@ -12,7 +12,7 @@ describe('Get the user login', function () {
 
         // Añadido tiempo de espera para que el servidor pueda asimilar el login
 
-        sleep(5000)
+        sleep(10000)
             .then(() => {
                 request('http://localhost:8080')
                     .get('/api/v1/users/service/status')
