@@ -15,13 +15,20 @@ describe('Get the user register', function () {
         element(by.css('[id="height"]')).sendKeys("1.92");
         element(by.css('[id="weight"]')).sendKeys("82.2");
         element(by.css('[id="option-button"]')).click();
-
-        request('http://localhost:8080')
-            .get('/api/v1/users/service/existsUsername/'+username)
-            .send()
-            .end(function (err, res) {
-                res.status.should.be.equal(200);
-                res.body.status.should.be.equal(false);
+        //Añadido tiempo de espera para que el servidor pueda almacenar los datos del nuevo usuario.
+        sleep(5000)
+            .then(()=>{
+                request('http://localhost:8080')
+                    .get('/api/v1/users/service/existsUsername/'+username)
+                    .send()
+                    .end(function (err, res) {
+                        res.status.should.be.equal(200);
+                        res.body.status.should.be.equal(true);
+                    });
             });
     });
 });
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
