@@ -10,11 +10,21 @@ describe('Get the user login', function () {
         element(by.css('[id="password"]')).sendKeys("test1");
         element(by.css('[id="option-button"]')).click();
 
-        request('http://localhost:8080')
-            .get('/api/v1/users/service/status')
-            .send()
-            .end(function (err, res) {
-                res.status.should.be.equal(200);
+        // Añadido tiempo de espera para que el servidor pueda asimilar el login
+
+        sleep(5000)
+            .then(() => {
+                request('http://localhost:8080')
+                    .get('/api/v1/users/service/status')
+                    .send()
+                    .end(function (err, res) {
+                        res.status.should.be.equal(200);
+                        res.body.status.should.be.equal(true);
+                    });
             });
     });
 });
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
