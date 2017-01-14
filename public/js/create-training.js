@@ -101,7 +101,7 @@ angular.module("FitngrowApp")
             diff = new Date(diff);
             var sec = diff.getSeconds();
             var min = diff.getMinutes();
-            var hr = diff.getHours() - 1
+            var hr = diff.getHours() - 1;
             if (min < 10) {
                 min = "0" + min
             }

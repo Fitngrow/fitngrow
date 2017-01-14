@@ -17,7 +17,7 @@
                 </div>
         </div>
 
-
+                  
     <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto; margin-top: 15px;" ng-if="status=='ended'">
         <div style="display: flex; flex-direction: row; justify-content: center;">
             <div ng-repeat="sport in sports">
@@ -25,7 +25,7 @@
                 ng-click="setSport(sport)"/>
             </div>
         </div>
-        <div class="row">
+        </br><div class="row">
             <div class="input-field col s12">
                 <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories">
                 <label class="active" for="calories" style="color: black";>Calories</label>

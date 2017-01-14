@@ -36,6 +36,11 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/profile.html",
                 access: { restricted: true }
             })
+            .when("/editProfile", {
+                controller: "EditProfileCtrl",
+                templateUrl: "templates/editProfile.html",
+                access: { restricted: true }
+            })
             .when("/postman", {
                 controller: "Postman",
                 templateUrl: "templates/postman.html",
