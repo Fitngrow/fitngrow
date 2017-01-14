@@ -588,6 +588,128 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/error'
+  /sports:
+    get:
+      description: Returns all sports from the system
+      operationId: findSports
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: An array of sports
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/sport'
+        '500':
+          description: Unexpected error
+          schema:
+              $ref: '#/definitions/error'
+    post:
+      description: Creates a new sport in the system
+      operationId: addSport
+      produces:
+        - application/json
+      parameters:
+        - name: sport
+          in: body
+          description: Sport to add to the system
+          required: true
+          schema:
+            $ref: '#/definitions/newSport'
+      responses:
+        '201':
+          description: sport added
+          schema:
+            $ref: '#/definitions/sport'
+        '404':
+          description: Sport not found
+          schema:
+            $ref: '#/definitions/error'
+        '409':
+          description: A sport with the same id already exists
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes all sports from the system
+      operationId: deleteSports
+      responses:
+        '200':
+          description: Sports deleted
+        '500':
+          description: Error
+          schema:
+              $ref: '#/definitions/error'
+  /sports/{_id}:
+    get:
+      description: Returns a sport based on a single ID
+      operationId: findSportById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of sport to fetch
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sport response
+          schema:
+            $ref: '#/definitions/sport'
+        '404':
+          description: Sport not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      description: Edits a sport based on a single ID
+      operationId: editSportById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of sport to edit
+          required: true
+          type: string
+        - name: sport
+          in: body
+          description: Sport to edit
+          required: true
+          schema:
+            $ref: '#/definitions/sport'
+      responses:
+        '200':
+          description: Sport updated
+          schema:
+            $ref: '#/definitions/sport'
+        '404':
+          description: Sport not found
+          schema:
+            $ref: '#/definitions/error'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
+    delete:
+      description: Deletes a single sport based on the ID supplied
+      operationId: deleteSportById
+      parameters:
+        - name: _id
+          in: path
+          description: ID of sport to delete
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sports deleted
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/error'
   /trainings:
     get:
       description: Returns all trainings from the system
@@ -1116,6 +1238,39 @@ definitions:
       time:
         type: integer
         format: int64
+  sport:
+    type: object
+    required:
+      - _id
+      - name
+      - url
+      - defaultSpeed
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      url:
+        type: string
+      defaultSpeed:
+        type: number
+        format: double
+  newSport:
+    type: object
+    required:
+      - name
+      - url
+      - defaultSpeed
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      url:
+        type: string
+      defaultSpeed:
+        type: number
+        format: double
   training:
     type: object
     required:

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Fitngrow/fitngrow#readme",
   "dependencies": {
+    "assert": "^1.4.1",
     "body-parser": "^1.15.2",
     "bower": "^1.8.0",
     "cookie-parser": "^1.4.3",
@@ -28,8 +29,11 @@
     "nedb": "^1.8.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "underscore": "^1.8.3",
+    "protractor": "^4.0.11",
+    "should": "^11.1.1",
+    "supertest": "^2.0.1",
     "swagger-express-mw": "^0.7.0",
-    "swagger-tools": "^0.10.1"
+    "swagger-tools": "^0.10.1",
+    "underscore": "^1.8.3"
   }
 }
