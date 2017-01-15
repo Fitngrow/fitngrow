@@ -13,9 +13,9 @@ angular.module("FitngrowApp")
         $scope.updateUser = function () {
             $scope.error = ""
            
-           var editUser = $scope.profile;            
+           var editUser = $scope.profile;           
 
-            if ((editUser.email == null) || (editUser.birthdate == null) || (editUser.height == null) || (editUser.weight == null)) {
+            if ((editUser.fullName == null) || (editUser.email == null) || (editUser.birthdate == null) || (editUser.height == null) || (editUser.weight == null)) {
                 $scope.error = "Please make sure the fields are filled out correctly";
             } else {                       
                 editUser.birthdate = textToDate(editUser.birthdate)

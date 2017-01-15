@@ -27,15 +27,20 @@
         </div>
         </br><div class="row">
             <div class="input-field col s12">
-                <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories" ng-click="updateAchievements()">
-                <label class="active" for="calories" style="color: black";>Calories</label>
+                <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories" required ng-click="updateAchievements()">
+                <label class="active" for="calories" style="color: black";>Calories (Kcal)</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="distance" type="number" step="any" class="validate" min="0" ng-model="newTraining.distance" ng-click="updateAchievements()">
+                <input id="distance" type="number" step="any" class="validate" min="0" ng-model="newTraining.distance" required ng-click="updateAchievements()">
                 <label class="active" for="distance" style="color: black";>Distance (Meters)</label>
             </div>
+        </div>
+        </br><div class="row" ng-if="error" >
+            <span class="red" style="padding: 5px;">
+                {{error}}
+            </span>
         </div>
         <div class="row">
             <div class="input-field col s6">

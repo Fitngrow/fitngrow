@@ -55,12 +55,18 @@ angular.module("FitngrowApp")
             refresh()
         };
         $scope.saveTraining = function () {
+            $scope.error = ""
             var newTraining = $scope.newTraining;
 
-            $http.post("/api/v1/trainings", newTraining).then(function (response) {
+            if ((newTraining.calories == null) || (newTraining.distance == null)){
+                 $scope.error = "Please make sure the fields are filled out correctly";
+            }
+            else{
+                $http.post("/api/v1/trainings", newTraining).then(function (response) {
                 refresh();
             });
 
+            }         
         };
 
         $scope.changeStatus = function(){

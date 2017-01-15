@@ -40,7 +40,7 @@ module.exports = function (app, apiroot, db) {
     app.get(apiroot + '/users', function (req, res) {
         console.log("GET /users requested.");
 
-        //Recibimos todos los logros
+        //Recibimos todos los usuarios
         db.users.find({}, (err, users) => {
             if (err) {
                 res.sendStatus(500);
@@ -57,7 +57,7 @@ module.exports = function (app, apiroot, db) {
         //Recogemos el id que vamos a capturar desde la URI
         var id = req.params.id;
 
-        //Buscamos el logro por el id
+        //Buscamos el usuario por el id
         db.users.findOne({ _id: id }, function (err, user) {
             if (user == null) {
                 console.log("User not found.");
@@ -105,6 +105,21 @@ module.exports = function (app, apiroot, db) {
             console.log("Error: Request ID and body ID are different.");
             res.sendStatus(409);
             return;
+        }
+
+        //si no se ha rellenado el campo contraseña se obtiene la contraseña del usuario
+        if (user.password == null) {
+            //Buscamos el usuario por el id
+            db.users.findOne({ _id: id }, function (err, user1) {
+                if (user == null) {
+                    console.log("User not found.");
+                    res.sendStatus(404);
+                } else {
+                    //añadimos en el nuevo usuario el password del antiguo
+                    user.password = user1.password
+                }
+            });
+
         }
 
         //Actualizamos el usuario, si existe

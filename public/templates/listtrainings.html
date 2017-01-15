@@ -1,6 +1,6 @@
 <h1>My Trainings Record</h1>
 <div class="row">
-    <table class="table">
+    <table class="table table-information">
         <thead>
             <tr>
                 <th>Start</th>
@@ -13,8 +13,8 @@
             <tr ng-repeat="training in trainings">
                 <td>{{training.start}}</td>
                 <td>{{training.end}}</td>
-                <td>{{training.calories}}</td>
-                <td>{{training.distance}}</td>
+                <td>{{training.calories}} kcal</td>
+                <td>{{training.distance}} m</td>
             </tr>
         </tbody>
     </table>
