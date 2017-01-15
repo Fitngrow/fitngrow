@@ -1,6 +1,6 @@
 <h1>My Record</h1>
-<div class="row">
-    <table class="table">
+<div class="row" style="text-align: center;">
+    <!--<table class="table">
         <thead>
             <tr>
                 <th>Distance</th>
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="record in records">
+            <tr>
                 <td>{{record.distance | number : 2}} m</td>
                 <td>{{record.sessions}}</td>
                 <td>{{record.averageDistance | number : 2}} m</td>
@@ -20,6 +20,59 @@
             </tr>
         </tbody>
     </table>
+    -->
+    <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Calories</span>
+            </div>
+            <div class="card-action record-card-action truncate">
+                {{record.calories | number : 2}} kcal
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Total time</span>
+            </div>
+            <div class="card-action record-card-action truncate">
+                {{record.totalTime | number : 3}} s
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m4">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Distance</span>
+            </div>
+            <div class="card-action record-card-action truncate">
+                {{record.distance | number : 2}} m
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Sessions</span>
+            </div>
+            <div class="card-action record-card-action truncate">
+                {{record.sessions}}
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Average distance</span>
+            </div>
+            <div class="card-action record-card-action truncate">
+                {{record.averageDistance | number : 2}} m
+            </div>
+        </div>
+    </div>
+
 </div>
  <div class="col-md-6 col-md-offset-3">
         <a  class="btn btn-primary btn-sm option-button" href="#/">Back</a>
