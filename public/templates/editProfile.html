@@ -1,17 +1,13 @@
 <div class="container">
     <h1>Edit my Profile</h1>
-    <div class="row">       
+    <div class="row" style="margin-top: 5%;">       
         <div class=" col-md-9 col-lg-9 ">
-            <table>
+            <table class="table table-editProfile">
                 <tbody>
                     <tr>
-                        <td><b>Name:</b></td>
+                        <td><b>Full Name:</b></td>
                         <td><input id="fullname" type="text" class="validate" ng-model="profile.fullName" required/></td>
-                    </tr>
-                    <tr>
-                        <td><b>User name:</b></td>
-                        <td>{{profile.username}}</td>
-                    </tr>
+                    </tr>                   
                     <tr>
                         <td><b>Email:</b></td>
                         <td><input id="email" type="email" class="validate" ng-model="profile.email" required/></td>
@@ -29,18 +25,18 @@
                         <td><input id="weight" type="number" step="any" class="validate" min="0" ng-model="profile.weight" required/></td>
                     </tr>  
                     <tr>
-                        <td><b>new Password?</b></td>
+                        <td><b>new Password:</b></td>
                         <td><input id="password" type="password" class="validate" ng-model="profile.password"/></td>
                     </tr>                    
                 </tbody>                
             </table>
         </div>
-        </br><div class="row" ng-if="error" >
+        <div class="row" ng-if="error" style="margin-top: 2%;">
             <span class="red" style="padding: 5px;">
                 {{error}}
             </span>
         </div>
-        </br><div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3" style="margin-top: 3%;">
             <a class="btn btn-primary btn-sm option-button" ng-click="updateUser()">Update profile</a>
             <a class="btn btn-primary btn-sm option-button" href="#/profile">Back</a>
         </div>        

@@ -119,6 +119,10 @@ h1{
     border-top: 0;
 }
 
+.table-editProfile > tbody > tr > td > input {
+    margin-left: -25%;
+}
+
 #training-button-aux{
     width: 280px;
     height: 280px;
