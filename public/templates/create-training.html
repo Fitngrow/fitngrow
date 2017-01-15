@@ -22,18 +22,18 @@
         <div style="display: flex; flex-direction: row; justify-content: center;">
             <div ng-repeat="sport in sports">
                 <img ng-src="{{sport.url}}" class="circle {{sport._id==sportselected._id ? 'sport-selected':''}}" style="height: 50px; width: 50px; margin:0 10px; border: solid black; cursor: pointer;"
-                ng-click="setSport(sport)"/>
+                ng-click="setSport(sport); updateAchievements()"/>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories">
+                <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories" ng-click="updateAchievements()">
                 <label class="active" for="calories" style="color: black";>Calories</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="distance" type="number" step="any" class="validate" min="0" ng-model="newTraining.distance">
+                <input id="distance" type="number" step="any" class="validate" min="0" ng-model="newTraining.distance" ng-click="updateAchievements()">
                 <label class="active" for="distance" style="color: black";>Distance (Meters)</label>
             </div>
         </div>
