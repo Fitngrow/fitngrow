@@ -56,7 +56,7 @@ module.exports = function (app, apiroot, db) {
                 res.sendStatus(500);
             } else {
                 if (records.length > 0)
-                    res.send(records);
+                    res.send(records[0]);
                 else
                     res.sendStatus(404);
             }

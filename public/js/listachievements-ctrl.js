@@ -43,7 +43,7 @@ angular.module("FitngrowApp")
         }
 
         function updateUserInfo() {
-            $http.get("/api/v1/records/" + $scope.currentUser._id).then(function (response) {
+            $http.get("/api/v1/records/user/" + $scope.currentUser._id).then(function (response) {
                 meters = response.data.distance;
                 seconds = response.data.totalTime;
             });

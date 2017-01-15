@@ -38,7 +38,7 @@ angular.module("FitngrowApp")
         }
 
         $scope.updateAchievements = function () {
-            $http.get("/api/v1/records/" + $scope.currentUser._id).then(function (response) {
+            $http.get("/api/v1/records/user/" + $scope.currentUser._id).then(function (response) {
                 $scope.meters = response.data.distance;
                 $scope.seconds = response.data.totalTime;
 
@@ -65,7 +65,7 @@ angular.module("FitngrowApp")
         }
 
         function updateUserInfo() {
-            $http.get("/api/v1/records/" + $scope.currentUser._id).then(function (response) {
+            $http.get("/api/v1/records/user/" + $scope.currentUser._id).then(function (response) {
                 $scope.meters = response.data.distance;
                 $scope.seconds = response.data.totalTime;
             });
