@@ -1,11 +1,11 @@
 angular.module("FitngrowApp")
     .controller("ListAchievementsCtrl", function ($scope, $http) {
 
-        // Info usuario provisional
-        var meters = 12350;
-        var seconds = 9700;
+        var meters;
+        var seconds;
 
         function refresh() {
+            updateUserInfo();
             $http.get("/api/v1/achievements").then(function (response) {
 
                 // Cálculo de logros
@@ -39,6 +39,13 @@ angular.module("FitngrowApp")
                 $scope.achieved_achievements = achieved_achievements;
                 $scope.unachieved_achievements = unachieved_achievements;
 
+            });
+        }
+
+        function updateUserInfo() {
+            $http.get("/api/v1/records/" + $scope.currentUser._id).then(function (response) {
+                meters = response.data.distance;
+                seconds = response.data.totalTime;
             });
         }
 

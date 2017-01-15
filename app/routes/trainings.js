@@ -81,19 +81,19 @@ module.exports = function (app, apiroot, db) {
             if (trainings.length == 0) {
                 db.trainings.insert(training);
                 console.log("training added");
-                console.log(training.idUser);
                 db.records.findOne({idUser: training.idUser}, function (err, record) {
                     if (err) {
                         res.sendStatus(500);
                         console.log("Error");
                     } else {
                         if (record) {
-                            //Falta averiguar como coger solamente las horas del fin del entrenamiento
                             var session = record.sessions + 1;
                             var calories = record.calories + training.calories;
                             var distance = record.distance + training.distance;
                             var averageDistance = distance * 1.0 / session;
-                            var time = (parseInt(momentDate(training.end).hour()) - 12) + record.totalTime;
+
+                            //Totaltime pasará a estar almacenado en segundos
+                            var time = (new Date(training.end) - new Date(training.start))/1000.0 + record.totalTime;
 
                             record.sessions = session;
                             record.calories = calories;
