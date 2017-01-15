@@ -5,8 +5,9 @@ info:
   description: |
     This is the API for Fit&Grow, which is a sport activity monitoring system which allows the user to store his or her workouts, check his or her history and opt for achievements
     <div class="postman-run-button"
+    <div class="postman-run-button"
     data-postman-action="collection/import"
-    data-postman-var-1="a19dd36691b4a64c2afd"></div>
+    data-postman-var-1="4bfd7a7f31d77d68a5a4"></div>
     <script type="text/javascript">
       (function (p,o,s,t,m,a,n) {
         !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });

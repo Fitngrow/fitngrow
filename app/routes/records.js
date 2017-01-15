@@ -6,9 +6,11 @@ module.exports = function (app, apiroot, db) {
     db.records.find({}, (err, records) => {
         if (records.length == 0) {
             db.records.insert([
-                { _id: "1", idUser: "1", distance: 0.0, sessions: 0, averageDistance: 0.0, calories: 0.0, totalTime: 0.0 },
-                { _id: "2", idUser: "2", distance: 0.0, sessions: 0, averageDistance: 0.0, calories: 0.0, totalTime: 0.0 },
-                { _id: "3", idUser: "3", distance: 0.0, sessions: 0, averageDistance: 0.0, calories: 0.0, totalTime: 0.0 }
+                { _id: "1", idUser: "1", distance: 8.69, sessions: 1, averageDistance: 8.69, calories: 0.73, totalTime: 3.911 },
+                { _id: "2", idUser: "2", distance: 8.69, sessions: 1, averageDistance: 8.69, calories: 0.73, totalTime: 3.911 },
+                { _id: "3", idUser: "3", distance: 8.69, sessions: 1, averageDistance: 8.69, calories: 0.73, totalTime: 3.911 },
+                { _id: "4", idUser: "4", distance: 8.69, sessions: 1, averageDistance: 8.69, calories: 0.73, totalTime: 3.911 },
+                { _id: "5", idUser: "5", distance: 8.69, sessions: 1, averageDistance: 8.69, calories: 0.73, totalTime: 3.911 }
             ])
             console.log("A base records is created");
         } else {

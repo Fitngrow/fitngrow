@@ -61,16 +61,7 @@ module.exports = function (app, apiroot, db) {
             if (sports.length == 0) {
                 db.sports.insert(sport);
                 res.sendStatus(201);
-                console.log("sport added");
-                db.records.find({}, function (err, records) {
-                    if (err) {
-                        // res.sendStatus(500);
-                        console.log("Error");
-                    } else {
-                        res.sendStatus(404);
-                        console.log("Sport not found");
-                    }
-                });
+                console.log("sport added");             
             } else {
                 res.sendStatus(409);
                 console.log("Error: A sport with the same id already exists");
