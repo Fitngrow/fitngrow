@@ -7,9 +7,11 @@ module.exports = function (app, apiroot, db) {
     db.trainings.find({}, function (err, trainings) {
         if (trainings.length == 0) {
             db.trainings.insert([
-                { _id: "1", idUser: "1", idSport: "1", start: new Date(), end: new Date(), calories: 1.0, distance: 1.0 },
-                { _id: "2", idUser: "1", idSport: "2", start: new Date(), end: new Date(), calories: 2.0, distance: 2.0 },
-                { _id: "3", idUser: "1", idSport: "3", start: new Date(), end: new Date(), calories: 3.0, distance: 3.0 }
+                { _id: "1", idUser: "1", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "2", idUser: "2", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "3", idUser: "3", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "4", idUser: "4", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "5", idUser: "5", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 }
             ])
             console.log("A base training is created");
         } else {

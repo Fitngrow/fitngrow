@@ -4,12 +4,14 @@ angular.module("FitngrowApp")
         $scope.error = null;
 
         $scope.submit = function () {
+            var oldBirthdate = $scope.newUser.birthdate;
             $scope.newUser.birthdate = textToDate($scope.newUser.birthdate);
             var newUser = $scope.newUser;
             AuthService.register(newUser)
                 .then(function () {
                     var username = AuthService.existsUserName();
                     if (username) {
+                        $scope.newUser.birthdate = oldBirthdate;
                         $scope.error = "Username already exists, please introduce other username";
                     } else {
                         $location.path("login");

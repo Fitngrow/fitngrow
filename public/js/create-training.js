@@ -55,12 +55,18 @@ angular.module("FitngrowApp")
             refresh()
         };
         $scope.saveTraining = function () {
+            $scope.error = ""
             var newTraining = $scope.newTraining;
 
-            $http.post("/api/v1/trainings", newTraining).then(function (response) {
+            if ((newTraining.calories == null) || (newTraining.distance == null)){
+                 $scope.error = "Please make sure the fields are filled out correctly";
+            }
+            else{
+                $http.post("/api/v1/trainings", newTraining).then(function (response) {
                 refresh();
             });
 
+            }         
         };
 
         $scope.changeStatus = function(){
@@ -101,7 +107,7 @@ angular.module("FitngrowApp")
             diff = new Date(diff);
             var sec = diff.getSeconds();
             var min = diff.getMinutes();
-            var hr = diff.getHours() - 1
+            var hr = diff.getHours() - 1;
             if (min < 10) {
                 min = "0" + min
             }
