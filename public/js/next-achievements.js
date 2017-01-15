@@ -38,21 +38,25 @@ angular.module("FitngrowApp")
         }
 
         $scope.updateAchievements = function () {
-            $scope.runningDistanceMeters = $scope.newTraining.distance;
-            $scope.runningTimeSeconds = Math.floor(($scope.newTraining.end - $scope.newTraining.start) / 1000);
+            $http.get("/api/v1/records/" + $scope.currentUser._id).then(function (response) {
+                $scope.meters = response.data.distance;
+                $scope.seconds = response.data.totalTime;
 
-            $scope.meters += $scope.runningDistanceMeters;
-            $scope.seconds += $scope.runningTimeSeconds;
+                $scope.runningDistanceMeters = $scope.newTraining.distance;
+                $scope.runningTimeSeconds = Math.floor(($scope.newTraining.end - $scope.newTraining.start) / 1000);
 
-            if ($scope.meters >= $scope.distance_achievement.type_value) {
-                $scope.distance_achievement.url = $scope.distance_achievement.url_achieved;
-                $scope.distance_unachieved = false;
-            }
-            if ($scope.seconds >= $scope.time_achievement.type_value) {
-                $scope.time_achievement.url = $scope.time_achievement.url_achieved;
-                $scope.time_unachieved = false;
-            }
+                $scope.meters += $scope.runningDistanceMeters;
+                $scope.seconds += $scope.runningTimeSeconds;
 
+                if ($scope.meters >= $scope.distance_achievement.type_value) {
+                    $scope.distance_achievement.url = $scope.distance_achievement.url_achieved;
+                    $scope.distance_unachieved = false;
+                }
+                if ($scope.seconds >= $scope.time_achievement.type_value) {
+                    $scope.time_achievement.url = $scope.time_achievement.url_achieved;
+                    $scope.time_unachieved = false;
+                }
+            });
 
         }
 

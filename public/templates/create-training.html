@@ -18,21 +18,23 @@
         </div>
 
 
-    <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto;" ng-if="status=='ended'">
-        <div class="row">
-            <div class="input-field col s6">
-                <input value="0" id="averageHeartRate" type="number" class="validate" min="0" ng-model="newTraining.averageHeartRate">
-                <label class="active" for="averageHeartRate">Average Heart Rate</label>
-            </div>
-            <div class="input-field col s6">
-                <input value="0" id="calories" type="number" class="validate" min="0" ng-model="newTraining.calories">
-                <label class="active" for="calories">Calories</label>
+    <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto; margin-top: 15px;" ng-if="status=='ended'">
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <div ng-repeat="sport in sports">
+                <img ng-src="{{sport.url}}" class="circle {{sport._id==sportselected._id ? 'sport-selected':''}}" style="height: 50px; width: 50px; margin:0 10px; border: solid black; cursor: pointer;"
+                ng-click="setSport(sport); updateAchievements()"/>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input value="0" id="distance" type="number" class="validate" min="0" ng-model="newTraining.distance">
-                <label class="active" for="distance">Distance (Meters)</label>
+                <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories" ng-click="updateAchievements()">
+                <label class="active" for="calories" style="color: black";>Calories</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="distance" type="number" step="any" class="validate" min="0" ng-model="newTraining.distance" ng-click="updateAchievements()>
+                <label class="active" for="distance" style="color: black";>Distance (Meters)</label>
             </div>
         </div>
         <div class="row">
@@ -42,7 +44,6 @@
             <div class="input-field col s6">
                 <a class="waves-effect waves-light btn-large green" ng-click="saveTraining(); resetAchievements()"><i class="material-icons center">backup</i></a>
             </div>
-
         </div>
     </div>
 

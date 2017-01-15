@@ -1,37 +1,27 @@
- <h1>My Record</h1>
-    <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Meters</th>
-                    <th>Sessions</th>
-                    <th>Average metters</th>
-                    <th>Total time</th>
-                    <th>Calories</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--
-                <tr>
-                    <td><input class="form-control" ng-model="newRecord.meters"/></td>
-                    <td><input class="form-control" ng-model="newRecord.sessions"/></td>
-                    <td><input class="form-control" ng-model="newRecord.averageMetters"/></td>
-                    <td><input class="form-control" ng-model="newRecord.calories"/></td>
-                    <td><button class="btn btn-primary" ng-click="addRecord()">Add</button></td>
-                </tr>
-                -->
-                <tr ng-repeat="record in records">
-                    <!--<td><a href="/#/records/{{contact._id}}">Editar historial</a></td>-->
-                    <td>{{record.distance}}</td>
-                    <td>{{record.sessions}}</td>
-                    <td fmt:formatNumber type="number" minFractionDigits="2">{{record.averageDistance}}</td>
-                    <td>{{record.totalTime}}</td>
-                    <td>{{record.calories}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-6 col-md-offset-3">
-        <a  class="btn btn-primary btn-sm"  href="#/">Back</a>
-        <a class="btn btn-primary btn-sm" href="#/trainingsRecord">Trainings record</a>
+<h1>My Record</h1>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Distance</th>
+                <th>Sessions</th>
+                <th>Average distance</th>
+                <th>Calories</th>
+                <th>Total time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="record in records">
+                <td>{{record.distance}}</td>
+                <td>{{record.sessions}}</td>
+                <td>{{record.averageDistance | number : 2}}</td>
+                <td>{{record.calories}}</td>
+                <td>{{record.totalTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+ <div class="col-md-6 col-md-offset-3">
+        <a  class="btn btn-primary btn-sm option-button" href="#/">Back</a>
+        <a class="btn btn-primary btn-s option-button" href="#/trainingsRecord">Trainings record</a>
     </div>
