@@ -1,0 +1,38 @@
+<div class="container">
+    <h1>My Profile</h1>
+    <div class="row" style="margin-top: 5%;">       
+        <div class=" col-md-9 col-lg-9 ">
+            <table class="table table-information">
+                <tbody>
+                    <tr>
+                        <td><b>Full name:</b></td>
+                        <td>{{user.fullName}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Username:</b></td>
+                        <td>{{user.username}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Email:</b></td>
+                        <td>{{user.email}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Birthdate:</b></td>
+                        <td>{{user.birthdate}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Height:<b/></td>
+                        <td>{{user.height}} m</td>
+                    </tr>
+                    <tr>
+                        <td><b>Weight:</b></td>
+                        <td>{{user.weight}} Kg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-md-offset-3" style="margin-top: 5%;">
+            <a class="btn btn-primary btn-sm option-button" href="#/editProfile">Edit profile</a>
+            <a class="btn btn-primary btn-sm option-button" href="#/">Back</a>
+        </div>
+    </div>

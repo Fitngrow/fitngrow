@@ -31,10 +31,21 @@ angular.module("FitngrowApp", ["ngRoute"])
                 templateUrl: "templates/listtrainings.html",
                 access: { restricted: true }
             })
+            .when("/profile", {
+                controller: "ProfileCtrl",
+                templateUrl: "templates/profile.html",
+                access: { restricted: true }
+            })
+            .when("/editProfile", {
+                controller: "EditProfileCtrl",
+                templateUrl: "templates/editProfile.html",
+                access: { restricted: true }
+            })
             .when("/postman", {
                 controller: "Postman",
                 templateUrl: "templates/postman.html",
                 access: { restricted: false }
+
             })
     }).config(['$locationProvider', function($locationProvider) {
         $locationProvider.hashPrefix('');

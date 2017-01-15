@@ -7,9 +7,11 @@ module.exports = function (app, apiroot, db) {
     db.trainings.find({}, function (err, trainings) {
         if (trainings.length == 0) {
             db.trainings.insert([
-                { _id: "1", idUser: "1", idSport: "1", start: new Date(), end: new Date(), calories: 1.0, distance: 1.0 },
-                { _id: "2", idUser: "1", idSport: "2", start: new Date(), end: new Date(), calories: 2.0, distance: 2.0 },
-                { _id: "3", idUser: "1", idSport: "3", start: new Date(), end: new Date(), calories: 3.0, distance: 3.0 }
+                { _id: "1", idUser: "1", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "2", idUser: "2", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "3", idUser: "3", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "4", idUser: "4", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 },
+                { _id: "5", idUser: "5", idSport: "1", start: "2017-01-01T14:29:21.014Z", end: "2017-01-01T14:29:24.925Z", calories: 0.73, distance: 8.69 }
             ])
             console.log("A base training is created");
         } else {
@@ -81,19 +83,19 @@ module.exports = function (app, apiroot, db) {
             if (trainings.length == 0) {
                 db.trainings.insert(training);
                 console.log("training added");
-                console.log(training.idUser);
                 db.records.findOne({idUser: training.idUser}, function (err, record) {
                     if (err) {
                         res.sendStatus(500);
                         console.log("Error");
                     } else {
                         if (record) {
-                            //Falta averiguar como coger solamente las horas del fin del entrenamiento
                             var session = record.sessions + 1;
                             var calories = record.calories + training.calories;
                             var distance = record.distance + training.distance;
                             var averageDistance = distance * 1.0 / session;
-                            var time = (parseInt(momentDate(training.end).hour()) - 12) + record.totalTime;
+
+                            //Totaltime pasará a estar almacenado en segundos
+                            var time = (new Date(training.end) - new Date(training.start))/1000.0 + record.totalTime;
 
                             record.sessions = session;
                             record.calories = calories;

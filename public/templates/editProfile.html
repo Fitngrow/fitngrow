@@ -1,0 +1,43 @@
+<div class="container">
+    <h1>Edit my Profile</h1>
+    <div class="row" style="margin-top: 5%;">       
+        <div class=" col-md-9 col-lg-9 ">
+            <table class="table table-editProfile">
+                <tbody>
+                    <tr>
+                        <td><b>Full Name:</b></td>
+                        <td><input id="fullname" type="text" class="validate" ng-model="profile.fullName" required/></td>
+                    </tr>                   
+                    <tr>
+                        <td><b>Email:</b></td>
+                        <td><input id="email" type="email" class="validate" ng-model="profile.email" required/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Birthdate:</b></td>
+                        <td><input id="birthdate" type="text" class="validate" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" ng-model="profile.birthdate" required/></td>                       
+                    </tr>
+                    <tr>
+                        <td><b>Height:</b></td>
+                        <td><input id="height" type="number" step="any" class="validate" min="0" ng-model="profile.height" required/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Weight:</b></td>
+                        <td><input id="weight" type="number" step="any" class="validate" min="0" ng-model="profile.weight" required/></td>
+                    </tr>  
+                    <tr>
+                        <td><b>new Password:</b></td>
+                        <td><input id="password" type="password" class="validate" ng-model="profile.password"/></td>
+                    </tr>                    
+                </tbody>                
+            </table>
+        </div>
+        <div class="row" ng-if="error" style="margin-top: 2%;">
+            <span class="red" style="padding: 5px;">
+                {{error}}
+            </span>
+        </div>
+        <div class="col-md-6 col-md-offset-3" style="margin-top: 3%;">
+            <a class="btn btn-primary btn-sm option-button" ng-click="updateUser()">Update profile</a>
+            <a class="btn btn-primary btn-sm option-button" href="#/profile">Back</a>
+        </div>        
+    </div>

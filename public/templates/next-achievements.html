@@ -30,7 +30,7 @@
                             <figcaption><b>{{distance_achievement.name}}</b></figcaption>
                         </td>
                         <td>
-                            {{meters}}/{{distance_achievement.type_value}}
+                            {{ meters | number: "2" }}/{{distance_achievement.type_value}}
                             <br>meters
                         </td>
                     </tr>
@@ -45,7 +45,7 @@
                             <figcaption><b>{{time_achievement.name}}</b></figcaption>
                         </td>
                         <td>
-                            {{seconds}}/{{time_achievement.type_value}}
+                            {{ seconds | number: "3" }}/{{time_achievement.type_value}}
                             <br>seconds
                         </td>
                     </tr>

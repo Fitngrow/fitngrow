@@ -14,9 +14,9 @@
             <tr>
                 <td>{{record.distance}}</td>
                 <td>{{record.sessions}}</td>
-                <td>{{record.averageDistance | number : 2}}</td>
-                <td>{{record.calories}}</td>
-                <td>{{record.totalTime}}</td>
+                <td>{{record.averageDistance | number : 2}} m</td>
+                <td>{{record.calories | number : 2}} kcal</td>
+                <td>{{record.totalTime | number : 3}} s</td>
             </tr>
         </tbody>
     </table>

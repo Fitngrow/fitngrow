@@ -16,16 +16,24 @@ module.exports = function (app, apiroot, db) {
         if (users.length == 0) {
             db.users.insert([
                 {
-                    _id: "1", fullName: 'Full username 1', username: 'user1', password: 'user1', email: 'user1@gmail.com',
+                    _id: "1", fullName: 'Juan García-Quismondo', username: 'juan', password: 'juan', email: 'juagarfer4@alum.us.es',
                     birthdate: new Date("1991-06-02"), height: 1.86, weight: 80.0
                 },
                 {
-                    _id: "2", fullName: 'Full username 2', username: 'user2', password: 'user2', email: 'user2@gmail.com',
+                    _id: "2", fullName: 'David López', username: 'david', password: 'david', email: 'davlopchi@alum.us.es',
                     birthdate: new Date("1996-03-12"), height: 1.60, weight: 60.0
                 },
                 {
-                    _id: "3", fullName: 'Linus Benedict Torvalds', username: 'Linux4Life', password: 'Linux4Life', email: 'Linus@gmail.com',
-                    birthdate: new Date("1969-12-28"), height: 1.73, weight: 73.0
+                    _id: "3", fullName: 'Alberto Rojas', username: 'alberto', password: 'alberto', email: 'albrojfer1@alum.us.es',
+                    birthdate: new Date("1989-12-28"), height: 1.73, weight: 73.0
+                },
+                 {
+                    _id: "4", fullName: 'Rubén Tavero', username: 'ruben', password: 'ruben', email: 'rubtavpic@alum.us.es',
+                    birthdate: new Date("1985-07-17"), height: 1.68, weight: 70.0
+                },
+                 {
+                    _id: "5", fullName: 'Miriam Romero', username: 'miriam', password: 'miriam', email: 'mirromsan@alum.us.es',
+                    birthdate: new Date("1991-04-04"), height: 1.68, weight: 55.0
                 }
             ]);
             console.log("A base users is created");
@@ -40,7 +48,7 @@ module.exports = function (app, apiroot, db) {
     app.get(apiroot + '/users', function (req, res) {
         console.log("GET /users requested.");
 
-        //Recibimos todos los logros
+        //Recibimos todos los usuarios
         db.users.find({}, (err, users) => {
             if (err) {
                 res.sendStatus(500);
@@ -57,7 +65,7 @@ module.exports = function (app, apiroot, db) {
         //Recogemos el id que vamos a capturar desde la URI
         var id = req.params.id;
 
-        //Buscamos el logro por el id
+        //Buscamos el usuario por el id
         db.users.findOne({ _id: id }, function (err, user) {
             if (user == null) {
                 console.log("User not found.");
@@ -105,6 +113,21 @@ module.exports = function (app, apiroot, db) {
             console.log("Error: Request ID and body ID are different.");
             res.sendStatus(409);
             return;
+        }
+
+        //si no se ha rellenado el campo contraseña se obtiene la contraseña del usuario
+        if (user.password == null) {
+            //Buscamos el usuario por el id
+            db.users.findOne({ _id: id }, function (err, user1) {
+                if (user == null) {
+                    console.log("User not found.");
+                    res.sendStatus(404);
+                } else {
+                    //añadimos en el nuevo usuario el password del antiguo
+                    user.password = user1.password
+                }
+            });
+
         }
 
         //Actualizamos el usuario, si existe
