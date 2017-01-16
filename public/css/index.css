@@ -206,6 +206,11 @@ h1{
     transition: visibility 0.2s, opacity 0.2s linear;
 }
 
+.record-card-action{
+    font-size: 30px !important;
+    font-weight: 600;
+}
+
 #training-button-container:hover .training-icons {
     visibility: visible;
     opacity: 1;
