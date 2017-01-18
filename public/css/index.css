@@ -1,0 +1,218 @@
+html
+{
+    position: relative; 
+    min-height: 100%;
+}
+
+#box-wrapper{
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 640px;
+    
+}
+
+#box-container{
+    background-image: url(../images/container.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 80%;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+    padding-top: 2%;    
+}
+
+.bottombar{	
+    width: 100%;
+    bottom: 0;
+    position: absolute;	
+	height: 30px;
+    padding-top: 4px;
+	background: #000;	
+	opacity: 0.9;
+	text-transform: uppercase;	
+    text-align: center;	 
+    
+}
+
+.footer{	
+	color: White;
+	font-family: 'calibri';
+	font-size: 14px;	
+}
+
+.sport-selected{
+    border-color: blue !important;
+}
+
+h1{
+	font-family: Arial Black, Geneva, Tahoma, sans-serif;
+}
+
+.option-button{
+    background-color: #00695c;
+}
+
+.option-button:hover{
+    background-color: #00433B;
+}
+
+.header-button{
+    display: inline;
+    border: 1px solid white;
+    border-radius: 4px;
+    transition: background-color .3s;
+    font-size: 1rem;color: #fff;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.header-button:hover{
+    background-color: #00695c;
+}
+
+.square {
+    width: 300px;
+    height: 300px;
+}
+
+.centered{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rounded{
+    border-radius: 100%;
+}
+
+#training-button-container{
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.table-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+.table-information > tbody > tr > td {
+    border-top: 0;
+}
+
+.table-editProfile > tbody > tr > td > input {
+    margin-left: -25%;
+}
+
+#training-button-aux{
+    width: 280px;
+    height: 280px;
+    border-radius: 100%;
+    background: white;
+    animation-name: spin-back;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin-back {
+    from {
+        transform:rotate(360deg);
+    }
+    to {
+        transform:rotate(0deg);
+    }
+}
+
+#training-button-container.pending{
+    background:linear-gradient(to bottom, #efe9ef, #a69ba3);
+    transition: background 1s;
+}
+
+#training-button-container.pending:hover{
+    background:linear-gradient(to bottom, #04DCC3, #00695c);
+    transition: background 1s;
+}
+#training-button-container.started{
+    background:linear-gradient(to bottom, #04DCC3, #00695c);
+    transition: background 1s;
+}
+#training-button-container.started:hover{
+    background:linear-gradient(to bottom, #FF7F7F, #F51212);
+    transition: background 1s;
+}
+
+#training-button-container.ended{
+    background:linear-gradient(to bottom, #97eef6, #29b6f6);
+    transition: background 1s;
+}
+
+.training-icon.pending{
+    background:linear-gradient(to bottom, #04DCC3, #00695c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.training-icon.started{
+    background:linear-gradient(to bottom, #FF7F7F, #F51212);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.training-icon.ended{
+    background:linear-gradient(to bottom, #97eef6, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.totalTime-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: black;
+    align-items: center;
+    font-size: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.training-icons{
+    color: white;
+    position: relative;
+    top: -75%;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.2s linear;
+}
+
+.record-card-action{
+    font-size: 30px !important;
+    font-weight: 600;
+}
+
+#training-button-container:hover .training-icons {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s linear;
+}​

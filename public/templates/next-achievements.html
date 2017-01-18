@@ -1,0 +1,66 @@
+<div style="text-align: center;">
+
+    <style>
+        table,
+        th,
+        td {
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+
+    <h2>Next achievements to unlock</h2>
+
+    <table style="width:50%" align="center">
+        <tr>
+            <th>
+                <h5>Distance Achievement</h5>
+            </th>
+            <th style="width:20%"></th>
+            <th>
+                <h5>Time Achievement</h5>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <img ng-src="{{distance_achievement.url}}" height="68" width="68" />
+                            <figcaption><b>{{distance_achievement.name}}</b></figcaption>
+                        </td>
+                        <td>
+                            {{ meters | number: "2" }}/{{distance_achievement.type_value}}
+                            <br>meters
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:20%"></td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <img ng-src="{{time_achievement.url}}" height="68" width="68" />
+                            <figcaption><b>{{time_achievement.name}}</b></figcaption>
+                        </td>
+                        <td>
+                            {{ seconds | number: "3" }}/{{time_achievement.type_value}}
+                            <br>seconds
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="color:#00B050; font-size:300%" ng-hide="distance_unachieved">Achieved!</div>
+            </td>
+            <td style="width:20%"></td>
+            <td>
+                <div style="color:#00B050; font-size:300%" ng-hide="time_unachieved">Achieved!</div>
+            </td>
+        </tr>
+    </table>
+
+</div>

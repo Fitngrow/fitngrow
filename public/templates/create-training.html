@@ -1,39 +1,54 @@
-<div ng-controller="CreateTraining" style="text-align: center;">
-    <div id="training-crono-container">
-        <h2>{{totalTime}}</h2>
-    </div>
+<div style="text-align: center;">
+        <div id="training-button-container" class="square centered rounded white-text {{status}}" ng-click="changeStatus(); status=='ended'?updateAchievements():''"
+             ng-style="status!='ended' && {'cursor': 'pointer'}"
+             style="display: flex;
+                    align-items: center;
+                    justify-content: center;">
+            <div id="training-button-aux" style="">
 
-    <div id="training-button-container">
-        <a class="waves-effect waves-light btn-large green" ng-click="startTraining()" ng-hide="hideStart" >Start</a>
+                <div class="totalTime-container">
+                    {{totalTime}}
+                </div>
+                <div class="training-icons">
+                    <span ng-if="status=='pending'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;" >play_arrow</i></span>
+                    <span ng-if="status=='started'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">stop</i></span>
+                    <span ng-if="status=='ended'"><i class="material-icons training-icon {{status}}" style="font-size: 150px;">favorite</i></span>
+                </div>
+                </div>
+        </div>
 
-        <a class="waves-effect waves-light btn-large red" ng-click="endTraining()" ng-hide="hideEnd">End</a>
-    </div>
-
-    <div id="training-form" ng-hide="hideTrainingForm" style="width: 50%; margin-right: auto; margin-left:auto;">
-        <div class="row">
-            <div class="input-field col s6">
-                <input value="0" id="averageHeartRate" type="number" class="validate" min="0" ng-model="newTraining.averageHeartRate">
-                <label class="active" for="averageHeartRate">Average Heart Rate</label>
+                  
+    <div id="training-form" style="width: 50%; margin-right: auto; margin-left:auto; margin-top: 15px;" ng-if="status=='ended'">
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <div ng-repeat="sport in sports">
+                <img ng-src="{{sport.url}}" class="circle {{sport._id==sportselected._id ? 'sport-selected':''}}" style="height: 50px; width: 50px; margin:0 10px; border: solid black; cursor: pointer;"
+                ng-click="setSport(sport); updateAchievements()"/>
             </div>
-            <div class="input-field col s6">
-                <input value="0" id="calories" type="number" class="validate" min="0" ng-model="newTraining.calories">
-                <label class="active" for="calories">Calories</label>
+        </div>
+        <div class="row" style="margin-top: 7%;">
+            <div class="input-field col s12">
+                <input id="calories" type="number" step="any" class="validate" min="0" ng-model="newTraining.calories" required ng-click="updateAchievements()">
+                <label class="active" for="calories" style="color: black";>Calories (Kcal)</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input value="0" id="distance" type="number" class="validate" min="0" ng-model="newTraining.distance">
-                <label class="active" for="distance">Distance (Meters)</label>
+                <input id="distance" type="number" step="any" class="validate" min="0" ng-model="newTraining.distance" required ng-click="updateAchievements()">
+                <label class="active" for="distance" style="color: black";>Distance (Meters)</label>
             </div>
+        </div>
+       <div class="row" ng-if="error"  style="margin-top: 5%;" >
+            <span class="red" style="padding: 5px;">
+                {{error}}
+            </span>
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <a class="waves-effect waves-light btn-large red" ng-click="resetTraining()"><i class="material-icons center">delete_forever</i></a>
+                <a class="waves-effect waves-light btn-large red" ng-click="resetTraining(); resetAchievements()"><i class="material-icons center">delete_forever</i></a>
             </div>
             <div class="input-field col s6">
-                <a class="waves-effect waves-light btn-large green" ng-click="saveTraining()"><i class="material-icons center">backup</i></a>
+                <a class="waves-effect waves-light btn-large green" ng-click="saveTraining(); resetAchievements()"><i class="material-icons center">backup</i></a>
             </div>
-
         </div>
     </div>
 

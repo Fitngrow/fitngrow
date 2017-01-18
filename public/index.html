@@ -1,45 +1,72 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="FitngrowApp">
-    <head>
-        <meta charset="UTF-8">
-        <title>Fit&Grow</title>
-        <!--
-            <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-            <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
-            -->
-        <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css" />
-        <link rel="stylesheet" href="bower_components/material-design-icons/iconfont/material-icons.css" />
 
+<head>
 
+    <meta charset="UTF-8">
+    <title>Fit&Grow</title>
 
-        <script src="bower_components/angular/angular.min.js"></script>
-        <script src="bower_components/angular-route/angular-route.min.js"></script>
-        <script src="fitngrow.js"></script>
-        <script src="js/home.js"></script>
+    <!--
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    -->
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css" />
+    <link rel="stylesheet" href="bower_components/material-design-icons/iconfont/material-icons.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.js"></script>
 
-		<script src="js/listtrainings-ctrl.js"></script>
-        <script src="js/listachievements-ctrl.js"></script>
-        <script src="js/create-training.js"></script>
-        <script src="js/listrecords-ctrl.js"></script>
+    <script src="fitngrow.js"></script>
+    <script src="js/authservice.js"></script>
+    <script src="js/main-ctrl.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/login-ctrl.js"></script>
+    <script src="js/profile-ctrl.js"></script>
+    <script src="js/editProfile-ctrl.js"></script>
+    <script src="js/register-ctrl.js"></script>
+    <script src="js/postman-ctrl.js"></script>
+    <script src="js/create-training.js"></script>
+    <script src="js/listtrainings-ctrl.js"></script>
+    <script src="js/listachievements-ctrl.js"></script>
+    <script src="js/next-achievements.js"></script>
+    <script src="js/listrecords-ctrl.js"></script>
 
-    </head>
-    <body style="background-color:#ffffe6;">
+</head>
+
+<body id="box-wrapper" ng-controller="MainCtrl">
     <!--    <body style="background: url(images/thumb.jpg); no-repeat left center; background-size: cover;"> -->
 
-        <nav>
-            <div class="nav-wrapper grey darken-4">
-                <a href="#/" class="brand-logo"><i class="material-icons">cloud</i>Fit&Grow</a>
-                <ul class="right hide-on-med-and-down">
-                    <!-- <li><a href="#/"><i class="material-icons">search</i></a></li> -->
-                    <li><a href="#/achievements"><i class="material-icons">star</i></a></li>
-                    <!-- <li><a href="#/"><i class="material-icons">refresh</i></a></li> -->
-                    <!-- <li><a href="#/"><i class="material-icons">more_vert</i></a></li> -->
-                    <li><a href="#/records"><i class="material-icons">timeline</i></a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container" ng-view>
-
+    <nav class="grey darken-4">
+        <div class="nav-wrapper container">
+            <a href="#/"><img ng-src="/images/logo.png" height="55" width="200" style="margin-top: 6px;"/></a>
+            <ul class="right" ng-if="!currentUser">
+                <li style="margin-right: 20px;">
+                    <a class="bold caret text-shadow smaller-font header-button" ng-click="login()">Log in</a>
+                </li>
+                <li>
+                    <a class="bold caret text-shadow smaller-font header-button" ng-click="register()">Sign up</a>
+                </li>
+            </ul>
+            <!-- currentUser nos indica si el usuario está logueado o no -->
+            <ul class="right" ng-if="currentUser">
+                <li><a href="#/achievements"><i class="material-icons">star</i></a></li>
+                <li><a href="#/records"><i class="material-icons">timeline</i></a></li>
+                <li><a href="#/profile"><i class="material-icons">person</i></a></li>
+                <li><a ng-click="logout()"><i class="material-icons">power_settings_new</i></a></li>
+            </ul>
         </div>
-    </body>
+    </nav>
+    <div id="box-container">
+        <div class="container" ng-view></div>
+    </div>
+ 
+    <div class="bottombar">
+        <footer class="footer"> &copy;Fit&Grow 2017 | <a href=/docs>Documentation</a> | <a href="#/postman">Postman</a> | <a href=https://github.com/Fitngrow/fitngrow target="_blank">GitHub</a></footer>
+    </div>
+
+</body>
+
 </html>

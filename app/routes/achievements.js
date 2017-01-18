@@ -7,39 +7,105 @@
  */
 module.exports = function (app, apiroot, db) {
 
-    //Cargamos la DB, repoblando si está vacía
+    //Creación de seis objetos por defecto en la base de datos
     db.achievements.find({}, (err, achievements) => {
         if (achievements.length == 0) {
             db.achievements.insert([
                 {
                     _id: "1",
-                    name: 'Mi primera hora',
-                    description: 'Tu tiempo de entrenamiento total es de 1 hora. ¡Sigue entrenando!',
+                    name: 'First timer',
+                    description: 'You are starting. Train and grow with us!',
                     url: '/images/firsttimer.png',
+                    url_achieved: '/images/firsttimer_a.jpg',
                     type: 'seconds',
                     type_value: 3600
                 },
                 {
                     _id: "2",
-                    name: 'Cogiendo el tranquillo',
-                    description: 'Tu tiempo de entrenamiento total es de 4 horas.',
+                    name: 'Getting good',
+                    description: 'You are getting better at it, continue training!',
                     url: '/images/gettinggood.png',
+                    url_achieved: '/images/gettinggood_a.jpg',
                     type: 'seconds',
                     type_value: 14400
                 },
                 {
                     _id: "3",
-                    name: 'Iniciado',
-                    description: 'Tu tiempo de entrenamiento total es de 24 horas. Comienzas a notar el entrenamiento.',
+                    name: 'Star',
+                    description: 'Nothing is stopping you, continue your training!',
                     url: '/images/star.png',
+                    url_achieved: '/images/star_a.jpg',
                     type: 'seconds',
                     type_value: 86400
+                },
+                {
+                    _id: "4",
+                    name: 'Road to fitness',
+                    description: 'You ran your first kilometer, you have a long road ahead of you.',
+                    url: '/images/road.png',
+                    url_achieved: '/images/road_a.jpg',
+                    type: 'meters',
+                    type_value: 1000
+                },
+                {
+                    _id: "5",
+                    name: 'Grow explosion',
+                    description: 'You are ever-running the long road, continue doing so!',
+                    url: '/images/volcano.png',
+                    url_achieved: '/images/volcano_a.jpg',
+                    type: 'meters',
+                    type_value: 10000
+                },
+                {
+                    _id: "6",
+                    name: 'Heart for the world',
+                    description: 'You ran 100 kilometers, your heart is a world on its own.',
+                    url: '/images/heartworld.png',
+                    url_achieved: '/images/heartworld_a.jpg',
+                    type: 'meters',
+                    type_value: 100000
                 }
             ]);
-            console.log("DB is empty. Added default achievements.");
+            console.log("A base achievements is created");
         } else {
             console.log("Loaded " + achievements.length + " achievements from the DB.");
         }
+    });
+
+    /****Métodos****/
+
+    //Recibir todos los logros almacenados en el sistema
+    app.get(apiroot + '/achievements', function (req, res) {
+        console.log("GET /achievements requested.");
+
+        //Recibimos todos los logros
+        db.achievements.find({}, (err, achievements) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                res.send(achievements);
+            }
+        });
+    });
+
+    //Recibir un logro concreto
+    app.get(apiroot + '/achievements/:id', function (req, res) {
+        console.log("GET /achievement/" + req.params.id + " requested.");
+
+        //Recogemos el id que vamos a capturar desde la URI
+        var id = req.params.id;
+
+        //Buscamos el logro por el id
+        db.achievements.findOne({ _id: id }, function (err, achievement) {
+            if (achievement == null) {
+                console.log("Achievement not found.");
+                res.sendStatus(404);
+            } else {
+                console.log("Achievement found and returned succesfully.");
+                res.send(achievement);
+            }
+        });
+
     });
 
     //Añadir un nuevo logro al sistema
@@ -66,55 +132,6 @@ module.exports = function (app, apiroot, db) {
 
     });
 
-    //Recibir todos los logros almacenados en el sistema
-    app.get(apiroot + '/achievements', function (req, res) {
-        console.log("GET /achievements requested.");
-
-        //Recibimos todos los logros
-        db.achievements.find({}, (err, achievements) => {
-            if (err) {
-                res.sendStatus(500);
-            } else {
-                res.send(achievements);
-            }
-        });
-    });
-
-    //Eliminar todos los logros almacenados en el sistema
-    app.delete(apiroot + '/achievements/', function (req, res) {
-        console.log("DELETE /achievements requested.");
-
-        //Eliminamos todos los logros
-        db.achievements.remove({}, { multi: true }, (err, numRemoved) => {
-            if (err) {
-                res.sendStatus(500);
-            } else {
-                console.log("Deleted " + numRemoved + " achievements.");
-                res.sendStatus(200);
-            }
-        });
-    });
-
-    //Recibir un logro concreto
-    app.get(apiroot + '/achievements/:id', function (req, res) {
-        console.log("GET /achievement/" + req.params.id + " requested.");
-
-        //Recogemos el id que vamos a capturar desde la URI
-        var id = req.params.id;
-
-        //Buscamos el logro por el id
-        db.achievements.findOne({ _id: id }, function (err, achievement) {
-            if (achievement == null) {
-                console.log("Achievement not found.");
-                res.sendStatus(404);
-            } else {
-                console.log("Achievement found and returned succesfully.");
-                res.send(achievement);
-            }
-        });
-
-    });
-
     //Actualizamos un logro
     app.put(apiroot + '/achievements/:id', function (req, res) {
 
@@ -133,15 +150,34 @@ module.exports = function (app, apiroot, db) {
 
         //Actualizamos el logro, si existe
         db.achievements.update({ _id: id }, achievement, function (err, numReplaced) {
-            if (numReplaced == 0) {
-                console.log("Achievement not found.");
-                res.sendStatus(404);
+            if (err) {
+                res.sendStatus(500);
             } else {
-                console.log("Achievement updated succesfully.");
-                res.sendStatus(200);
+                if (numReplaced == 0) {
+                    console.log("Achievement not found");
+                    res.sendStatus(404);
+                } else {
+                    console.log("Achievement updated");
+                    res.sendStatus(200);
+                }
             }
         });
 
+    });
+
+    //Eliminar todos los logros almacenados en el sistema
+    app.delete(apiroot + '/achievements/', function (req, res) {
+        console.log("DELETE /achievements requested.");
+
+        //Eliminamos todos los logros
+        db.achievements.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                console.log("Deleted " + numRemoved + " achievements.");
+                res.sendStatus(200);
+            }
+        });
     });
 
     //Eliminar un logro concreto
@@ -153,15 +189,19 @@ module.exports = function (app, apiroot, db) {
 
         //Borramos el logro, si existe
         db.achievements.remove({ _id: id }, {}, function (err, numRemoved) {
-            if (numRemoved == 0) {
-                console.log("Achievement not found.");
-                res.sendStatus(404);
+            if (err) {
+                res.sendStatus(500);
+                console.log("Error");
             } else {
-                console.log("Achievement deleted succesfully.");
-                res.sendStatus(200);
+                if (numRemoved == 0) {
+                    console.log("Achievement not found");
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(200);
+                    console.log("Achievement deleted");
+                }
             }
         });
 
     })
-
 };

@@ -6,10 +6,25 @@ var dataStore = require("nedb");
 var path = require("path");
 var app = express();
 var moment = require("moment");
-
+var expressSession = require('express-session');
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+var cookieParser = require('cookie-parser');
+var swaggerExpress = require('swagger-express-mw');
+var SwaggerUi = require('swagger-tools/middleware/swagger-ui');
 // configuration =====================================
 
 // config files
+app.use(express.static(__dirname + '/public'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(expressSession({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // set our port
 var port = process.env.PORT || 8080;
@@ -48,13 +63,26 @@ db.users = new dataStore({
     autoload: true
 });
 
+db.sports = new dataStore({
+    filename: dbFileName + "sports.json",
+    autoload: true
+});
+
 console.log("DB initialized.");
-// End DB
 
-app.use(bodyParser.json());
+// Configuración de swagger-tools
+var config = {
+    appRoot: __dirname
+};
 
-// Aquí indicamos la dirección de los ficheros estáticos, de forma que el servidor sabrá devolver los ficheros css, imagenes, etc...
-app.use(express.static(__dirname + '/public'));
+swaggerExpress.create(config, function (err, swaggerExpress) {
+    if (err) { throw err; }
+
+    // add swagger-ui
+    app.use(SwaggerUi(swaggerExpress.runner.swagger));
+
+    swaggerExpress.register(app);
+});
 
 // routes =============================================
 
@@ -66,6 +94,36 @@ require('./app/routes/prizes')(app, apiroot, db);
 require('./app/routes/records')(app, apiroot, db);
 require('./app/routes/routes')(app, apiroot, db);
 require('./app/routes/trainings')(app, apiroot, db);
+require('./app/routes/users')(app, apiroot, db);
+require('./app/routes/sports')(app, apiroot, db);
+
+
+// Authentication =============================================
+
+passport.use(new LocalStrategy(
+    //Está funcion es la que se ejecutará para comprobar que las credenciales de un usuario son correctas.
+   function(username, password, done){
+        db.users.findOne({ username: username }, function (err, user) {
+            if (err) { return done(err); }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            //if (!user.validPassword(password)) {
+            if (user.password != password) {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
+        });
+   }
+));
+passport.serializeUser(function(user, done){
+    done(null, user._id);
+});
+passport.deserializeUser(function(_id, done){
+    db.users.findOne({_id: _id}, function(err, user){
+        done(null, user);
+    });
+});
 
 // start app
 app.listen(port);
